@@ -1,0 +1,111 @@
+=================================================================
+📊  END-TO-END ASR PIPELINE REPORT  v1.0 (Whisper + Qwen)
+=================================================================
+  Total          : 56
+  ✅ PASS        : 37  (66.1%)
+  ❌ FAIL        : 19  (33.9%)
+
+  Avg Struct Score  : 0.824
+  Avg F1 Semantic   : 0.639
+  Avg Audio WER     : 0.632
+
+── Per-Language ─────────────────────────────────────────
+╭────────────┬─────────┬──────────┬──────────────┬──────────┬───────────┬──────────╮
+│ Category   │   Total │   Passed │   Avg Struct │   Avg F1 │   Avg WER │   Pass % │
+├────────────┼─────────┼──────────┼──────────────┼──────────┼───────────┼──────────┤
+│ English    │       7 │        5 │     0.881    │ 0.801411 │ 0.0238095 │  71.4286 │
+│ Hindi      │      14 │       11 │     0.904786 │ 0.776293 │ 0.606349  │  78.5714 │
+│ Marathi    │       7 │        4 │     0.761857 │ 0.559006 │ 0.790476  │  57.1429 │
+│ Multi      │       7 │        4 │     0.714286 │ 0.491337 │ 0.988095  │  57.1429 │
+│ Punjabi    │       7 │        4 │     0.738143 │ 0.591837 │ 0.819501  │  57.1429 │
+│ Tamil      │       7 │        6 │     0.976143 │ 0.775755 │ 0.337302  │  85.7143 │
+│ Telugu     │       7 │        3 │     0.714429 │ 0.341633 │ 0.882143  │  42.8571 │
+╰────────────┴─────────┴──────────┴──────────────┴──────────┴───────────┴──────────╯
+
+── Per-Dialect ──────────────────────────────────────────
+╭────────────┬─────────┬──────────┬──────────────┬──────────┬───────────┬──────────╮
+│ Category   │   Total │   Passed │   Avg Struct │   Avg F1 │   Avg WER │   Pass % │
+├────────────┼─────────┼──────────┼──────────────┼──────────┼───────────┼──────────┤
+│ Native     │      42 │       28 │     0.833357 │ 0.657996 │  0.507681 │  66.6667 │
+│ Romanized  │       7 │        5 │     0.881    │ 0.674252 │  1.01984  │  71.4286 │
+│ Slang      │       7 │        4 │     0.714286 │ 0.491337 │  0.988095 │  57.1429 │
+╰────────────┴─────────┴──────────┴──────────────┴──────────┴───────────┴──────────╯
+
+── Failed / Warning Cases ─────────────────────────────────
+
+  [03] ⚠️  STRUCT_ONLY  [Native]  कॅफे किंवा रेस्टॉरंट शोधा.
+       ASR PRED: कैफे किम्वा रेस्टोरंड शोधा (WER: 1.00)
+       ENG TRANS: Cafe Kimwa Restaurant Shodha
+
+  [06] ⚠️  STRUCT_ONLY  [Romanized]  cafe ya restaurant dhundho.
+       ASR PRED: कैफे या रस्टोरेंड दून दो। (WER: 1.25)
+       ENG TRANS: Cafe or Restaurant Doon Do.
+
+  [07] ❌ FAIL  [Slang]  koi khane peene ki jagah batao, cafe waghera
+       ASR PRED: कोई खाने पीने की जगह बताओ, कैफे वागहिरा। (WER: 1.00)
+       ENG TRANS: Tell me some eating place, Cafe Waghira.
+
+  [12] ⚠️  STRUCT_ONLY  [Native]  ఏదైనా కేఫ్ 24/7 తెరిచి ఉందా?
+       ASR PRED: 24.7 తెరిచే ఉందా? (WER: 0.80)
+       ENG TRANS: Is it open 24.7?
+
+  [20] ⚠️  STRUCT_ONLY  [Native]  నేను చాలా ఒత్తిడిలో ఉన్నాను, ప్రశాంతమైన ప్రదేశం ఎక్కడ దొరుకుతుంది?
+       ASR PRED: ನೇನು ಚಾಲ ಉತ್ತಿಡಿ ಲೋ ಉನ್ನಾನು. జಾನ್ತಮ��ನ జಾನ್ತಮ��ನ జಾನ್ತಮ��ನ జಾ (WER: 1.12)
+       ENG TRANS: Nenu Chala Uttidi Lo Unnanu. Jantama's Jantham's Jantham's Ja
+
+  [24] ⚠️  STRUCT_ONLY  [Native]  ਮੈਂ ਬਹੁਤ ਤਣਾਅ ਵਿੱਚ ਹਾਂ, ਮੈਨੂੰ ਇੱਕ ਸ਼ਾਂਤ ਜਗ੍ਹਾ ਕਿੱਥੇ ਮਿਲ ਸਕਦੀ ਹੈ?
+       ASR PRED: मੈ ਬੋਤ ਤਣਾਵੀਚ ਹਾਂ ਮੇਨੁ ਇਕ ਸ਼ਾਂਦ ਜਗਾ ਕੀਥੀ ਮੀਲ ਸਾਕਤੀ � (WER: 1.00)
+       ENG TRANS: I am bot tanavich hai menu ik shaand jaga kethi miel sakti �
+
+  [25] ⚠️  STRUCT_ONLY  [Native]  Find the nearest cafe to the dormitory.
+       ASR PRED: Find the nearest cafe to the dormitory. (WER: 0.00)
+       ENG TRANS: Find the nearest cafe to the dormitory.
+
+  [27] ❌ FAIL  [Native]  वसतिगृहाच्या सर्वात जवळचा कॅफे शोधा.
+       ASR PRED: वसती ग्रुहाच्या सर्वाद जवलचा कैफे शोधा (WER: 1.20)
+       ENG TRANS: Find Sarvad Jawal Cha Cafe of Vasati Gruha
+
+  [31] ❌ FAIL  [Slang]  hostel ke nazdeek sabse paas wali tapri kidhar hai?
+       ASR PRED: हॉस्टल के नज़दीक सबसे पास वाली टपरी किधर है? (WER: 1.00)
+       ENG TRANS: Where is the nearest hostel near the hostel?
+
+  [32] ❌ FAIL  [Native]  ਡਾਰਮਿਟਰੀ ਲਈ ਨਜ਼ਦੀਕੀ ਕੈਫੇ ਲੱਭੋ.
+       ASR PRED: Darmatrille ਨਸਦੀ ਕੀ ਕੈਫੇ ਲਬੋ (WER: 0.80)
+       ENG TRANS: Take Darmatrille Nasdi Ki Cafe
+
+  [33] ⚠️  STRUCT_ONLY  [Native]  Find a library that is NOT a school.
+       ASR PRED: Find a library that is not a school. (WER: 0.00)
+       ENG TRANS: Find a library that is not a school.
+
+  [34] ⚠️  STRUCT_ONLY  [Native]  ऐसा पुस्तकालय खोजें जो स्कूल नहीं है।
+       ASR PRED: ऐसा पुस्तकालय खोजें जो स्कूल नहीं है। (WER: 0.00)
+       ENG TRANS: Find a library that isn't a school.
+
+  [35] ⚠️  STRUCT_ONLY  [Native]  शाळा नसलेले ग्रंथालय शोधा.
+       ASR PRED: शालानसलेले ग्रंथाले शोधा (WER: 1.00)
+       ENG TRANS: Find school libraries
+
+  [36] ❌ FAIL  [Native]  పాఠశాల కాని లైబ్రరీని కనుగొనండి.
+       ASR PRED: ಪಾತ್ತಸಾಲ ಕಾನಿ ಲಿಬ್ರರಿನಿ ಕನುಗುನಂಡಿ (WER: 1.00)
+       ENG TRANS: Pattasala Kani Library Kanugunandi
+
+  [38] ⚠️  STRUCT_ONLY  [Romanized]  library dhundho jo school nahi hai.
+       ASR PRED: लाइब्रेरी धूंदो जो स्कूल नहीं है। (WER: 1.00)
+       ENG TRANS: Find a library that isn't a school.
+
+  [52] ⚠️  STRUCT_ONLY  [Native]  లైబ్రరీకి 500 మీటర్ల లోపు కేఫ్‌ని కనుగొనండి.
+       ASR PRED: library కి 500 మీటర్ల లోపు cave ని కనుగునండి (WER: 0.83)
+       ENG TRANS: Find the cave within 500 meters of the library
+
+  [53] ⚠️  STRUCT_ONLY  [Native]  நூலகத்தின் 500 மீட்டருக்குள் ஒரு கஃபேவை கண்டுபிடி.
+       ASR PRED: நூலகத்தின் 500 மீட்டருக்குள் ஒரு கவிவை கண்டுபிடி, (WER: 0.33)
+       ENG TRANS: Find an overpass within 500 meters of the library,
+
+  [55] ⚠️  STRUCT_ONLY  [Slang]  library ke aas paas 500m me koi chai ki tapri hai kya?
+       ASR PRED: लाइब्ररी के आसपास 500M में कोई चाय की तपरी है क्या? (WER: 0.92)
+       ENG TRANS: Is there any tea stall within 500M around the library?
+
+  [56] ⚠️  STRUCT_ONLY  [Native]  ਲਾਇਬ੍ਰੇਰੀ ਦੇ 500 ਮੀਟਰ ਦੇ ਅੰਦਰ ਇੱਕ ਕੈਫੇ ਲੱਭੋ।
+       ASR PRED: लाइबरेरी ਦੇ ਪਾਂਛੋ ਮੀਟਰ ਦੇ ਅਂਦਰ ਇਕ ਕੈਫੇ ਲਬੋ। (WER: 0.56)
+       ENG TRANS: Have a cafe within fifteen meters of the library.
+

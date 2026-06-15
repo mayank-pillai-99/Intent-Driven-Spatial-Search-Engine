@@ -1,0 +1,83 @@
+=================================================================
+📊  END-TO-END ASR PIPELINE REPORT  v1.0 (Speech Recognition Library(Google) + Qwen)
+=================================================================
+  Total          : 56
+  ✅ PASS        : 44  (78.6%)
+  ❌ FAIL        : 12  (21.4%)
+
+  Avg Struct Score  : 0.857
+  Avg F1 Semantic   : 0.754
+  Avg Audio WER     : 0.514
+
+── Per-Language ─────────────────────────────────────────
+╭────────────┬─────────┬──────────┬──────────────┬──────────┬───────────┬──────────╮
+│ Category   │   Total │   Passed │   Avg Struct │   Avg F1 │   Avg WER │   Pass % │
+├────────────┼─────────┼──────────┼──────────────┼──────────┼───────────┼──────────┤
+│ English    │       7 │        5 │     0.881    │ 0.785919 │  0.191223 │  71.4286 │
+│ Hindi      │      14 │       12 │     0.904786 │ 0.831179 │  0.64076  │  85.7143 │
+│ Marathi    │       7 │        7 │     0.881    │ 0.926617 │  0.274603 │ 100      │
+│ Multi      │       7 │        4 │     0.714286 │ 0.490305 │  1        │  57.1429 │
+│ Punjabi    │       7 │        5 │     0.833286 │ 0.735741 │  0.389874 │  71.4286 │
+│ Tamil      │       7 │        5 │     0.881    │ 0.676413 │  0.496032 │  71.4286 │
+│ Telugu     │       7 │        6 │     0.857143 │ 0.758046 │  0.480952 │  85.7143 │
+╰────────────┴─────────┴──────────┴──────────────┴──────────┴───────────┴──────────╯
+
+── Per-Dialect ──────────────────────────────────────────
+╭────────────┬─────────┬──────────┬──────────────┬──────────┬───────────┬──────────╮
+│ Category   │   Total │   Passed │   Avg Struct │   Avg F1 │   Avg WER │   Pass % │
+├────────────┼─────────┼──────────┼──────────────┼──────────┼───────────┼──────────┤
+│ Native     │      42 │       34 │     0.877    │ 0.793556 │  0.355013 │  80.9524 │
+│ Romanized  │       7 │        6 │     0.881    │ 0.78376  │  0.984127 │  85.7143 │
+│ Slang      │       7 │        4 │     0.714286 │ 0.490305 │  1        │  57.1429 │
+╰────────────┴─────────┴──────────┴──────────────┴──────────┴───────────┴──────────╯
+
+── Failed / Warning Cases ─────────────────────────────────
+
+  [07] ❌ FAIL  [Slang]  koi khane peene ki jagah batao, cafe waghera
+       ASR PRED: कोई खाने पीने की जगह बताओ कैफे वाघेरा (WER: 1.00)
+       ENG TRANS: Any place to eat or drink? Cafe Vaghera
+
+  [25] ⚠️  STRUCT_ONLY  [Native]  Find the nearest cafe to the dormitory.
+       ASR PRED: find the nearest cafe to the dormitory (WER: 0.14)
+       ENG TRANS: find the nearest cafe to the dormitory
+
+  [29] ⚠️  STRUCT_ONLY  [Native]  விடுதிக்கு மிக அருகில் உள்ள கஃபேவை கண்டுபிடி.
+       ASR PRED: விடுதிக்கு மிக அருகில் உள்ள கசிவை கண்டுபிடி (WER: 0.33)
+       ENG TRANS: Find the leak closest to the hostel
+
+  [31] ❌ FAIL  [Slang]  hostel ke nazdeek sabse paas wali tapri kidhar hai?
+       ASR PRED: हॉस्टल के नजदीक सबसे पास वाली टपरी किधर है (WER: 1.00)
+       ENG TRANS: Where is the nearest hostel near the hostel?
+
+  [32] ❌ FAIL  [Native]  ਡਾਰਮਿਟਰੀ ਲਈ ਨਜ਼ਦੀਕੀ ਕੈਫੇ ਲੱਭੋ.
+       ASR PRED: ਡਾਰ ਮਤਰੀ ਲਈ ਨਜ਼ਦੀਕੀ ਕੈਫੇ ਲੱਭੋ (WER: 0.60)
+       ENG TRANS: Find the nearest cafe for Dar Matri
+
+  [33] ⚠️  STRUCT_ONLY  [Native]  Find a library that is NOT a school.
+       ASR PRED: find a library that is not a school (WER: 0.12)
+       ENG TRANS: find a library that is not a school
+
+  [34] ⚠️  STRUCT_ONLY  [Native]  ऐसा पुस्तकालय खोजें जो स्कूल नहीं है।
+       ASR PRED: ऐसा पुस्तकालय खोजें जो स्कूल नहीं है (WER: 0.14)
+       ENG TRANS: Find a library that isn't a school
+
+  [36] ⚠️  STRUCT_ONLY  [Native]  పాఠశాల కాని లైబ్రరీని కనుగొనండి.
+       ASR PRED: పాఠశాల కానీ లైబ్రరీని కనుగొనండి (WER: 0.50)
+       ENG TRANS: Find the school but the library
+
+  [38] ⚠️  STRUCT_ONLY  [Romanized]  library dhundho jo school nahi hai.
+       ASR PRED: लाइब्रेरी ढूंढो जो स्कूल नहीं है (WER: 1.00)
+       ENG TRANS: Find a Library That's Not a School
+
+  [40] ⚠️  STRUCT_ONLY  [Native]  ਅਜਿਹੀ ਲਾਇਬ੍ਰੇਰੀ ਲੱਭੋ ਜੋ ਸਕੂਲ ਨਾ ਹੋਵੇ।
+       ASR PRED: ਅਜਿਹੀ ਲਾਈਬਰੇਰੀ ਲੱਭੋ ਜੋ ਸਕੂਲ ਨਾ ਹੋਵੇ (WER: 0.29)
+       ENG TRANS: Find a library that isn't a school
+
+  [53] ⚠️  STRUCT_ONLY  [Native]  நூலகத்தின் 500 மீட்டருக்குள் ஒரு கஃபேவை கண்டுபிடி.
+       ASR PRED: நூலகத்தின் 500 மீட்டருக்குள் ஒரு கசிவை கண்டுபிடி (WER: 0.33)
+       ENG TRANS: Find a leak within 500 meters of the library
+
+  [55] ⚠️  STRUCT_ONLY  [Slang]  library ke aas paas 500m me koi chai ki tapri hai kya?
+       ASR PRED: लाइब्रेरी के आसपास 500 एम में कोई चाय की टपरी है क्या (WER: 1.00)
+       ENG TRANS: Is there any tea stall within 500 meters of the library?
+

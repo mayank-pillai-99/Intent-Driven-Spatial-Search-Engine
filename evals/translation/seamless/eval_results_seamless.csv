@@ -1,0 +1,375 @@
+id,cluster,language,dialect,translated_question,english_question,translation_time,difficulty,question,verdict,hybrid_pass,structural_score,semantic_match,f1_score,select_match,from_match,where_cols_match,where_ops_match,order_match,limit_match,gold_row_count,pred_row_count,missing_names,extra_names,gold_sql,pred_sql,raw_pred_sql
+1,Boolean,English,Native,Find cafes or restaurants.,Find cafes or restaurants.,1.6689300537109375e-06,medium,Find cafes or restaurants.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') 
+ORDER BY name ASC 
+LIMIT 5;"
+2,Boolean,Hindi,Native,कैफे या रेस्टोरेंट खोजें।,Look for cafes or restaurants.,1.0705523490905762,medium,Look for cafes or restaurants.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') 
+ORDER BY name ASC 
+LIMIT 5;"
+3,Boolean,Marathi,Native,कॅफे किंवा रेस्टॉरंट शोधा.,Look for a cafe or restaurant.,0.8392331600189209,medium,Look for a cafe or restaurant.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') 
+ORDER BY name ASC 
+LIMIT 5;"
+4,Boolean,Telugu,Native,కేఫ్‌లు లేదా రెస్టారెంట్‌లను కనుగొనండి.,Find cafes or restaurants.,0.7966279983520508,medium,Find cafes or restaurants.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') 
+ORDER BY name ASC 
+LIMIT 5;"
+5,Boolean,Tamil,Native,கஃபேக்கள் அல்லது உணவகங்களை கண்டுபிடி.,Find cafes or restaurants.,0.7606954574584961,medium,Find cafes or restaurants.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') 
+ORDER BY name ASC 
+LIMIT 5;"
+6,Boolean,Hindi,Romanized,cafe ya restaurant dhundho.,Cafe or restaurant dhundho.,0.8268167972564697,medium,Cafe or restaurant dhundho.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;"
+7,Boolean,Multi,Slang,"koi khane peene ki jagah batao, cafe waghera","Khane peene ki jagah batao, cafe waghera koi is located in the heart of the city.",1.8374078273773193,medium,"Khane peene ki jagah batao, cafe waghera koi is located in the heart of the city.",⚠️  STRUCT_ONLY,False,0.667,False,0.0,False,True,False,True,True,True,0,0,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND ST_DWithin(geometry::geography, Junior_location::geography, 500) ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%cafe%' 
+  AND ST_DWithin(geometry::geography, Junior_location::geography, 500) 
+ORDER BY name ASC 
+LIMIT 5;"
+8,Boolean,Punjabi,Native,ਕੈਫੇ ਜਾਂ ਰੈਸਟੋਰੈਂਟ ਲੱਭੋ।,Find a cafe or restaurant.,0.7842745780944824,medium,Find a cafe or restaurant.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%restaurant%') 
+ORDER BY name ASC 
+LIMIT 5;"
+9,Boolean_Advanced,English,Native,Are there any cafes open 24/7?,Are there any cafes open 24/7?,1.1920928955078125e-06,hard,Are there any cafes open 24/7?,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,0,0,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND ""opening_hours"" ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%cafe%' 
+  AND ""opening_hours"" ILIKE '%24/7%' 
+ORDER BY name ASC 
+LIMIT 5;"
+10,Boolean_Advanced,Hindi,Native,क्या कोई कैफे 24/7 खुला है?,Is there a cafe open 24 7?,0.906937837600708,hard,Is there a cafe open 24 7?,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,0,0,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%cafe%' 
+  AND opening_hours ILIKE '%24/7%' 
+ORDER BY name ASC 
+LIMIT 5;"
+11,Boolean_Advanced,Marathi,Native,कोणते कॅफे २४/७ उघडे आहे का?,Is any cafe open 24 hours?,0.8338351249694824,hard,Is any cafe open 24 hours?,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,0,0,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%cafe%' 
+  AND opening_hours ILIKE '%24/7%' 
+ORDER BY name ASC 
+LIMIT 5;"
+12,Boolean_Advanced,Telugu,Native,ఏదైనా కేఫ్ 24/7 తెరిచి ఉందా?,Is any cafe open 24 hours?,0.8572015762329102,hard,Is any cafe open 24 hours?,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,0,0,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%cafe%' 
+  AND opening_hours ILIKE '%24/7%' 
+ORDER BY name ASC 
+LIMIT 5;"
+13,Boolean_Advanced,Tamil,Native,ஏதாவது கஃபே 24/7 திறந்திருக்கிறதா?,Is there any cafe that is open 24 7?,1.0268993377685547,hard,Is there any cafe that is open 24 7?,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,0,0,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%cafe%' 
+  AND opening_hours ILIKE '%24/7%' 
+ORDER BY name ASC 
+LIMIT 5;"
+14,Boolean_Advanced,Hindi,Romanized,koi cafe 24/7 khula hai kya?,Cafe 24 7 Khula Hai is a great place to stay.,1.18648362159729,hard,Cafe 24 7 Khula Hai is a great place to stay.,✅ PASS,True,0.833,True,1.0,True,True,False,True,True,True,0,0,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity, opening_hours FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND name ILIKE '%Cafe 24 7 Khula Hai%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity, opening_hours 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND name ILIKE '%Cafe 24 7 Khula Hai%' 
+  AND opening_hours ILIKE '%24/7%' 
+ORDER BY name ASC 
+LIMIT 5;"
+15,Boolean_Advanced,Multi,Slang,koi cafe hai kya jo din raat khula rehta hai?,"Coffee is good, but what about the rest of the world?",1.3614065647125244,hard,"Coffee is good, but what about the rest of the world?",⚠️  STRUCT_ONLY,False,0.667,False,0.0,False,True,False,True,True,True,0,20,[],"['a one juice', 'anna juice centre', 'chaayos', 'civil café', 'eve cafe', ""eve's cafe"", 'h3 canteen', 'my space', 'paratha world powai;kfc', 'poetry - by love and cheescake', 's.m. shetty canteen', 'satyam cafe', 'skyline park', 'starbucks', 'suzette cafe', 'swanandi', 'theobroma', 'tiwari tea stall']",SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%coffee_shop%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%cafe%' OR amenity ILIKE '%coffee_shop%') 
+ORDER BY name ASC 
+LIMIT 5;"
+16,Boolean_Advanced,Punjabi,Native,ਕੀ ਇੱਥੇ ਕੋਈ ਕੈਫੇ 24/7 ਖੁੱਲ੍ਹੇ ਹਨ?,Are there any cafes open 24 hours?,1.3854210376739502,hard,Are there any cafes open 24 hours?,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,0,0,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND opening_hours ILIKE '%24/7%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%cafe%' 
+  AND opening_hours ILIKE '%24/7%' 
+ORDER BY name ASC 
+LIMIT 5;"
+17,Emotional,English,Native,"I am so stressed, where can I find a calm place?","I am so stressed, where can I find a calm place?",1.430511474609375e-06,extra,"I am so stressed, where can I find a calm place?",✅ PASS,True,1.0,True,0.9130434782608696,True,True,True,True,True,True,51,43,"['chandivali mhada mcgm garden', 'h1: garden', 'h3 -garden', 'hiranandani gardens', 'kukreja garden', 'nm', 'olympia gardern', 'powai lake garden']",[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '%park%' OR leisure ILIKE '%garden%' OR amenity ILIKE '%library%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') 
+ORDER BY name ASC 
+LIMIT 5;"
+18,Emotional,Hindi,Native,"मैं बहुत तनाव में हूँ, मुझे शांत जगह कहाँ मिलेगी?","I'm so stressed, where can I find a quiet place?",1.9676556587219238,extra,"I'm so stressed, where can I find a quiet place?",✅ PASS,True,0.833,True,0.9130434782608696,False,True,True,True,True,True,51,43,"['chandivali mhada mcgm garden', 'h1: garden', 'h3 -garden', 'hiranandani gardens', 'kukreja garden', 'nm', 'olympia gardern', 'powai lake garden']",[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '%park%' OR leisure ILIKE '%garden%' OR amenity ILIKE '%library%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') 
+ORDER BY name ASC 
+LIMIT 5;"
+19,Emotional,Marathi,Native,"मी खूप तणावात आहे, मला शांत जागा कुठे मिळेल?","I'm so stressed, where can I find a quiet place?",1.3955659866333008,extra,"I'm so stressed, where can I find a quiet place?",✅ PASS,True,0.833,True,0.9130434782608696,False,True,True,True,True,True,51,43,"['chandivali mhada mcgm garden', 'h1: garden', 'h3 -garden', 'hiranandani gardens', 'kukreja garden', 'nm', 'olympia gardern', 'powai lake garden']",[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '%park%' OR leisure ILIKE '%garden%' OR amenity ILIKE '%library%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') 
+ORDER BY name ASC 
+LIMIT 5;"
+20,Emotional,Telugu,Native,"నేను చాలా ఒత్తిడిలో ఉన్నాను, ప్రశాంతమైన ప్రదేశం ఎక్కడ దొరుకుతుంది?","I'm so stressed out, where can I find a quiet place?",1.503077507019043,extra,"I'm so stressed out, where can I find a quiet place?",✅ PASS,True,0.833,True,0.9130434782608696,False,True,True,True,True,True,51,43,"['chandivali mhada mcgm garden', 'h1: garden', 'h3 -garden', 'hiranandani gardens', 'kukreja garden', 'nm', 'olympia gardern', 'powai lake garden']",[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '%park%' OR leisure ILIKE '%garden%' OR amenity ILIKE '%library%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') 
+ORDER BY name ASC 
+LIMIT 5;"
+21,Emotional,Tamil,Native,"நான் மிகவும் மன அழுத்தத்தில் இருக்கிறேன், அமைதியான இடம் எங்கே கிடைக்கும்?","I'm so stressed, where can I find a quiet place?",1.4222033023834229,extra,"I'm so stressed, where can I find a quiet place?",✅ PASS,True,0.833,True,0.9130434782608696,False,True,True,True,True,True,51,43,"['chandivali mhada mcgm garden', 'h1: garden', 'h3 -garden', 'hiranandani gardens', 'kukreja garden', 'nm', 'olympia gardern', 'powai lake garden']",[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '%park%' OR leisure ILIKE '%garden%' OR amenity ILIKE '%library%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') 
+ORDER BY name ASC 
+LIMIT 5;"
+22,Emotional,Hindi,Romanized,"main bahut stressed hoon, koi shant jagah kahan milegi?","The main Bahut stressed hoon, koi shant jagah kahan milegi?",1.6018824577331543,extra,"The main Bahut stressed hoon, koi shant jagah kahan milegi?",⚠️  STRUCT_ONLY,False,0.667,False,0.0,False,True,False,True,True,True,51,0,"['aerospace library', 'bharatvan', 'biosciences library', 'bmc garden', 'calisthenics park', 'central library', 'chandivali mhada mcgm garden', 'chemical library', 'cinema ground', 'cse library', 'csre library', 'dog park', 'dr. babasaheb ambedkar udyan', 'earth science dept library', ""elder's park"", 'et library', 'forest park', 'glen society garden', 'gurudev ravindranath tagore udyan park', 'gymkhana', 'h1: garden', 'h3 -garden', 'heritage gardens', 'heritage library', 'hiranandani garden', 'hiranandani gardens', 'idc library', 'ieor library', 'iit bombay central library', 'kukreja garden', 'lotus multispeciality hospital', 'mcgm park', 'metallurgy library', 'nahar nature park', 'nirvana park', 'nm', 'olympia gardern', 'physics library', 'powai lake garden', 'powai vihar park', 'prabodhankar thakre manoranjan udyan', 'ravindra mhatre park', 'red ground', 'sambhaji maidan', 'sharma garden', 'sharma park', 'shri harishchandra sharma playground', 'som library', 'swing garden', 'verona garden']",[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '%park%' OR leisure ILIKE '%garden%' OR amenity ILIKE '%library%') ORDER BY name ASC LIMIT 5;,"SELECT name, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND name ILIKE '%bahut%' ORDER BY name ASC LIMIT 5;","SELECT name, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND name ILIKE '%bahut%' 
+ORDER BY name ASC 
+LIMIT 5;"
+23,Emotional,Multi,Slang,"yaar dimaag kharab ho raha hai, koi shanti wali jagah bata de","Dimaag kharab ho raha hai, koi shanti wali jagah bata de yaar. This is the first time I have seen this movie.",2.2292001247406006,extra,"Dimaag kharab ho raha hai, koi shanti wali jagah bata de yaar. This is the first time I have seen this movie.",✅ PASS,True,1.0,True,0.9130434782608696,True,True,True,True,True,True,51,43,"['chandivali mhada mcgm garden', 'h1: garden', 'h3 -garden', 'hiranandani gardens', 'kukreja garden', 'nm', 'olympia gardern', 'powai lake garden']",[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '%park%' OR leisure ILIKE '%garden%' OR amenity ILIKE '%library%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') 
+ORDER BY name ASC 
+LIMIT 5;"
+24,Emotional,Punjabi,Native,"ਮੈਂ ਬਹੁਤ ਤਣਾਅ ਵਿੱਚ ਹਾਂ, ਮੈਨੂੰ ਇੱਕ ਸ਼ਾਂਤ ਜਗ੍ਹਾ ਕਿੱਥੇ ਮਿਲ ਸਕਦੀ ਹੈ?","I am under a lot of stress, where can I find a quiet place?",1.4730873107910156,extra,"I am under a lot of stress, where can I find a quiet place?",✅ PASS,True,0.833,True,0.9130434782608696,False,True,True,True,True,True,51,43,"['chandivali mhada mcgm garden', 'h1: garden', 'h3 -garden', 'hiranandani gardens', 'kukreja garden', 'nm', 'olympia gardern', 'powai lake garden']",[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '%park%' OR leisure ILIKE '%garden%' OR amenity ILIKE '%library%') ORDER BY name ASC LIMIT 5;,"SELECT name, amenity, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (amenity ILIKE '%library%' OR leisure ILIKE '%park%') 
+ORDER BY name ASC 
+LIMIT 5;"
+25,Nearest,English,Native,Find the nearest cafe to the dormitory.,Find the nearest cafe to the dormitory.,9.5367431640625e-07,extreme,Find the nearest cafe to the dormitory.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,760,760,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.building ILIKE '%dormitory%' ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND (ref.building ILIKE '%dormitory%' OR ref.building ILIKE '%dormitory%') ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON 1=1
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND (ref.name ILIKE '%dormitory%' OR ref.building ILIKE '%dormitory%')
+ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC
+LIMIT 1;"
+26,Nearest,Hindi,Native,छात्रावास के सबसे करीब कैफे खोजें।,Find the nearest cafe to the hostel.,1.4962515830993652,extreme,Find the nearest cafe to the hostel.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,760,1360,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.building ILIKE '%dormitory%' ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND (ref.name ILIKE '%hostel%' OR ref.building ILIKE '%dormitory%') ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON 1=1
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND (ref.name ILIKE '%hostel%' OR ref.building ILIKE '%dormitory%')
+ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC
+LIMIT 1;"
+27,Nearest,Marathi,Native,वसतिगृहाच्या सर्वात जवळचा कॅफे शोधा.,Find the nearest cafe to the hostel.,1.000072956085205,extreme,Find the nearest cafe to the hostel.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,760,1360,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.building ILIKE '%dormitory%' ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND (ref.name ILIKE '%hostel%' OR ref.building ILIKE '%dormitory%') ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON 1=1
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND (ref.name ILIKE '%hostel%' OR ref.building ILIKE '%dormitory%')
+ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC
+LIMIT 1;"
+28,Nearest,Telugu,Native,హాస్టల్‌కు అత్యంత సమీపంలో ఉన్న కేఫ్‌ని కనుగొనండి.,Find the nearest cafe to the hostel.,1.4418294429779053,extreme,Find the nearest cafe to the hostel.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,760,1360,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.building ILIKE '%dormitory%' ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND (ref.name ILIKE '%hostel%' OR ref.building ILIKE '%dormitory%') ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON 1=1
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND (ref.name ILIKE '%hostel%' OR ref.building ILIKE '%dormitory%')
+ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC
+LIMIT 1;"
+29,Nearest,Tamil,Native,விடுதிக்கு மிக அருகில் உள்ள கஃபேவை கண்டுபிடி.,Find the nearest cafe to the hotel.,0.9848225116729736,extreme,Find the nearest cafe to the hotel.,❌ FAIL,False,0.333,False,0.0,False,True,False,True,False,False,760,0,"['0101000020e610000001fd1939663a5240048cd3b59b1f3340', '0101000020e61000001eef9fb82d3a5240de05a5c39e1d3340', '0101000020e61000004791b586523a524035a5ab2aea223340', '0101000020e61000004c5bb79ca63a52409bc18476f3213340', '0101000020e610000058aeb7cd543a52403efe1c30591e3340', '0101000020e61000006c1c565d2c3a5240f881f5c99b1d3340', '0101000020e610000086538b2d293a5240210c97b0911d3340', '0101000020e61000008d6555dfd43a524088c157cfa4203340', '0101000020e61000009d7ef55d363a524052312999f71d3340', '0101000020e6100000b1f61cfdd43a52400ac84dc3a6203340', '0101000020e6100000c47aa356983a524083da1434d2213340', '0101000020e6100000ca5b64f1513a52406c06b8205b1e3340', '0101000020e6100000d1292389393a52402dd2c43bc01d3340', '0101000020e6100000db77fb62253c5240919be1067c243340', '0101000020e6100000db8f6f4ad43a52403f4860bd9b203340', '0101000020e6100000ea6a3c22703a5240f4d9a61da31f3340', '0101000020e6100000f4aa2924f43b5240d983ff63d7283340', '0103000020e610000001000000050000004757e9ee3a3c52405f4ab8eb00273340e2d3f7753b3c52402f6af7ab00273340e8c1dd593b3c5240cbd8d0cdfe2633401dc132db3a3c52400c248337ff2633404757e9ee3a3c52405f4ab8eb00273340', '0103000020e6100000010000000b0000006d7f1dee593c52406b5496d700273340ac5f9fef5d3c5240e82dc3240127334082dd55b45e3c524090920d5afe263340414aecda5e3c5240ce267623e226334012fd35b45c3c524015bfcef2e1263340e3d7593e5c3c5240ee2c301ae8263340fb021f285c3c524069c6a2e9ec263340c696d4bf5a3c524091ddbbbcef2633402b0021ed5a3c524035f6db8df42633409010e50b5a3c52409e245d33f92633406d7f1dee593c52406b5496d700273340', '0103000020e610000001000000140000004c01c4b8f6395240bb6e00ec921d3340828a4fa6f6395240a35a4414931d33406a317898f63952407f3caa50931d3340cf55a98ff63952407f98ce98931d3340db76908df63952404f7056e9931d33408e942d92f6395240cc498336941d33401d4f159df639524078a74c7b941d334088a647aef6395240018b57b4941d3340dbbbabc3f639524019fb37d4941d33405850bddaf6395240437ae5d5941d334076c58cf0f6395240a8870dbb941d334076dc9502f739524073a25d85941d33402e162b0ff73952407346393d941d3340ab933314f73952404f7056e9931d3340ed54af11f7395240d89b1892931d3340f3599e07f73952405bc2eb44931d33401cc242f7f63952407fe08508931d3340940c4ae2f6395240eaf29ce3921d33400b5751cdf63952401a7739db921d33404c01c4b8f6395240bb6e00ec921d3340']",[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.building ILIKE '%dormitory%' ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%hotel%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500)
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND ref.amenity ILIKE '%hotel%'
+ORDER BY target.name ASC LIMIT 5;"
+30,Nearest,Hindi,Romanized,hostel ke sabse paas wala cafe batao.,Hostel ke sabse paas wala cafe batao. This is the first time I've been to a hostel.,2.0257601737976074,extreme,Hostel ke sabse paas wala cafe batao. This is the first time I've been to a hostel.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,760,1360,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.building ILIKE '%dormitory%' ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND (ref.name ILIKE '%hostel%' OR ref.building ILIKE '%dormitory%') ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON 1=1
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND (ref.name ILIKE '%hostel%' OR ref.building ILIKE '%dormitory%')
+ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC
+LIMIT 1;"
+31,Nearest,Multi,Slang,hostel ke nazdeek sabse paas wali tapri kidhar hai?,Hostel ke nazdeek sabse paas wali tapri kidhar hai? What is the name of the hostel?,2.0347249507904053,extreme,Hostel ke nazdeek sabse paas wali tapri kidhar hai? What is the name of the hostel?,⚠️  STRUCT_ONLY,False,0.667,False,0.0,False,True,False,True,True,True,760,0,"['0101000020e610000001fd1939663a5240048cd3b59b1f3340', '0101000020e61000001eef9fb82d3a5240de05a5c39e1d3340', '0101000020e61000004791b586523a524035a5ab2aea223340', '0101000020e61000004c5bb79ca63a52409bc18476f3213340', '0101000020e610000058aeb7cd543a52403efe1c30591e3340', '0101000020e61000006c1c565d2c3a5240f881f5c99b1d3340', '0101000020e610000086538b2d293a5240210c97b0911d3340', '0101000020e61000008d6555dfd43a524088c157cfa4203340', '0101000020e61000009d7ef55d363a524052312999f71d3340', '0101000020e6100000b1f61cfdd43a52400ac84dc3a6203340', '0101000020e6100000c47aa356983a524083da1434d2213340', '0101000020e6100000ca5b64f1513a52406c06b8205b1e3340', '0101000020e6100000d1292389393a52402dd2c43bc01d3340', '0101000020e6100000db77fb62253c5240919be1067c243340', '0101000020e6100000db8f6f4ad43a52403f4860bd9b203340', '0101000020e6100000ea6a3c22703a5240f4d9a61da31f3340', '0101000020e6100000f4aa2924f43b5240d983ff63d7283340', '0103000020e610000001000000050000004757e9ee3a3c52405f4ab8eb00273340e2d3f7753b3c52402f6af7ab00273340e8c1dd593b3c5240cbd8d0cdfe2633401dc132db3a3c52400c248337ff2633404757e9ee3a3c52405f4ab8eb00273340', '0103000020e6100000010000000b0000006d7f1dee593c52406b5496d700273340ac5f9fef5d3c5240e82dc3240127334082dd55b45e3c524090920d5afe263340414aecda5e3c5240ce267623e226334012fd35b45c3c524015bfcef2e1263340e3d7593e5c3c5240ee2c301ae8263340fb021f285c3c524069c6a2e9ec263340c696d4bf5a3c524091ddbbbcef2633402b0021ed5a3c524035f6db8df42633409010e50b5a3c52409e245d33f92633406d7f1dee593c52406b5496d700273340', '0103000020e610000001000000140000004c01c4b8f6395240bb6e00ec921d3340828a4fa6f6395240a35a4414931d33406a317898f63952407f3caa50931d3340cf55a98ff63952407f98ce98931d3340db76908df63952404f7056e9931d33408e942d92f6395240cc498336941d33401d4f159df639524078a74c7b941d334088a647aef6395240018b57b4941d3340dbbbabc3f639524019fb37d4941d33405850bddaf6395240437ae5d5941d334076c58cf0f6395240a8870dbb941d334076dc9502f739524073a25d85941d33402e162b0ff73952407346393d941d3340ab933314f73952404f7056e9931d3340ed54af11f7395240d89b1892931d3340f3599e07f73952405bc2eb44931d33401cc242f7f63952407fe08508931d3340940c4ae2f6395240eaf29ce3921d33400b5751cdf63952401a7739db921d33404c01c4b8f6395240bb6e00ec921d3340']",[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.building ILIKE '%dormitory%' ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%hostel%' AND (ref.name ILIKE '%tapri%' OR ref.leisure ILIKE '%park%') ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON 1=1
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%hostel%'
+  AND (ref.name ILIKE '%tapri%' OR ref.leisure ILIKE '%park%')
+ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC
+LIMIT 1;"
+32,Nearest,Punjabi,Native,ਡਾਰਮਿਟਰੀ ਲਈ ਨਜ਼ਦੀਕੀ ਕੈਫੇ ਲੱਭੋ.,Find the nearest cafe for dormitories.,1.0180883407592773,extreme,Find the nearest cafe for dormitories.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,760,2940,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.building ILIKE '%dormitory%' ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON 1=1 WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND (ref.building ILIKE '%dormitory%' OR ref.building ILIKE '%residential%') ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON 1=1
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND (ref.building ILIKE '%dormitory%' OR ref.building ILIKE '%residential%')
+ORDER BY ST_Distance(target.geometry::geography, ref.geometry::geography) ASC
+LIMIT 1;"
+33,Negation,English,Native,Find a library that is NOT a school.,Find a library that is NOT a school.,1.6689300537109375e-06,hard,Find a library that is NOT a school.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%library%' 
+  AND amenity NOT ILIKE '%school%' 
+ORDER BY name ASC 
+LIMIT 5;"
+34,Negation,Hindi,Native,ऐसा पुस्तकालय खोजें जो स्कूल नहीं है।,Find a library that is not a school.,0.9730262756347656,hard,Find a library that is not a school.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%library%' 
+  AND amenity NOT ILIKE '%school%' 
+ORDER BY name ASC 
+LIMIT 5;"
+35,Negation,Marathi,Native,शाळा नसलेले ग्रंथालय शोधा.,Look for libraries that don't have schools.,1.1023004055023193,hard,Look for libraries that don't have schools.,❌ FAIL,False,0.0,False,0.0,False,False,False,False,False,False,0,0,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND id NOT IN ( SELECT id FROM campus_places AND (name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%school%' ) ORDER BY name ASC LIMIT 5;);","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%library%' 
+  AND id NOT IN (
+    SELECT id 
+    FROM campus_places 
+    WHERE name IS NOT NULL AND name != 'nan' 
+      AND amenity ILIKE '%school%'
+  ) 
+ORDER BY name ASC 
+LIMIT 5;"
+36,Negation,Telugu,Native,పాఠశాల కాని లైబ్రరీని కనుగొనండి.,Find a library outside the school.,0.874351978302002,hard,Find a library outside the school.,❌ FAIL,False,0.0,False,0.0,False,False,False,False,False,False,0,0,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND NOT EXISTS ( SELECT 1 FROM campus_places AS school AND (school.name IS NOT NULL AND school.name != 'nan' AND school.amenity ILIKE '%school%' AND ST_DWithin(amenity::geography, school.geometry::geography, 0) ) ORDER BY name ASC LIMIT 5;);","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%library%' 
+  AND NOT EXISTS (
+    SELECT 1 
+    FROM campus_places AS school 
+    WHERE school.name IS NOT NULL AND school.name != 'nan' 
+      AND school.amenity ILIKE '%school%' 
+      AND ST_DWithin(amenity::geography, school.geometry::geography, 0)
+  ) 
+ORDER BY name ASC 
+LIMIT 5;"
+37,Negation,Tamil,Native,பள்ளி அல்லாத நூலகத்தை கண்டுபிடி.,Find a non-school library.,1.27152419090271,hard,Find a non-school library.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%library%' 
+  AND amenity NOT ILIKE '%school%' 
+ORDER BY name ASC 
+LIMIT 5;"
+38,Negation,Hindi,Romanized,library dhundho jo school nahi hai.,library dhundho jo school nahi hai.,1.4636693000793457,hard,library dhundho jo school nahi hai.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%library%' 
+  AND amenity NOT ILIKE '%school%' 
+ORDER BY name ASC 
+LIMIT 5;"
+39,Negation,Multi,Slang,bhai ek library chahiye but school nahi honi chahiye.,Bhai ek library chahiye but school nahi honi chahiye.,1.541752576828003,hard,Bhai ek library chahiye but school nahi honi chahiye.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%library%' 
+  AND amenity NOT ILIKE '%school%' 
+ORDER BY name ASC 
+LIMIT 5;"
+40,Negation,Punjabi,Native,ਅਜਿਹੀ ਲਾਇਬ੍ਰੇਰੀ ਲੱਭੋ ਜੋ ਸਕੂਲ ਨਾ ਹੋਵੇ।,Find a library that is not a school.,1.0079560279846191,hard,Find a library that is not a school.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' AND amenity NOT ILIKE '%school%' ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND amenity ILIKE '%library%' 
+  AND amenity NOT ILIKE '%school%' 
+ORDER BY name ASC 
+LIMIT 5;"
+41,Simple,English,Native,Where is the library?,Where is the library?,1.1920928955078125e-06,easy,Where is the library?,✅ PASS,True,0.833,True,1.0,False,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;,"SELECT name, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;","SELECT name, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' 
+ORDER BY name ASC 
+LIMIT 5;"
+42,Simple,Hindi,Native,लाइब्रेरी कहाँ है?,Where is the library?,0.7316622734069824,easy,Where is the library?,✅ PASS,True,0.833,True,1.0,False,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;,"SELECT name, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;","SELECT name, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' 
+ORDER BY name ASC 
+LIMIT 5;"
+43,Simple,Marathi,Native,ग्रंथालय कुठे आहे?,Where is the library?,0.8719077110290527,easy,Where is the library?,✅ PASS,True,0.833,True,1.0,False,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;,"SELECT name, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;","SELECT name, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' 
+ORDER BY name ASC 
+LIMIT 5;"
+44,Simple,Telugu,Native,లైబ్రరీ ఎక్కడ ఉంది?,Where is the library?,1.1054787635803223,easy,Where is the library?,✅ PASS,True,0.833,True,1.0,False,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;,"SELECT name, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;","SELECT name, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' 
+ORDER BY name ASC 
+LIMIT 5;"
+45,Simple,Tamil,Native,நூலகம் எங்கே இருக்கிறது?,Where is the library?,1.0208971500396729,easy,Where is the library?,✅ PASS,True,0.833,True,1.0,False,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;,"SELECT name, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;","SELECT name, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' 
+ORDER BY name ASC 
+LIMIT 5;"
+46,Simple,Hindi,Romanized,library kahan hai?,The library is there?,0.8342452049255371,easy,The library is there?,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,15,16,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;,"SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (name ILIKE '%library%' OR amenity ILIKE '%library%') ORDER BY name ASC LIMIT 5;","SELECT name, amenity 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' 
+  AND (name ILIKE '%library%' OR amenity ILIKE '%library%') 
+ORDER BY name ASC 
+LIMIT 5;"
+47,Simple,Multi,Slang,bhai campus me library kidhar milegi?,Bhai campus me library kidhar milegi? What are you doing?,1.6022858619689941,easy,Bhai campus me library kidhar milegi? What are you doing?,✅ PASS,True,0.833,True,1.0,False,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;,"SELECT name, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;","SELECT name, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' 
+ORDER BY name ASC 
+LIMIT 5;"
+48,Simple,Punjabi,Native,ਲਾਇਬ੍ਰੇਰੀ ਕਿੱਥੇ ਹੈ?,Where is the library?,0.7136051654815674,easy,Where is the library?,✅ PASS,True,0.833,True,1.0,False,True,True,True,True,True,15,15,[],[],SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;,"SELECT name, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY name ASC LIMIT 5;","SELECT name, geometry 
+FROM campus_places 
+WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' 
+ORDER BY name ASC 
+LIMIT 5;"
+49,Spatial,English,Native,Find a cafe within 500 meters of the library.,Find a cafe within 500 meters of the library.,7.152557373046875e-07,extreme,Find a cafe within 500 meters of the library.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500)
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND ref.amenity ILIKE '%library%'
+ORDER BY target.name ASC LIMIT 5;"
+50,Spatial,Hindi,Native,लाइब्रेरी के 500 मीटर के भीतर एक कैफे खोजें।,Find a cafe within 500 meters of the library.,1.5372745990753174,extreme,Find a cafe within 500 meters of the library.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500)
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND ref.amenity ILIKE '%library%'
+ORDER BY target.name ASC LIMIT 5;"
+51,Spatial,Marathi,Native,ग्रंथालयाच्या ५०० मीटर अंतरावर कॅफे शोधा.,Look for a cafe within 500 meters of the library.,1.0855920314788818,extreme,Look for a cafe within 500 meters of the library.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500)
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND ref.amenity ILIKE '%library%'
+ORDER BY target.name ASC LIMIT 5;"
+52,Spatial,Telugu,Native,లైబ్రరీకి 500 మీటర్ల లోపు కేఫ్‌ని కనుగొనండి.,Find a cafe within 500 meters of the library.,1.0371489524841309,extreme,Find a cafe within 500 meters of the library.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500)
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND ref.amenity ILIKE '%library%'
+ORDER BY target.name ASC LIMIT 5;"
+53,Spatial,Tamil,Native,நூலகத்தின் 500 மீட்டருக்குள் ஒரு கஃபேவை கண்டுபிடி.,Find a cafe within 500 meters of the library.,1.0431478023529053,extreme,Find a cafe within 500 meters of the library.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500)
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND ref.amenity ILIKE '%library%'
+ORDER BY target.name ASC LIMIT 5;"
+54,Spatial,Hindi,Romanized,library ke 500 meter ke andar ek cafe batao.,The library is 500 meters away from the cafe.,1.0359904766082764,extreme,The library is 500 meters away from the cafe.,⚠️  STRUCT_ONLY,False,1.0,False,0.0,True,True,True,True,True,True,61,59,"['0101000020e61000001eef9fb82d3a5240de05a5c39e1d3340', '0101000020e61000004791b586523a524035a5ab2aea223340', '0101000020e61000004c5bb79ca63a52409bc18476f3213340', '0101000020e610000058aeb7cd543a52403efe1c30591e3340', '0101000020e61000006c1c565d2c3a5240f881f5c99b1d3340', '0101000020e610000086538b2d293a5240210c97b0911d3340', '0101000020e61000008d6555dfd43a524088c157cfa4203340', '0101000020e61000009d7ef55d363a524052312999f71d3340', '0101000020e6100000b1f61cfdd43a52400ac84dc3a6203340', '0101000020e6100000c47aa356983a524083da1434d2213340', '0101000020e6100000ca5b64f1513a52406c06b8205b1e3340', '0101000020e6100000d1292389393a52402dd2c43bc01d3340', '0101000020e6100000db8f6f4ad43a52403f4860bd9b203340']","['0101000020e610000046c71f56c93a5240129c9f877f213340', '0101000020e61000005dc47762563a524071ebc9575d1e3340', '0101000020e610000090824cd7b83a52409aacf6555e213340', '0101000020e610000094050253bc3a52406d0613dacd213340', '0101000020e6100000996b2cbca63a5240a4dfbe0e9c213340', '0101000020e61000009db23ff5b43a52401a074d011f223340', '0101000020e6100000b05cca549c3a5240e12deb596b213340', '0101000020e6100000c709b88cc03a52401fb3fd75b8213340', '0101000020e6100000cd25b094c03a5240718d74ab8c213340', '0101000020e6100000ce0248c89b3a5240350301d7ba213340', '0101000020e6100000d402c5d9be3a52403ea3be767a213340', '0101000020e6100000f77efed6a93a52405cd5480158213340', '0101000020e6100000f79562a29c3a5240cee90d524b223340', '0103000020e6100000010000000f0000005bed612f943a52402f803a2f5f2233407eeeba6d953a524052561d835f223340a7c98cb7953a5240488380215022334084c83379943a5240fb2df0cb4f2233403126fdbd943a524050d31d7a41223340f21a05d28f3a524098fbe42840223340812040868e3a5240f7a7f9cf3f2233409f50f4658e3a524029d1ed80462233409a6846f58c3a5240b8019f1f4622334023ab11b08c3a524075c7629b54223340a6fff6868c3a52403c061a225d223340e18739f78d3a5240acd568835d223340b1d58adb8d3a5240e5efde51632233402b3bb313943a5240679ab0fd642233405bed612f943a52402f803a2f5f223340', '0103000020e6100000020000000f0000007eeeba6d953a524052561d835f223340a7c98cb7953a5240488380215022334084c83379943a5240fb2df0cb4f2233403126fdbd943a524050d31d7a41223340f21a05d28f3a524098fbe42840223340812040868e3a5240f7a7f9cf3f2233409f50f4658e3a524029d1ed80462233409a6846f58c3a5240b8019f1f4622334023ab11b08c3a524075c7629b54223340a6fff6868c3a52403c061a225d223340e18739f78d3a5240acd568835d223340b1d58adb8d3a5240e5efde51632233402b3bb313943a5240679ab0fd642233405bed612f943a52402f803a2f5f2233407eeeba6d953a524052561d835f22334005000000c8282a768f3a52406eb603bf572233404bf03ca78f3a524079cbd58f4d2233408bfed0cc933a5240253d0cad4e2233400837be9b933a52401a283adc58223340c8282a768f3a52406eb603bf57223340']","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%library%' AND ref.amenity ILIKE '%cafe%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500)
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%library%'
+  AND ref.amenity ILIKE '%cafe%'
+ORDER BY target.name ASC LIMIT 5;"
+55,Spatial,Multi,Slang,library ke aas paas 500m me koi chai ki tapri hai kya?,"The library is located at 500m from the library, so I'm not sure what to do.",2.3986101150512695,extreme,"The library is located at 500m from the library, so I'm not sure what to do.",⚠️  STRUCT_ONLY,False,0.833,False,0.0,True,True,True,True,True,False,61,207,"['0101000020e61000001eef9fb82d3a5240de05a5c39e1d3340', '0101000020e61000004791b586523a524035a5ab2aea223340', '0101000020e61000004c5bb79ca63a52409bc18476f3213340', '0101000020e610000058aeb7cd543a52403efe1c30591e3340', '0101000020e61000006c1c565d2c3a5240f881f5c99b1d3340', '0101000020e610000086538b2d293a5240210c97b0911d3340', '0101000020e61000008d6555dfd43a524088c157cfa4203340', '0101000020e61000009d7ef55d363a524052312999f71d3340', '0101000020e6100000b1f61cfdd43a52400ac84dc3a6203340', '0101000020e6100000c47aa356983a524083da1434d2213340', '0101000020e6100000ca5b64f1513a52406c06b8205b1e3340', '0101000020e6100000d1292389393a52402dd2c43bc01d3340', '0101000020e6100000db8f6f4ad43a52403f4860bd9b203340']","['0101000020e610000046c71f56c93a5240129c9f877f213340', '0101000020e61000005dc47762563a524071ebc9575d1e3340', '0101000020e610000090824cd7b83a52409aacf6555e213340', '0101000020e610000094050253bc3a52406d0613dacd213340', '0101000020e6100000996b2cbca63a5240a4dfbe0e9c213340', '0101000020e61000009db23ff5b43a52401a074d011f223340', '0101000020e6100000b05cca549c3a5240e12deb596b213340', '0101000020e6100000c709b88cc03a52401fb3fd75b8213340', '0101000020e6100000cd25b094c03a5240718d74ab8c213340', '0101000020e6100000ce0248c89b3a5240350301d7ba213340', '0101000020e6100000d402c5d9be3a52403ea3be767a213340', '0101000020e6100000f77efed6a93a52405cd5480158213340', '0101000020e6100000f79562a29c3a5240cee90d524b223340', '0103000020e6100000010000000f0000005bed612f943a52402f803a2f5f2233407eeeba6d953a524052561d835f223340a7c98cb7953a5240488380215022334084c83379943a5240fb2df0cb4f2233403126fdbd943a524050d31d7a41223340f21a05d28f3a524098fbe42840223340812040868e3a5240f7a7f9cf3f2233409f50f4658e3a524029d1ed80462233409a6846f58c3a5240b8019f1f4622334023ab11b08c3a524075c7629b54223340a6fff6868c3a52403c061a225d223340e18739f78d3a5240acd568835d223340b1d58adb8d3a5240e5efde51632233402b3bb313943a5240679ab0fd642233405bed612f943a52402f803a2f5f223340', '0103000020e6100000020000000f0000007eeeba6d953a524052561d835f223340a7c98cb7953a5240488380215022334084c83379943a5240fb2df0cb4f2233403126fdbd943a524050d31d7a41223340f21a05d28f3a524098fbe42840223340812040868e3a5240f7a7f9cf3f2233409f50f4658e3a524029d1ed80462233409a6846f58c3a5240b8019f1f4622334023ab11b08c3a524075c7629b54223340a6fff6868c3a52403c061a225d223340e18739f78d3a5240acd568835d223340b1d58adb8d3a5240e5efde51632233402b3bb313943a5240679ab0fd642233405bed612f943a52402f803a2f5f2233407eeeba6d953a524052561d835f22334005000000c8282a768f3a52406eb603bf572233404bf03ca78f3a524079cbd58f4d2233408bfed0cc933a5240253d0cad4e2233400837be9b933a52401a283adc58223340c8282a768f3a52406eb603bf57223340']","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%library%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 1;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500)
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%library%'
+  AND ref.amenity ILIKE '%library%'
+ORDER BY target.name ASC LIMIT 1;"
+56,Spatial,Punjabi,Native,ਲਾਇਬ੍ਰੇਰੀ ਦੇ 500 ਮੀਟਰ ਦੇ ਅੰਦਰ ਇੱਕ ਕੈਫੇ ਲੱਭੋ।,Find a cafe within 500 meters of the library.,1.0209994316101074,extreme,Find a cafe within 500 meters of the library.,✅ PASS,True,1.0,True,1.0,True,True,True,True,True,True,61,61,[],[],"SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_places target JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500) WHERE target.name IS NOT NULL AND target.name != 'nan' AND target.amenity ILIKE '%cafe%' AND ref.amenity ILIKE '%library%' ORDER BY target.name ASC LIMIT 5;","SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name
+FROM campus_places target
+JOIN campus_places ref ON ST_DWithin(target.geometry::geography, ref.geometry::geography, 500)
+WHERE target.name IS NOT NULL AND target.name != 'nan'
+  AND target.amenity ILIKE '%cafe%'
+  AND ref.amenity ILIKE '%library%'
+ORDER BY target.name ASC LIMIT 5;"

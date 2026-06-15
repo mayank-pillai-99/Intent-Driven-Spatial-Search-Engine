@@ -1,0 +1,71 @@
+=================================================================
+📊  END-TO-END ASR PIPELINE REPORT  v1.0 (Sarvam(Saaras) + Qwen)
+=================================================================
+  Total          : 56
+  ✅ PASS        : 47  (83.9%)
+  ❌ FAIL        : 9  (16.1%)
+
+  Avg Struct Score  : 0.863
+  Avg F1 Semantic   : 0.817
+  Avg Audio WER     : 0.339
+
+── Per-Language ─────────────────────────────────────────
+╭────────────┬─────────┬──────────┬──────────────┬──────────┬───────────┬──────────╮
+│ Category   │   Total │   Passed │   Avg Struct │   Avg F1 │   Avg WER │   Pass % │
+├────────────┼─────────┼──────────┼──────────────┼──────────┼───────────┼──────────┤
+│ English    │       7 │        6 │     0.881    │ 0.910919 │ 0.0739796 │  85.7143 │
+│ Hindi      │      14 │       12 │     0.904786 │ 0.847986 │ 0.573413  │  85.7143 │
+│ Marathi    │       7 │        7 │     0.881    │ 0.926617 │ 0.0238095 │ 100      │
+│ Multi      │       7 │        4 │     0.714286 │ 0.490305 │ 1.0119    │  57.1429 │
+│ Punjabi    │       7 │        5 │     0.881    │ 0.801675 │ 0.118367  │  71.4286 │
+│ Tamil      │       7 │        7 │     0.881    │ 0.926617 │ 0.119048  │ 100      │
+│ Telugu     │       7 │        6 │     0.857143 │ 0.78376  │ 0.220238  │  85.7143 │
+╰────────────┴─────────┴──────────┴──────────────┴──────────┴───────────┴──────────╯
+
+── Per-Dialect ──────────────────────────────────────────
+╭────────────┬─────────┬──────────┬──────────────┬──────────┬───────────┬──────────╮
+│ Category   │   Total │   Passed │   Avg Struct │   Avg F1 │   Avg WER │   Pass % │
+├────────────┼─────────┼──────────┼──────────────┼──────────┼───────────┼──────────┤
+│ Native     │      42 │       37 │     0.884952 │ 0.871365 │  0.114399 │  88.0952 │
+│ Romanized  │       7 │        6 │     0.881    │ 0.817374 │  1.01587  │  85.7143 │
+│ Slang      │       7 │        4 │     0.714286 │ 0.490305 │  1.0119   │  57.1429 │
+╰────────────┴─────────┴──────────┴──────────────┴──────────┴───────────┴──────────╯
+
+── Failed / Warning Cases ─────────────────────────────────
+
+  [07] ❌ FAIL  [Slang]  koi khane peene ki jagah batao, cafe waghera
+       ASR PRED: कोई खाने पीने की जगह बताओ, कैफे वाघेरा। (WER: 1.00)
+       ENG TRANS: Tell me some eating place, Cafe Waghera.
+
+  [25] ⚠️  STRUCT_ONLY  [Native]  Find the nearest cafe to the dormitory.
+       ASR PRED: Find the nearest cafe to the dormitory (WER: 0.14)
+       ENG TRANS: Find the nearest cafe to the dormitory
+
+  [31] ❌ FAIL  [Slang]  hostel ke nazdeek sabse paas wali tapri kidhar hai?
+       ASR PRED: हॉस्टल के नज़दीक सबसे पास वाली टपरी किधर है? (WER: 1.00)
+       ENG TRANS: Where is the nearest hostel near the hostel?
+
+  [32] ⚠️  STRUCT_ONLY  [Native]  ਡਾਰਮਿਟਰੀ ਲਈ ਨਜ਼ਦੀਕੀ ਕੈਫੇ ਲੱਭੋ.
+       ASR PRED: ਡਾਰਮੇਟਰੀ ਲਈ ਨਜ਼ਦੀਕੀ ਕੈਫੇ ਲੱਭੋ। (WER: 0.40)
+       ENG TRANS: Find the nearest cafe to the dormitory.
+
+  [34] ⚠️  STRUCT_ONLY  [Native]  ऐसा पुस्तकालय खोजें जो स्कूल नहीं है।
+       ASR PRED: ऐसा पुस्तकालय खोजें जो स्कूल नहीं है। (WER: 0.00)
+       ENG TRANS: Find a library that isn't a school.
+
+  [36] ⚠️  STRUCT_ONLY  [Native]  పాఠశాల కాని లైబ్రరీని కనుగొనండి.
+       ASR PRED: పాఠశాల కానీ లైబ్రరీని కనుగొనండి. (WER: 0.25)
+       ENG TRANS: Find the school but the library.
+
+  [38] ⚠️  STRUCT_ONLY  [Romanized]  library dhundho jo school nahi hai.
+       ASR PRED: लाइब्रेरी ढूंढो जो स्कूल नहीं है। (WER: 1.00)
+       ENG TRANS: Find a library that isn't a school.
+
+  [40] ⚠️  STRUCT_ONLY  [Native]  ਅਜਿਹੀ ਲਾਇਬ੍ਰੇਰੀ ਲੱਭੋ ਜੋ ਸਕੂਲ ਨਾ ਹੋਵੇ।
+       ASR PRED: ਅਜਿਹੀ ਲਾਇਬ੍ਰੇਰੀ ਲੱਭੋ ਜੋ ਸਕੂਲ ਨਾ ਹੋਵੇ। (WER: 0.00)
+       ENG TRANS: Find a library that isn't a school.
+
+  [55] ⚠️  STRUCT_ONLY  [Slang]  library ke aas paas 500m me koi chai ki tapri hai kya?
+       ASR PRED: लाइब्रेरी के आसपास फाइव हंड्रेड एम में कोई चाय की टपरी है क्या? (WER: 1.08)
+       ENG TRANS: Is there any tea stall in Five Hundred M near the library?
+
