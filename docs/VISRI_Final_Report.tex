@@ -103,7 +103,7 @@ The returned rows (the LLM's prediction) are compared against the ``Gold Standar
 
 If a query fails to execute due to hallucinated columns or broken syntax, it is marked as \textbf{STRUCT\_ONLY} or \textbf{FAIL}, ensuring strict accountability for the LLM's logic.
 
-\section{Data Set(s) Used with Description}
+\section{Dataset Curation \& Methodology}
 
 To rigorously test both the spatial reasoning of the Text-to-SQL models and the linguistic robustness of the translation models, two highly specialized datasets were manually curated for the Pilani and IIT Bombay campus regions.
 
@@ -136,6 +136,7 @@ We evaluated four open-weight models on the 50-query Golden Benchmark. All model
 
 \begin{table}[H]
 \centering
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lcccc}
 \toprule
 \textbf{Model} & \textbf{Pass Rate} & \textbf{Fail Rate} & \textbf{Avg Struct Score} & \textbf{Avg F1 Score} \\
@@ -146,6 +147,7 @@ CodeS-7B (BIRD-SQL Champ) & 34.0\% & High & - & - \\
 DeepSeek-Coder-7B & 28.0\% & High & - & - \\
 \bottomrule
 \end{tabular}
+}
 \caption{Overall Text-to-SQL Performance Comparison}
 \end{table}
 
@@ -164,6 +166,7 @@ To bridge the gap between Indian users and the English-based Qwen SQL engine, we
 
 \begin{table}[H]
 \centering
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lccc}
 \toprule
 \textbf{Model} & \textbf{Overall Pass Rate} & \textbf{Hinglish/Slang Pass Rate} & \textbf{Total SQL Failures} \\
@@ -174,6 +177,7 @@ NLLB-200 (1.3B) & 85.7\% & 57.1\% & 3 \\
 SeamlessM4T v2 (Large) & 70.0\% & 42.9\% & High \\
 \bottomrule
 \end{tabular}
+}
 \caption{Translation Model Performance across Dialects}
 \end{table}
 
@@ -192,6 +196,7 @@ To facilitate voice-based spatial querying, we evaluated several Automatic Speec
 
 \begin{table}[H]
 \centering
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lccc}
 \toprule
 \textbf{Model} & \textbf{Pass Rate} & \textbf{Avg Word Error Rate (WER)} & \textbf{Type} \\
@@ -202,6 +207,7 @@ Google Speech Recognition & 78.6\% (44/56) & 0.514 & Cloud API \\
 OpenAI Whisper (Large) & 66.1\% (37/56) & 0.632 & Local / Open \\
 \bottomrule
 \end{tabular}
+}
 \caption{ASR Performance on Multilingual Spatial Audio}
 \end{table}
 
@@ -234,7 +240,15 @@ We successfully designed, implemented, and rigorously evaluated an end-to-end In
 
 Our custom Hybrid Evaluation Framework empirically proved that this architecture achieves a 78\% success rate on highly complex geographic queries, vastly outperforming specialized models like CodeS and SQLCoder on denormalized spatial schemas. Furthermore, the integration of SeamlessM4T ASR and a Gradio/Folium UI provides a seamless conversational interface that mirrors how humans naturally think about and interact with their environment.
 
-\textbf{Future Work:} While the offline prototype is fully functional, future developments should focus on targeted-precision de-quantization to further improve SQL generation for ``no-anchor'' edge cases. Additionally, replacing the generic chat output with an advanced Conversational Interaction Layer will allow the system to maintain spatial state across follow-up queries (e.g., remembering the bounding box when a user follows up ``quiet places'' with ``are any of them open now?'').
+\subsection{Future Work}
+While the current offline prototype is fully functional, future developments should focus on expanding the engine's capabilities across the following domains:
+
+\begin{itemize}
+    \item \textbf{Latency Optimization and Inference Scaling:} Currently, running a 7B parameter SQL engine alongside a multimodal translation model on a single 16GB GPU results in an approximate 30-second end-to-end turnaround time per query. Future work must address this latency to achieve real-time conversational speeds. Potential solutions include transitioning the Text-to-SQL backend to highly optimized inference engines like \textbf{vLLM}, implementing \textbf{audio streaming} to chunk and play synthesized speech dynamically as text is generated, or adopting a \textbf{Hybrid Cloud-Local architecture} that offloads compute-heavy generation to rapid API endpoints (e.g., Groq LPUs or the Sarvam API) while keeping database execution purely local.
+    \item \textbf{Conversational State Management:} The current Semantic Router operates statelessly. Replacing the generic chat output with an advanced Conversational Interaction Layer will allow the system to maintain spatial context across follow-up queries. For example, if a user queries ``find quiet places,'' and follows up with ``are any of them open now?'', the system would apply a temporal filter over the existing geographic bounding box rather than executing a new query from scratch.
+    \item \textbf{Live GPS Injection (Web UI Integration):} Since queries frequently use terms like ``nearby'' or ``closest,'' dynamically injecting the user's live browser HTML5 Geolocation into the prompt as a spatial reference point (\texttt{ref.geometry}) will eliminate the need to manually specify anchor buildings in the prompt.
+    \item \textbf{Expanded Multi-Modal Outputs:} Integrating image generation or street-view API layers to provide visual previews of the queried locations alongside the Folium map, offering a richer navigational experience.
+\end{itemize}
 
 \newpage
 \section{References}
@@ -245,6 +259,14 @@ Our custom Hybrid Evaluation Framework empirically proved that this architecture
     \item Yu, T., et al. \textit{Spider: A Large-Scale Human-Labeled Dataset for Complex and Cross-Domain Semantic Parsing and Text-to-SQL Task}. \url{https://aclanthology.org/D18-1425.pdf}
     \item The PostGIS Development Group. \textit{PostGIS Spatial Database Management for PostgreSQL}. \url{https://postgis.net/}
     \item OpenStreetMap contributors. \textit{OpenStreetMap}. \url{https://www.openstreetmap.org/}
+\end{itemize}
+
+\subsection*{Reproducible Code (Google Colab)}
+\begin{itemize}
+    \item \textbf{Final End-to-End Pipeline:} \href{https://colab.research.google.com/drive/1rGPOzieWGizHlFh2NJsk8GoBSVRxlEm3?usp=sharing}{Open in Google Colab}
+    \item \textbf{Text-to-SQL Evaluation Sandbox:} \href{https://colab.research.google.com/drive/11Q3ZQRMpF2yn-kF79wgWye8HocaR4D7t?usp=sharing}{Open in Google Colab}
+    \item \textbf{Translation Evaluation Sandbox:} \href{https://colab.research.google.com/drive/1OALHPylZlU80PdDcWf2Ta4oGDhPitphc?usp=sharing}{Open in Google Colab}
+    \item \textbf{ASR Evaluation Sandbox:} \href{https://colab.research.google.com/drive/1JmLAVOBZkACmkh9jj7OI8seU4HkXCbrg?usp=sharing}{Open in Google Colab}
 \end{itemize}
 
 \end{document}
