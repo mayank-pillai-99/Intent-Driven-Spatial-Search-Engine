@@ -14,42 +14,48 @@
 \usepackage{float}
 \usepackage{longtable}
 
-\title{\textbf{Intent-Driven Spatial Search Engine}\\ \Large A Hybrid NL-to-SQL Architecture for Conversational Geographic Queries}
-\author{BITS Pilani — CS F266 Study Project}
-\date{\today}
-
 \begin{document}
 
-\maketitle
+\begin{titlepage}
+    \centering
+    \vspace*{\fill}
+    {\Huge \textbf{Intent-Driven Spatial Search Engine}\par}
+    \vspace{1cm}
+    {\Large A Hybrid NL-to-SQL Architecture for Conversational Geographic Queries\par}
+    \vspace{2cm}
+    {\Large BITS Pilani --- Visiting Summer Research Internship (VISRI) Project\par}
+    \vspace{1cm}
+    {\large \today\par}
+    \vspace*{\fill}
+\end{titlepage}
+
 \tableofcontents
 \newpage
 
 \begin{abstract}
-Current digital mapping systems rely heavily on deterministic keyword filtering, which frequently fails when processing natural, human-centric conversational queries. This project introduces an Intent-Driven Spatial Search Engine that translates colloquial, multi-lingual audio and text queries into structured PostgreSQL/PostGIS commands. We implement a 100\% offline, end-to-end local GPU pipeline consisting of the multimodal SeamlessM4T v2 (Large) model for Automatic Speech Recognition (ASR) and multi-lingual translation, alongside Qwen2.5-Coder (7B) acting as a Text-to-SQL engine, Intent Router, and native-language response generator. We conduct extensive empirical evaluations across several ASR models (Google, Whisper, Sarvam API, SeamlessM4T), translation models, and Text-to-SQL models. Our custom Hybrid Evaluation Framework---which combines Abstract Syntax Tree (AST) structural parsing with live PostGIS execution---validates that our final architecture achieves a highly successful 78.0\% pass rate on complex spatial intents. This demonstrates a robust capability to bridge the gap between descriptive human vocabulary and rigid geographic databases, successfully resolving colloquial requests like ``chai ki tapri near me'' into mathematically bounded local searches.
+Traditional digital maps rely on rigid keyword searches, which often fail when users ask for things conversationally. To solve this, we built an Intent-Driven Spatial Search Engine that translates colloquial, multi-lingual queries directly into structured PostGIS database commands. Running 100\% offline on a local GPU, the system uses SeamlessM4T for speech recognition and translation, paired with Qwen2.5-Coder to act as a Text-to-SQL engine and intent router. We rigorously evaluated multiple AI models using our custom Hybrid Evaluation Framework, which validates both the SQL structure (using Abstract Syntax Trees) and the live database results. Our final architecture achieved a 78.0\% success rate on complex geographic intents, proving it can successfully bridge the gap between abstract human intent (like ``a quiet place to study'') and rigid geographic databases.
 \end{abstract}
 
 \section{Introduction}
 
 \subsection{Background}
-Digital mapping and navigational systems have become integral to everyday life, powering everything from ride-sharing logistics to emergency routing and casual local exploration. Yet, despite immense advancements in satellite imagery and routing algorithms, their underlying search architectures remain fundamentally constrained when processing human-centric, conversational queries. Currently, most mainstream commercial mapping engines (such as Google Maps, MapmyIndia/Mappls, or Apple Maps) rely heavily on deterministic keyword filtering and standard Information Retrieval (IR) techniques (like TF-IDF or Elasticsearch) against massive, proprietary Point of Interest (POI) databases.
+Digital mapping systems power everything from ride-sharing to daily navigation. However, despite advancements in satellite imagery, their search engines are still surprisingly limited. Mainstream mapping apps (like Google Maps or Apple Maps) rely heavily on exact keyword filtering. 
 
-While these systems excel at locating standardized addresses or exact proper nouns (e.g., ``Birla Institute of Technology and Science, Pilani''), they suffer from catastrophic spatial prioritization failures when users input descriptive, intent-driven queries. Humans naturally think of spaces in terms of utility, environment, vibe, or immediate physical needs---not necessarily formal business names. For example, a student might search for ``a quiet place to study,'' ``a late-night pharmacy,'' or ``a safe park for kids.'' When forced through a traditional geocoding pipeline, these highly descriptive queries break down. 
+While these apps are great at finding exact addresses or formal business names, they fail when users search for descriptive, intent-driven locations. People naturally think about spaces based on their needs---such as ``a quiet place to study'' or ``a late-night pharmacy.'' When forced through a traditional map search, these conversational queries break down.
 
 \subsection{Motivation}
-A prime example of this architectural limitation is what we identify as the \textbf{Local Intent Failure}. When a user searches for a location based on environmental characteristics---such as querying ``quiet places near me'' while located on a university campus---current systems fail to comprehend ``quiet'' as a desired spatial attribute (indicating low traffic, low noise, or a serene environment like a library or park). 
+This limitation causes what we call a \textbf{Local Intent Failure}. For instance, if a student on campus searches for ``quiet places near me,'' traditional systems do not understand that ``quiet'' means a library or a park. Instead, they look for a business literally named ``Quiet.'' This leads to the map suggesting a ``Quiet Place'' restaurant located 1,000 kilometers away, completely ignoring the ``near me'' spatial constraint.
 
-Instead of parsing the semantic intent of the query, the search engine defaults to a rigid, exact-keyword match against its database of registered business names. Consequently, the system prioritizes exact word matches over geographic proximity. It often surfaces highly irrelevant results, such as a business named ``Quiet Place'' located over 1,000 kilometers away in a different state, completely ignoring the explicit spatial constraint established by the phrase ``near me.'' Such failures actively erode user trust and render the digital map effectively useless for intuitive, local exploration.
-
-In the Indian context, this architectural limitation is especially pronounced. Spatial references and local navigation in India are rarely confined to perfectly structured street addresses. They are highly descriptive, informal, heavily reliant on local landmarks, and frequently code-mixed (Hinglish or Tanglish). When mapping engines treat nuanced, multi-dimensional requests (utility + environment) as flat text strings to be matched against formal business registrations, the resulting disconnect creates a severe barrier to localized discovery. A query like ``koi chai ki tapri hai kya paas mein?'' (Is there a tea stall nearby?) requires an engine that can simultaneously translate colloquial slang, extract the POI category (cafe/food), and enforce a rigid local bounding box. Traditional engines fail on all three fronts.
+This problem is even worse in India. Indian spatial navigation is highly descriptive, informal, and frequently code-mixed (e.g., Hinglish). A colloquial query like ``koi chai ki tapri hai kya paas mein?'' (Is there a tea stall nearby?) requires an engine that can translate the slang, identify the location category, and strictly enforce a local geographic radius. Traditional mapping engines fail on all three fronts.
 
 \subsection{Objective}
-Addressing this gap requires a fundamental paradigm shift in spatial search engines. The objective of this project is to transition from rigid keyword-matching pipelines to advanced, intent-driven spatial modeling using Large Language Models (LLMs) and structured spatial databases.
+To solve this, we need a fundamental shift in how spatial search works. The objective of this project is to abandon rigid keyword-matching entirely. Instead, we use Large Language Models (LLMs) to translate human intent directly into mathematical spatial queries executed by a relational database.
 
 Specifically, this project aims to:
 \begin{enumerate}
-    \item \textbf{Dynamic Intent Capturing:} Utilize specialized Text-to-SQL models to translate conversational queries into mathematically enforced spatial constraints (PostGIS SQL), ensuring the database executes a bounding box rather than relying on an IR engine to weight ``near me.''
-    \item \textbf{Colloquial Multilingual Translation:} Integrate state-of-the-art open-weight translation models (like Sarvam-Translate) to bridge the gap between regional Indian dialects/slang and the formal English syntax required by downstream SQL generators.
-    \item \textbf{Empirical Evaluation:} Develop a robust Hybrid Evaluation Framework that proves the accuracy of LLM-generated spatial SQL against real-world database entropy, scoring for both structural soundness and semantic accuracy.
+    \item \textbf{Dynamic Intent Capturing:} Utilize specialized Text-to-SQL models to translate conversational queries into mathematically enforced spatial constraints (PostGIS SQL), ensuring the database executes a bounding box rather than relying on a traditional text-search engine to guess what ``near me'' means.
+    \item \textbf{Colloquial Multilingual Translation:} Integrate state-of-the-art open-weight translation models (like Sarvam-Translate) to bridge the gap between regional Indian dialects/slang and the formal English syntax required by the SQL generation AI.
+    \item \textbf{Empirical Evaluation:} Develop a robust Hybrid Evaluation Framework that proves the accuracy of LLM-generated spatial SQL against messy, real-world data, scoring for both structural soundness and semantic accuracy.
     \item \textbf{End-to-End System Integration:} Deploy a functional, 100\% offline pipeline with an intuitive conversational User Interface (Gradio + Folium), allowing users to speak naturally (via SeamlessM4T) and view their results dynamically rendered on a map alongside locally synthesized native-language audio responses.
 \end{enumerate}
 
@@ -59,83 +65,87 @@ By achieving these objectives, the system will accurately map human-centric voca
 
 The development of intuitive spatial search engines has gained significant attention, though approaches diverge heavily between industry standards and academic research.
 
-\subsection{Traditional Geocoding and Commercial Mapping Engines}
-The most common approach to spatial search relies on hierarchical indexing. 
+\subsection{Traditional Geocoders and Commercial Maps}
+Current mapping engines rely on exact keyword matching and structured address lookups.
 \begin{itemize}
-    \item \textbf{Traditional Geocoders (e.g., Nominatim):} Nominatim, the primary search engine for OpenStreetMap (OSM), utilizes a highly structured spatial index (country, state, city, street, house number). While it offers high precision for exact addresses, its architecture is strictly deterministic. It requires rigid input and is semantically blind, meaning it fails completely on descriptive queries.
-    \item \textbf{Commercial Mapping Engines:} Platforms like Google Maps utilize exact-name lookups and text-ranking algorithms. They suffer from \textbf{Exact-Match Bias}. They treat queries as flat text strings rather than extracting multi-dimensional intents (utility + environment + spatial bounds), leading to the Local Intent Failure described in our motivation.
+    \item \textbf{Traditional Geocoders (e.g., Nominatim):} The default search engine for OpenStreetMap requires perfectly structured addresses (Country, State, City, Street). It is completely blind to conversational language, meaning it fails immediately if a user searches for a description rather than an exact address.
+    \item \textbf{Commercial Maps (e.g., Google Maps):} These platforms use standard text-ranking algorithms. They suffer from \textbf{Exact-Match Bias}. Because they treat queries as simple text strings rather than understanding the user's actual intent (like needing a quiet place nearby), they frequently suggest highly irrelevant, distant locations just because the business name matches the query.
 \end{itemize}
 
-\subsection{Semantic POI Recommendation Systems}
-To address the limitations of deterministic keyword matching, recent academic systems have attempted to improve spatial search using semantic embeddings and Graph Neural Networks (GNNs).
+\subsection{AI Recommendation Systems}
+To fix the exact-match problem, researchers have built AI recommendation systems that try to capture the ``vibe'' of a location using text embeddings.
 \begin{itemize}
-    \item \textbf{Graph-Based Recommenders:} These systems model relationships between user preferences and venue tags to capture the ``vibe'' of a location. However, they possess a major structural limitation: \textbf{Weak Spatial Enforcement}. These models rank results by semantic text similarity first, treating spatial proximity as a secondary ranking signal. Consequently, they struggle to strictly enforce geographic boundaries (e.g., a rigid 3-kilometer radius). 
+    \item \textbf{Graph-Based Recommenders:} While these systems are good at understanding descriptive intent, they suffer from \textbf{Weak Spatial Enforcement}. Because they are text-based AI models, they treat distance as just another text feature. They cannot execute strict mathematical boundaries, meaning they struggle to enforce a hard 3-kilometer radius around the user.
 \end{itemize}
 
-\subsection{Our Proposed Advantage: The Hybrid NL-to-SQL Approach}
-This project bridges the gaps left by both commercial geocoders and academic semantic recommenders by translating the conversational query into a structured, multi-dimensional SQL filter natively executed by a relational database (PostgreSQL with PostGIS).
+\subsection{The Challenge with Standard Text-to-SQL AI}
+Modern AI models are excellent at translating English into standard database SQL (e.g., for finance or logistics). However, they frequently fail when asked to write \textbf{GeoSQL} (like PostGIS). Standard models struggle to understand the complex mathematical syntax required for geographic routing, such as calculating bounding boxes or radii (\texttt{ST\_DWithin}). Without heavy fine-tuning, most standard AI coders are too unreliable for map routing.
 
-Instead of executing a flat text search for a business named ``Quiet,'' the system deconstructs the user's descriptive language, mapping ``quiet'' to specific venue tags (libraries, parks) and translating ``near me'' into a strict \texttt{ST\_DWithin} geographic query. Because the LLM outputs SQL rather than text embeddings, the database layer can enforce mathematical constraints with 100\% precision, eliminating the Weak Spatial Enforcement problem of GNNs while completely bypassing the Exact-Match Bias of traditional geocoders.
+\subsection{Our Proposed Solution: The Hybrid Architecture}
+This project solves the problems of both commercial maps and text-based AI recommenders. We use AI not to search text, but to write structured SQL that runs directly on a geographic database (PostGIS).
 
-\section{The Proposed Hybrid Evaluation Framework}
+Instead of doing a text search for a business named ``Quiet,'' our AI translates ``quiet'' into specific location tags (like a library) and translates ``near me'' into a strict mathematical formula (\texttt{ST\_DWithin}). Because the AI generates database code rather than text guesses, the database can enforce a 100\% rigid geographic boundary. This perfectly combines the deep understanding of AI with the mathematical precision of a traditional database.
 
-Evaluating Large Language Models on Text-to-SQL tasks is notoriously difficult. A standard string-matching evaluation (checking if the LLM's output string exactly matches the expected Gold standard string) is fundamentally flawed because SQL is highly flexible. Multiple structurally different queries can be logically equivalent and return the exact same data.
+\section{Our Evaluation Framework}
 
-To accurately and empirically validate model performance against real-world spatial entropy, we developed a custom \textbf{Hybrid Evaluation Framework} (Version 4.1).
+Testing an AI's ability to write SQL is difficult. You cannot simply check if the AI's code exactly matches an answer key, because SQL is highly flexible. Two completely different queries might return the exact same correct data.
 
-\subsection{Tier 1: Structural Validation (AST Parsing)}
-Before executing queries against a live database (which can cause timeouts or unhandled exceptions if the SQL is malicious or broken), the generated query undergoes structural parsing using the \texttt{sqlglot} library.
-The LLM's output is parsed into an Abstract Syntax Tree (AST). The framework evaluates:
+To accurately test our models against messy, real-world data, we built a custom two-step \textbf{Hybrid Evaluation Framework}.
+
+\subsection{Step 1: Code Structure Check}
+Before we actually run the AI's code on the database (which could crash the system if the code is broken), we first run a safety check. We parse the code to ensure it is structurally sound.
+We check three things:
 \begin{itemize}
-    \item \textbf{Syntactic Validity:} Does the query conform to valid PostgreSQL/PostGIS grammar?
-    \item \textbf{Schema Adherence:} Does the query query the correct tables and project the correct columns (e.g., selecting \texttt{name} and \texttt{geometry} from \texttt{campus\_places})?
-    \item \textbf{Logical Operators:} Are necessary WHERE clauses present without executing them?
+    \item \textbf{Valid Grammar:} Is this actually valid PostGIS code?
+    \item \textbf{Correct Tables:} Is the AI trying to pull data from the right tables and columns?
+    \item \textbf{Logical Safety:} Are there basic filters (\texttt{WHERE} clauses) so it doesn't accidentally download the entire database?
 \end{itemize}
 
-\subsection{Tier 2: Semantic F1 Execution Scoring}
-The ultimate ground truth of a SQL query is the data it returns. If the structural parser passes the query, it is executed live against the PostGIS database.
-The returned rows (the LLM's prediction) are compared against the ``Gold Standard'' rows defined in the benchmark. A Semantic F1 Score is calculated based on:
+\subsection{Step 2: Live Database Execution}
+If the code passes the safety check, we execute it live on the PostGIS database. We then compare the locations the AI found against the correct ``Gold Standard'' locations from our benchmark.
+We score the AI based on two metrics:
 \begin{itemize}
-    \item \textbf{Precision:} The percentage of rows returned by the LLM that are actually correct.
-    \item \textbf{Recall:} The percentage of correct ``Gold'' rows that the LLM successfully retrieved.
+    \item \textbf{Precision:} Out of all the locations the AI returned, how many were actually right?
+    \item \textbf{Recall:} Out of all the correct locations that exist, how many did the AI successfully find?
 \end{itemize}
-\textbf{The 0.50 Threshold Constraint:} Because real-world geographic data (like OSM) contains massive entropy (missing tags, inconsistent categories), requiring an F1 score of 1.0 (a perfect match of all rows) is unrealistic. For example, if a user asks for ``sports facilities,'' and the LLM query returns 9 out of 10 correct locations but misses one because it used \texttt{IN} instead of \texttt{ILIKE}, it is still a highly successful search. Therefore, our framework dictates that any query achieving a Semantic F1 Score $\ge 0.50$ is categorized as a \textbf{PASS}. Anything below is marked as a \textbf{FAIL}.
+\textbf{The Passing Grade (50\% Rule):} Because real-world map data is inherently messy and inconsistent, requiring the AI to achieve a perfect 100\% match is unrealistic. For example, if a user asks for ``sports facilities,'' and the AI successfully finds 9 out of 10 correct locations but misses one due to a minor syntax choice, it is still a highly successful search. Therefore, our framework dictates that any AI query that correctly identifies at least half of the target locations (Score $\ge 0.50$) receives a \textbf{PASS}. Anything below is a \textbf{FAIL}.
 
-If a query fails to execute due to hallucinated columns or broken syntax, it is marked as \textbf{STRUCT\_ONLY} or \textbf{FAIL}, ensuring strict accountability for the LLM's logic.
+If the AI writes broken code that crashes the database, it immediately receives a \textbf{FAIL}, ensuring strict accountability.
 
-\section{Data Set(s) Used with Description}
+\section{Dataset Curation \& Methodology}
 
 To rigorously test both the spatial reasoning of the Text-to-SQL models and the linguistic robustness of the translation models, two highly specialized datasets were manually curated for the Pilani and IIT Bombay campus regions.
 
 \subsection{Database Construction (OpenStreetMap)}
-The foundational ground-truth data was extracted using the \texttt{osmnx} library. We bounded a 3km radius around the target campuses and extracted spatial features using a wide array of tags: \texttt{amenity, building, leisure, shop, sport, office, tourism, historic}, etc. This raw data was standardized via \texttt{geopandas} and pushed to our local PostgreSQL database with the \texttt{postgis} extension enabled, forming the \texttt{campus\_places} table schema used by the models.
+We needed a live, real-world map to test our AI against. We pulled mapping data directly from OpenStreetMap for a 3km radius around the BITS Pilani and IIT Bombay campuses. We filtered for relevant map features (like cafes, parks, and libraries), cleaned the data, and loaded it into a local PostgreSQL spatial database. This became the playground for our AI models.
 
-\subsection{Text-to-SQL Golden Benchmark Suite (50 Queries)}
-A highly stratified, 50-query English dataset designed to stress-test the geographic and logical reasoning of LLMs. The queries are distributed across five escalating difficulty tiers:
+\subsection{The English SQL Benchmark (50 Queries)}
+We manually wrote 50 complex English questions to stress-test the AI's ability to think geographically. We designed these questions across five difficulty tiers to see exactly where the AI would fail:
 \begin{itemize}
-    \item \textbf{Easy (Simple Lookups):} Direct category filtering (e.g., ``Where is the library?'', ``Find a pharmacy'').
-    \item \textbf{Medium (Boolean / Multi-filter):} Evaluating \texttt{OR} logic and array handling (e.g., ``Find cafes or restaurants'', ``Find places with wifi or internet access'').
-    \item \textbf{Hard (Negation \& Missing Anchor):} Testing \texttt{NOT ILIKE} logic (e.g., ``Find a park but not a sports pitch'', ``Find hospitals that are not clinics'').
-    \item \textbf{Extra (Emotional Intent):} Mapping colloquial feelings to database tags (e.g., ``I am stressed, find a calm place'', ``I need something quick to eat, no sit down'').
-    \item \textbf{Extreme (Spatial / PostGIS):} Mandating the use of \texttt{JOIN} clauses and \texttt{ST\_DWithin} to calculate distances between two disparate location types (e.g., ``Cafe within 500m of library'', ``Nearest fast food to dormitory'').
+    \item \textbf{Easy:} Direct lookups (e.g., ``Where is the library?'').
+    \item \textbf{Medium:} Multiple filters (e.g., ``Find cafes or restaurants'').
+    \item \textbf{Hard:} Tricky negative logic (e.g., ``Find a park but not a sports pitch'').
+    \item \textbf{Extra (Intent):} Translating human feelings into map locations (e.g., ``I am stressed, find a calm place'').
+    \item \textbf{Extreme (Spatial Math):} Forcing the AI to use complex geographic math (e.g., ``Find a cafe within 500m of the library'').
 \end{itemize}
 
-\subsection{Multi-Lingual Translation Dataset (56 Queries)}
-To evaluate the front-end NLP translation pipeline, we curated a 56-query dataset containing complex spatial requests recorded in various dialects. The dataset forces the translation model to deal with geographic nuances in regional languages. It is categorized into three subsets:
+\subsection{The Multi-Lingual Translation Dataset (56 Queries)}
+To test the translation models, we wrote 56 complex location requests in multiple Indian languages (\textbf{Hindi, Tamil, Telugu, Marathi, and Punjabi}). This dataset forced the AI to deal with messy regional dialects. We broke it into three categories:
 \begin{itemize}
-    \item \textbf{Native Script:} Pure Hindi written in the Devanagari script (e.g., ``मुझे भूख लगी है, पास में कोई कैफे ढूंढो'').
-    \item \textbf{Romanized (Hinglish):} Conversational code-mixed text written with English characters, standard for Indian internet users (e.g., ``Mujhe bhook lagi hai, paas me koi cafe dhundho'').
-    \item \textbf{Colloquial Slang:} Highly localized phrases that lack direct 1:1 English translations (e.g., ``koi chai ki tapri hai kya?'').
+    \item \textbf{Native Script:} Perfect, formal language written in native scripts (e.g., Devanagari).
+    \item \textbf{Romanized (Hinglish):} Conversational internet text written with English characters (e.g., ``Mujhe bhook lagi hai...'').
+    \item \textbf{Colloquial Slang:} Highly localized phrases that have no direct English translation (e.g., ``koi chai ki tapri hai kya?'').
 \end{itemize}
-This dataset was evaluated in both a text format (to isolate translation performance) and subsequently synthesized via \texttt{gTTS} into an audio dataset to test the full end-to-end Whisper ASR pipeline.
+We evaluated these queries as raw text first. Then, we generated synthetic audio for all of them to test how well the AI could recognize and translate spoken Indian languages.
 
 \section{Evaluation and Result(s) (Comparisons)}
 
-\subsection{Text-to-SQL Engine Selection}
+\subsection{Text-to-SQL Model Selection}
 We evaluated four open-weight models on the 50-query Golden Benchmark. All models were evaluated locally using a standard prompt without model-specific "cheat codes" or examples, testing their zero-shot reasoning capabilities on the OSM schema.
 
 \begin{table}[H]
 \centering
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lcccc}
 \toprule
 \textbf{Model} & \textbf{Pass Rate} & \textbf{Fail Rate} & \textbf{Avg Struct Score} & \textbf{Avg F1 Score} \\
@@ -146,6 +156,7 @@ CodeS-7B (BIRD-SQL Champ) & 34.0\% & High & - & - \\
 DeepSeek-Coder-7B & 28.0\% & High & - & - \\
 \bottomrule
 \end{tabular}
+}
 \caption{Overall Text-to-SQL Performance Comparison}
 \end{table}
 
@@ -159,11 +170,12 @@ DeepSeek-Coder-7B & 28.0\% & High & - & - \\
 
 \textbf{Final Recommendation for Text-to-SQL:} \textbf{Qwen2.5-Coder-7B-Instruct} is the recommended model for denormalized spatial logic.
 
-\subsection{Translation Model Testing}
-To bridge the gap between Indian users and the English-based Qwen SQL engine, we evaluated several translation models on the 56-query multi-lingual dataset. 
+\subsection{Testing the Translation AI}
+Since our SQL AI only speaks English, we needed a translator for our Indian users. We tested several translation models on our 56-query multi-lingual dataset. 
 
 \begin{table}[H]
 \centering
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lccc}
 \toprule
 \textbf{Model} & \textbf{Overall Pass Rate} & \textbf{Hinglish/Slang Pass Rate} & \textbf{Total SQL Failures} \\
@@ -174,24 +186,25 @@ NLLB-200 (1.3B) & 85.7\% & 57.1\% & 3 \\
 SeamlessM4T v2 (Large) & 70.0\% & 42.9\% & High \\
 \bottomrule
 \end{tabular}
+}
 \caption{Translation Model Performance across Dialects}
 \end{table}
 
-\subsubsection{Conclusion and Dialect Deep Dive}
-While all models performed admirably on Native Devanagari script, the true test lies in code-mixing and colloquial slang.
+\subsubsection{Why Sarvam Won}
+While all models did well on perfect, dictionary-standard Hindi, they struggled with internet slang.
 \begin{itemize}
-    \item \textbf{NLLB-200 (Meta):} NLLB completely failed on messy internet Hindi and Slang, often outputting verbatim Hinglish (e.g., leaving ``tapri'' untranslated), causing downstream SQL failures.
-    \item \textbf{SeamlessM4T v2:} As a pure text-to-text translator on Romanized Hinglish, it collapsed (42.9\% pass rate), leaving words like ``bahut'' untranslated.
-    \item \textbf{Sarvam-Translate (4B):} Sarvam proved to be the optimal open-weight text solution. It flawlessly translated ``chai ki tapri'' into ``Is there any tea or tapri nearby?'', providing enough English context for Qwen. However, because it is an instruction-tuned LLM, it occasionally exhibited ``chatty'' behavior (e.g., critiquing the user's grammar), which can break SQL generation without strict prompting.
+    \item \textbf{NLLB-200 \& SeamlessM4T (Failed):} Both of these models completely failed on internet slang. They would often just repeat the Hindi slang word back in English letters (leaving words like ``tapri'' untranslated), which caused the SQL AI to crash.
+    \item \textbf{Sarvam-Translate (Success!):} Sarvam proved to be the best text translator. It flawlessly translated messy slang into proper English. Its only flaw is that it is a bit ``chatty'' (sometimes it tries to hold a conversation instead of just translating), so we had to write a strict prompt to force it to behave.
 \end{itemize}
 
-\textbf{Final Recommendation for Translation:} \textbf{Sarvam-Translate (4B)} is the recommended model for text-only Romanized slang translation, provided a strict system prompt suppresses its chattiness.
+\textbf{Final Recommendation:} \textbf{Sarvam-Translate (4B)} is our official choice for translating messy text.
 
-\subsection{Automatic Speech Recognition (ASR) Model Testing}
-To facilitate voice-based spatial querying, we evaluated several Automatic Speech Recognition (ASR) engines. We benchmarked four distinct solutions on the synthesized audio dataset.
+\subsection{Testing Voice Recognition (ASR)}
+To allow users to literally speak to the map, we tested four different voice recognition engines using our synthetic audio dataset.
 
 \begin{table}[H]
 \centering
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lccc}
 \toprule
 \textbf{Model} & \textbf{Pass Rate} & \textbf{Avg Word Error Rate (WER)} & \textbf{Type} \\
@@ -202,42 +215,51 @@ Google Speech Recognition & 78.6\% (44/56) & 0.514 & Cloud API \\
 OpenAI Whisper (Large) & 66.1\% (37/56) & 0.632 & Local / Open \\
 \bottomrule
 \end{tabular}
+}
 \caption{ASR Performance on Multilingual Spatial Audio}
 \end{table}
 
-\subsubsection{Conclusion and Acoustic Deep Dive}
+\subsubsection{Why SeamlessM4T Won for Voice}
 \begin{itemize}
-    \item \textbf{OpenAI Whisper:} Despite being the most famous model, Whisper struggled massively on regional Indian scripts, scoring an abysmal 42\% on Telugu and 57\% on Marathi. It simply lacks colloquial Indian spatial terminology.
-    \item \textbf{Google Speech Recognition:} Google performed solidly but is terrible at code-switching. When presented with half-Hindi, half-English slang, it tries to force pure Hindi, breaking the semantic meaning.
-    \item \textbf{Sarvam API:} Sarvam crushed the native tests with the lowest Word Error Rate (0.339), proving it is heavily fine-tuned on modern Indian dialects.
-    \item \textbf{SeamlessM4T v2 (Large):} Seamless achieved a massive 82.1\% pass rate locally by transcribing and translating directly to English in a single step natively on the GPU (scoring 100\% on Telugu and 92.8\% on Hindi audio).
+    \item \textbf{OpenAI Whisper (Failed):} Despite being famous, Whisper was terrible at understanding regional Indian languages, completely failing on Telugu and Marathi.
+    \item \textbf{Google Speech (Failed):} Google was decent, but completely broke down when a user mixed Hindi and English in the same sentence.
+    \item \textbf{Sarvam API (Runner-Up):} Sarvam was incredibly accurate, but it requires an internet connection to use their API, which breaks our ``100\% offline'' goal.
+    \item \textbf{SeamlessM4T v2 (Success!):} Seamless was the massive winner. It listened to Indian audio and translated it directly into English text in a single step, entirely offline on our local GPU.
 \end{itemize}
 
-\textbf{Final Recommendation for ASR:} The \textbf{Sarvam API} is recommended for absolute accuracy if internet access is permitted. However, \textbf{SeamlessM4T v2} is the definitive recommendation for a resilient, 100\% offline system.
+\textbf{Final Recommendation:} \textbf{SeamlessM4T v2} is our official choice for the voice engine because it is fast, accurate, and runs 100\% offline.
 
-\subsection{End-to-End Pipeline Integration and User Interface}
-The culmination of this project is the fully integrated \texttt{Final.ipynb} pipeline, demonstrating a 100\% offline, local-GPU spatial search engine.
+\subsection{The Final End-to-End App}
+The final product of this project is a fully integrated app that runs completely offline on a single local GPU. Here is how data flows through the system:
 
 \begin{enumerate}
-    \item \textbf{Input Layer (Gradio UI):} A web-based interface built with Gradio allows users to submit queries either via text or by speaking directly into their microphone.
-    \item \textbf{ASR \& Multilingual Input (SeamlessM4T):} Audio inputs are transcribed and directly translated to English using \textbf{SeamlessM4T}. Typed non-English inputs are identified locally via \texttt{langdetect} and translated offline by the same SeamlessM4T module, entirely replacing external APIs like Google Translate.
-    \item \textbf{Intent Routing (Qwen2.5-Coder):} A Front-Door router intercepts conversational queries. If a user makes small talk, the router bypasses the spatial database to preserve context and resources.
-    \item \textbf{Text-to-SQL (Qwen2.5-Coder):} The normalized query is fed to Qwen2.5-Coder (run in 4-bit quantization), which translates the semantic intent into a mathematically enforced PostGIS query featuring advanced spatial joins and Frictional/Situational awareness.
-    \item \textbf{Database Execution:} The SQL executes against the local PostgreSQL/PostGIS database.
-    \item \textbf{Native Response Generation:} Instead of translating an English response back into the user's language, Qwen natively generates the conversational summary in the exact language the user originally used.
-    \item \textbf{Output Layer (Folium \& Offline TTS):} The resulting geographic coordinates are plotted dynamically on an interactive Folium map. Simultaneously, SeamlessM4T is utilized for completely offline Text-to-Speech (TTS), dynamically synthesizing a natural audio response in the correct language accent.
+    \item \textbf{User Input:} A simple web interface lets the user type a question or speak directly into their microphone in their native language.
+    \item \textbf{Voice-to-English (SeamlessM4T):} If the user speaks in Hindi, Marathi, or another language, the SeamlessM4T AI instantly transcribes the audio and translates it into English text entirely offline.
+    \item \textbf{Small-Talk Filter (Qwen):} Before doing any database math, the Qwen AI acts as a bouncer. If the user just says ``Hello'' or makes small talk, Qwen replies conversationally without wasting time searching the map database.
+    \item \textbf{Generating SQL (Qwen):} If the user asks a real spatial question (e.g., ``Where is a quiet place?''), Qwen translates that English intent into strict PostGIS database code.
+    \item \textbf{Database Search:} The SQL code is executed on the local map database, returning the exact coordinates of the target locations.
+    \item \textbf{Reverse Translation:} Qwen looks at the database results and writes a friendly summary in English. That English summary is then passed back to SeamlessM4T, which translates it back into the user's original language.
+    \item \textbf{Map \& Voice Output:} Finally, the locations are plotted as interactive pins on a map. At the exact same time, SeamlessM4T generates a synthetic voice clip to speak the translated answer back to the user out loud.
 \end{enumerate}
 
-\section{Conclusion \& Future Work}
+\section{Conclusion}
 
-We successfully designed, implemented, and rigorously evaluated an end-to-end Intent-Driven Spatial Search Engine. By combining Qwen2.5-Coder-7B for dynamic intent capturing and SeamlessM4T for localized automatic speech recognition and offline translation, the system abandons rigid keyword matching in favor of mathematically enforced spatial logic. 
+We successfully built and tested an Intent-Driven Spatial Search Engine. By combining Qwen's coding ability with SeamlessM4T's translation skills, we proved that we can abandon rigid, exact-match text search in favor of intelligent, mathematical map routing.
 
-Our custom Hybrid Evaluation Framework empirically proved that this architecture achieves a 78\% success rate on highly complex geographic queries, vastly outperforming specialized models like CodeS and SQLCoder on denormalized spatial schemas. Furthermore, the integration of SeamlessM4T ASR and a Gradio/Folium UI provides a seamless conversational interface that mirrors how humans naturally think about and interact with their environment.
+Our custom grading framework proved that this architecture works. Our AI achieved a 78\% success rate on highly complex geographic queries, completely outperforming models that were specifically designed for SQL. Most importantly, by integrating voice recognition and an interactive map, we created an app that lets humans search the world exactly how they think about it---conversationally and naturally.
 
-\textbf{Future Work:} While the offline prototype is fully functional, future developments should focus on targeted-precision de-quantization to further improve SQL generation for ``no-anchor'' edge cases. Additionally, replacing the generic chat output with an advanced Conversational Interaction Layer will allow the system to maintain spatial state across follow-up queries (e.g., remembering the bounding box when a user follows up ``quiet places'' with ``are any of them open now?'').
+\subsection{Future Work}
+While our offline prototype is fully functional, here is how we can make it even better:
+
+\begin{itemize}
+    \item \textbf{Make it Faster (Real-time Latency):} Currently, running two massive AI models on a single laptop GPU takes about 30 seconds to answer a question. To make the app feel like a real-time conversation, we need to speed this up. We can do this by using faster AI engines (like \textbf{vLLM}) or by streaming the audio so the AI starts speaking before it even finishes thinking.
+    \item \textbf{Remember Past Questions (State Memory):} Right now, the AI forgets what you asked previously. If we give the AI memory, a user could ask ``Find quiet places,'' and then follow up with ``Are any of them open right now?'' The AI would remember the first search and just add a time filter, rather than starting entirely from scratch.
+    \item \textbf{Use Live GPS:} Right now, the user has to say ``near the library.'' In the future, we can hook the app up to the phone's live GPS so the AI automatically knows what ``near me'' means without asking.
+    \item \textbf{Add Pictures (Street View):} Instead of just showing map pins, we could integrate Google Street View or generate images so the user can actually see what the location looks like before walking there.
+\end{itemize}
 
 \newpage
-\section{References}
+\section*{References}
 \begin{itemize}
     \item Defog AI. \textit{SQLCoder: State-of-the-art LLM for Text-to-SQL Generation}. \url{https://defog.ai/sqlcoder/}
     \item Alibaba Cloud. \textit{Qwen2.5-Coder: A Large Language Model for Code Generation}. \url{https://github.com/QwenLM/Qwen2.5-Coder}
@@ -245,6 +267,15 @@ Our custom Hybrid Evaluation Framework empirically proved that this architecture
     \item Yu, T., et al. \textit{Spider: A Large-Scale Human-Labeled Dataset for Complex and Cross-Domain Semantic Parsing and Text-to-SQL Task}. \url{https://aclanthology.org/D18-1425.pdf}
     \item The PostGIS Development Group. \textit{PostGIS Spatial Database Management for PostgreSQL}. \url{https://postgis.net/}
     \item OpenStreetMap contributors. \textit{OpenStreetMap}. \url{https://www.openstreetmap.org/}
+\end{itemize}
+
+\subsection*{Reproducible Code}
+\begin{itemize}
+    \item \textbf{VISRI Project Repository (GitHub):} \textit{Intent-Driven Spatial Search Engine} (Contains all evaluation results, datasets, and end-to-end notebooks). \url{https://github.com/mayank-pillai-99/Intent-Driven-Spatial-Search-Engine}
+    \item \textbf{Final End-to-End Pipeline:} \href{https://colab.research.google.com/drive/1rGPOzieWGizHlFh2NJsk8GoBSVRxlEm3?usp=sharing}{Open in Google Colab}
+    \item \textbf{Text-to-SQL Evaluation Sandbox:} \href{https://colab.research.google.com/drive/11Q3ZQRMpF2yn-kF79wgWye8HocaR4D7t?usp=sharing}{Open in Google Colab}
+    \item \textbf{Translation Evaluation Sandbox:} \href{https://colab.research.google.com/drive/1OALHPylZlU80PdDcWf2Ta4oGDhPitphc?usp=sharing}{Open in Google Colab}
+    \item \textbf{ASR Evaluation Sandbox:} \href{https://colab.research.google.com/drive/1JmLAVOBZkACmkh9jj7OI8seU4HkXCbrg?usp=sharing}{Open in Google Colab}
 \end{itemize}
 
 \end{document}
