@@ -249,6 +249,7 @@ We successfully built and tested an Intent-Driven Spatial Search Engine. By comb
 Our custom grading framework proved that this architecture works. Our AI achieved a 78\% success rate on highly complex geographic queries, completely outperforming models that were specifically designed for SQL. Most importantly, by integrating voice recognition and an interactive map, we created an app that lets humans search the world exactly how they think about it---conversationally and naturally.
 
 \subsection{Future Work}
+<<<<<<< HEAD
 While our offline prototype is fully functional, here is how we can make it even better:
 
 \begin{itemize}
@@ -256,6 +257,15 @@ While our offline prototype is fully functional, here is how we can make it even
     \item \textbf{Remember Past Questions (State Memory):} Right now, the AI forgets what you asked previously. If we give the AI memory, a user could ask ``Find quiet places,'' and then follow up with ``Are any of them open right now?'' The AI would remember the first search and just add a time filter, rather than starting entirely from scratch.
     \item \textbf{Use Live GPS:} Right now, the user has to say ``near the library.'' In the future, we can hook the app up to the phone's live GPS so the AI automatically knows what ``near me'' means without asking.
     \item \textbf{Add Pictures (Street View):} Instead of just showing map pins, we could integrate Google Street View or generate images so the user can actually see what the location looks like before walking there.
+=======
+While the current offline prototype is fully functional, future developments should focus on expanding the engine's capabilities across the following domains:
+
+\begin{itemize}
+    \item \textbf{Latency Optimization and Inference Scaling:} Currently, running a 7B parameter SQL engine alongside a multimodal translation model on a single 16GB GPU results in an approximate 30-second end-to-end turnaround time per query. Future work must address this latency to achieve real-time conversational speeds. Potential solutions include transitioning the Text-to-SQL backend to highly optimized inference engines like \textbf{vLLM}, implementing \textbf{audio streaming} to chunk and play synthesized speech dynamically as text is generated, or adopting a \textbf{Hybrid Cloud-Local architecture} that offloads compute-heavy generation to rapid API endpoints (e.g., Groq LPUs or the Sarvam API) while keeping database execution purely local.
+    \item \textbf{Conversational State Management:} The current Semantic Router operates statelessly. Replacing the generic chat output with an advanced Conversational Interaction Layer will allow the system to maintain spatial context across follow-up queries. For example, if a user queries ``find quiet places,'' and follows up with ``are any of them open now?'', the system would apply a temporal filter over the existing geographic bounding box rather than executing a new query from scratch.
+    \item \textbf{Live GPS Injection (Web UI Integration):} Since queries frequently use terms like ``nearby'' or ``closest,'' dynamically injecting the user's live browser HTML5 Geolocation into the prompt as a spatial reference point (\texttt{ref.geometry}) will eliminate the need to manually specify anchor buildings in the prompt.
+    \item \textbf{Expanded Multi-Modal Outputs:} Integrating image generation or street-view API layers to provide visual previews of the queried locations alongside the Folium map, offering a richer navigational experience.
+>>>>>>> 3bc6f434924be28641ead269aaadc170afd14de3
 \end{itemize}
 
 \newpage
@@ -269,9 +279,14 @@ While our offline prototype is fully functional, here is how we can make it even
     \item OpenStreetMap contributors. \textit{OpenStreetMap}. \url{https://www.openstreetmap.org/}
 \end{itemize}
 
+<<<<<<< HEAD
 \subsection*{Reproducible Code}
 \begin{itemize}
     \item \textbf{VISRI Project Repository (GitHub):} \textit{Intent-Driven Spatial Search Engine} (Contains all evaluation results, datasets, and end-to-end notebooks). \url{https://github.com/mayank-pillai-99/Intent-Driven-Spatial-Search-Engine}
+=======
+\subsection*{Reproducible Code (Google Colab)}
+\begin{itemize}
+>>>>>>> 3bc6f434924be28641ead269aaadc170afd14de3
     \item \textbf{Final End-to-End Pipeline:} \href{https://colab.research.google.com/drive/1rGPOzieWGizHlFh2NJsk8GoBSVRxlEm3?usp=sharing}{Open in Google Colab}
     \item \textbf{Text-to-SQL Evaluation Sandbox:} \href{https://colab.research.google.com/drive/11Q3ZQRMpF2yn-kF79wgWye8HocaR4D7t?usp=sharing}{Open in Google Colab}
     \item \textbf{Translation Evaluation Sandbox:} \href{https://colab.research.google.com/drive/1OALHPylZlU80PdDcWf2Ta4oGDhPitphc?usp=sharing}{Open in Google Colab}
