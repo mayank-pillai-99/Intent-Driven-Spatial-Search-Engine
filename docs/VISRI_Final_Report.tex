@@ -90,7 +90,25 @@ Instead of doing a text search for a business named ``Quiet,'' our AI translates
 
 Testing an AI's ability to write SQL is difficult. You cannot simply check if the AI's code exactly matches an answer key, because SQL is highly flexible. Two completely different queries might return the exact same correct data.
 
-To accurately test our models against messy, real-world data, we built a custom two-step \textbf{Hybrid Evaluation Framework}.
+To accurately test our models against messy, real-world data, we built a custom two-step \textbf{Hybrid Evaluation Framework}. The design of this framework was directly informed by the evolution of evaluation methodologies in the Text-to-SQL literature, which we summarize below.
+
+\subsection{Evolution of Text-to-SQL Evaluation in Literature}
+
+The academic community has iterated through several generations of evaluation strategies, each addressing the limitations of the previous one.
+
+\begin{enumerate}
+    \item \textbf{Exact Match (WikiSQL, 2017):} The earliest large-scale benchmark, WikiSQL \cite{zhong2017wikisql}, contained 87,726 question-SQL pairs but used only simple, single-table queries. Its primary metric was \textit{Exact Match (EM)}, which checks if the predicted SQL string is character-for-character identical to the gold standard. This was widely criticized because multiple, syntactically different SQL queries can return the same correct result.
+
+    \item \textbf{Component Matching (Spider, 2018):} The Spider benchmark \cite{yu2018spider} introduced complex, cross-domain queries (10,181 examples across 200 databases) with multi-table \texttt{JOIN}s, nested subqueries, and \texttt{GROUP BY} clauses. To overcome the rigidity of Exact Match, Spider introduced \textit{Exact Set Match}, which parses the SQL into individual clauses (\texttt{SELECT}, \texttt{WHERE}, \texttt{ORDER BY}) and compares the predicted \textit{sets} of columns, tables, and operators against the gold standard. \textbf{Our structural scoring (Step 1) is directly inspired by this approach}, using the \texttt{sqlglot} library to parse SQL into Abstract Syntax Trees (ASTs) for clause-level comparison.
+
+    \item \textbf{Execution Accuracy (BIRD, 2023):} The BIRD benchmark \cite{li2023bird} (12,751 pairs across 95 real-world databases totaling 33.4 GB) introduced \textit{Execution Accuracy (EX)}, which validates queries by running them against a live database and comparing the returned result sets. BIRD also introduced the \textit{Valid Efficiency Score (VES)} to reward computationally efficient queries. \textbf{Our live execution scoring (Step 2) follows this execution-based philosophy}, but we extend it from a binary pass/fail to a continuous \textit{Semantic F1 Score} that rewards partial spatial reasoning.
+
+    \item \textbf{Robustness Testing (Dr.Spider, 2023):} Dr.Spider \cite{chang2023drspider} demonstrated that high-performing models are fragile, suffering up to 50.7\% accuracy drops when subjected to 17 types of linguistic and schema perturbations. \textbf{Our multilingual benchmark follows this perturbation philosophy}: each of the 7 base spatial intents is tested across 8 linguistic variants (native script, Romanized, code-mixed slang across 6 languages), effectively functioning as a robustness perturbation suite.
+
+    \item \textbf{Spatial SQL Evaluation (GeoSQL-Eval, 2026):} Most recently, GeoSQL-Eval \cite{jiao2026geosql} became the first benchmark specifically designed for PostGIS spatial queries, containing 14,178 tasks across 340 spatial functions and 82 databases. It found that approximately 70\% of LLM errors in spatial tasks stem from incorrect spatial function selection (e.g., hallucinating \texttt{ST\_Buffer} instead of \texttt{ST\_DWithin}), rather than basic SQL syntax errors. Our project addresses the same spatial reasoning challenge within a single, dense OpenStreetMap schema.
+\end{enumerate}
+
+\noindent Our Hybrid Evaluation Framework synthesizes the strengths of these approaches: \textit{clause-level structural parsing} from Spider, \textit{live database execution} from BIRD, and \textit{multilingual perturbation testing} from Dr.Spider, applied to the \textit{spatial SQL domain} identified by GeoSQL-Eval.
 
 \subsection{Step 1: Code Structure Check}
 Before we actually run the AI's code on the database (which could crash the system if the code is broken), we first run a safety check. We parse the code to ensure it is structurally sound.
@@ -99,6 +117,7 @@ We check three things:
     \item \textbf{Valid Grammar:} Is this actually valid PostGIS code?
     \item \textbf{Correct Tables:} Is the AI trying to pull data from the right tables and columns?
     \item \textbf{Logical Safety:} Are there basic filters (\texttt{WHERE} clauses) so it doesn't accidentally download the entire database?
+    \item \textbf{Spatial Function Accuracy:} Inspired by the GeoSQL-Eval framework (2026), we verify that the model selects the correct PostGIS mathematical function (e.g., \texttt{ST\_DWithin} for radii vs \texttt{ST\_Distance} for nearest-neighbor) for the specific spatial intent.
 \end{itemize}
 
 \subsection{Step 2: Live Database Execution}
@@ -119,6 +138,13 @@ To rigorously test both the spatial reasoning of the Text-to-SQL models and the 
 \subsection{Database Construction (OpenStreetMap)}
 We needed a live, real-world map to test our AI against. We pulled mapping data directly from OpenStreetMap for a 3km radius around the BITS Pilani and IIT Bombay campuses. We filtered for relevant map features (like cafes, parks, and libraries), cleaned the data, and loaded it into a local PostgreSQL spatial database. This became the playground for our AI models.
 
+\subsection{Justification for Zero-Shot Benchmark Scale (Diversity Over Volume)}
+Because we evaluate frontier LLMs (like Qwen2.5-Coder) in a Zero-Shot setting, inflating the test set with hundreds of queries would inevitably introduce structural redundancy (asking the same SQL logic in different words). While we did not fine-tune the model on a specific training dataset, frontier LLMs are pre-trained on millions of SQL queries. Inflating our dataset with simple queries would merely test if the model memorized basic SQL syntax during pre-training, rather than testing its ability to perform true compositional spatial reasoning.
+
+As Finegan-Dollak et al. (2018) \cite{finegan2018improving} demonstrated, redundancy inflates accuracy scores without actually testing compositional logic. They standardized several widely-cited single-domain benchmarks with as few as 128 queries (Yelp) and 131 queries (IMDB), proving that \textit{query diversity and stratification matter more than raw volume}. Similarly, GeoQuery \cite{zelle1996geoquery}, one of the foundational geographic NL-to-SQL datasets, contained only 880 queries on a single US geography database. 
+
+Instead of generating redundant variations of basic \texttt{SELECT} queries, our benchmark represents structurally distinct spatial challenges. Passing this compact, highly stratified test proves the model's fundamental spatial reasoning capabilities much better than passing redundant variations of the same template. Furthermore, prior to GeoSQL-Eval \cite{jiao2026geosql}, no standardized benchmark existed for evaluating LLMs on PostGIS spatial queries, making our focused dataset a novel contribution to an emerging research area.
+
 \subsection{The English SQL Benchmark (50 Queries)}
 We manually wrote 50 complex English questions to stress-test the AI's ability to think geographically. We designed these questions across five difficulty tiers to see exactly where the AI would fail:
 \begin{itemize}
@@ -137,6 +163,8 @@ To test the translation models, we wrote 56 complex location requests in multipl
     \item \textbf{Colloquial Slang:} Highly localized phrases that have no direct English translation (e.g., ``koi chai ki tapri hai kya?'').
 \end{itemize}
 We evaluated these queries as raw text first. Then, we generated synthetic audio for all of them to test how well the AI could recognize and translate spoken Indian languages.
+
+
 
 \section{Evaluation and Result(s) (Comparisons)}
 
@@ -249,7 +277,6 @@ We successfully built and tested an Intent-Driven Spatial Search Engine. By comb
 Our custom grading framework proved that this architecture works. Our AI achieved a 78\% success rate on highly complex geographic queries, completely outperforming models that were specifically designed for SQL. Most importantly, by integrating voice recognition and an interactive map, we created an app that lets humans search the world exactly how they think about it---conversationally and naturally.
 
 \subsection{Future Work}
-<<<<<<< HEAD
 While our offline prototype is fully functional, here is how we can make it even better:
 
 \begin{itemize}
@@ -257,36 +284,86 @@ While our offline prototype is fully functional, here is how we can make it even
     \item \textbf{Remember Past Questions (State Memory):} Right now, the AI forgets what you asked previously. If we give the AI memory, a user could ask ``Find quiet places,'' and then follow up with ``Are any of them open right now?'' The AI would remember the first search and just add a time filter, rather than starting entirely from scratch.
     \item \textbf{Use Live GPS:} Right now, the user has to say ``near the library.'' In the future, we can hook the app up to the phone's live GPS so the AI automatically knows what ``near me'' means without asking.
     \item \textbf{Add Pictures (Street View):} Instead of just showing map pins, we could integrate Google Street View or generate images so the user can actually see what the location looks like before walking there.
-=======
-While the current offline prototype is fully functional, future developments should focus on expanding the engine's capabilities across the following domains:
-
-\begin{itemize}
-    \item \textbf{Latency Optimization and Inference Scaling:} Currently, running a 7B parameter SQL engine alongside a multimodal translation model on a single 16GB GPU results in an approximate 30-second end-to-end turnaround time per query. Future work must address this latency to achieve real-time conversational speeds. Potential solutions include transitioning the Text-to-SQL backend to highly optimized inference engines like \textbf{vLLM}, implementing \textbf{audio streaming} to chunk and play synthesized speech dynamically as text is generated, or adopting a \textbf{Hybrid Cloud-Local architecture} that offloads compute-heavy generation to rapid API endpoints (e.g., Groq LPUs or the Sarvam API) while keeping database execution purely local.
-    \item \textbf{Conversational State Management:} The current Semantic Router operates statelessly. Replacing the generic chat output with an advanced Conversational Interaction Layer will allow the system to maintain spatial context across follow-up queries. For example, if a user queries ``find quiet places,'' and follows up with ``are any of them open now?'', the system would apply a temporal filter over the existing geographic bounding box rather than executing a new query from scratch.
-    \item \textbf{Live GPS Injection (Web UI Integration):} Since queries frequently use terms like ``nearby'' or ``closest,'' dynamically injecting the user's live browser HTML5 Geolocation into the prompt as a spatial reference point (\texttt{ref.geometry}) will eliminate the need to manually specify anchor buildings in the prompt.
-    \item \textbf{Expanded Multi-Modal Outputs:} Integrating image generation or street-view API layers to provide visual previews of the queried locations alongside the Folium map, offering a richer navigational experience.
->>>>>>> 3bc6f434924be28641ead269aaadc170afd14de3
 \end{itemize}
 
 \newpage
-\section*{References}
-\begin{itemize}
-    \item Defog AI. \textit{SQLCoder: State-of-the-art LLM for Text-to-SQL Generation}. \url{https://defog.ai/sqlcoder/}
-    \item Alibaba Cloud. \textit{Qwen2.5-Coder: A Large Language Model for Code Generation}. \url{https://github.com/QwenLM/Qwen2.5-Coder}
-    \item Sarvam AI. \textit{Sarvam-Translate: Multilingual Translation for Indian Languages}. \url{https://huggingface.co/sarvamai/sarvam-translate}
-    \item Yu, T., et al. \textit{Spider: A Large-Scale Human-Labeled Dataset for Complex and Cross-Domain Semantic Parsing and Text-to-SQL Task}. \url{https://aclanthology.org/D18-1425.pdf}
-    \item The PostGIS Development Group. \textit{PostGIS Spatial Database Management for PostgreSQL}. \url{https://postgis.net/}
-    \item OpenStreetMap contributors. \textit{OpenStreetMap}. \url{https://www.openstreetmap.org/}
-\end{itemize}
+\begin{thebibliography}{99}
 
-<<<<<<< HEAD
+\bibitem{zhong2017wikisql}
+Zhong, V., Xiong, C., \& Socher, R. (2017).
+\textit{Seq2SQL: Generating Structured Queries from Natural Language using Reinforcement Learning.}
+arXiv preprint arXiv:1709.00103.
+
+\bibitem{yu2018spider}
+Yu, T., Zhang, R., Yang, K., et al. (2018).
+\textit{Spider: A Large-Scale Human-Labeled Dataset for Complex and Cross-Domain Semantic Parsing and Text-to-SQL Task.}
+Proceedings of EMNLP 2018.
+\url{https://aclanthology.org/D18-1425.pdf}
+
+\bibitem{li2023bird}
+Li, J., Hui, B., Qu, G., et al. (2023).
+\textit{Can LLM Already Serve as A Database Interface? A BIg Bench for Large-Scale Database Grounded Text-to-SQLs.}
+NeurIPS 2023.
+\url{https://bird-bench.github.io/}
+
+\bibitem{chang2023drspider}
+Chang, S., Wang, J., Dong, M., et al. (2023).
+\textit{Dr.Spider: A Diagnostic Evaluation Benchmark for Robust Text-to-SQL.}
+ICLR 2023.
+\url{https://openreview.net/forum?id=Wc5bmZo2v8}
+
+\bibitem{jiao2026geosql}
+Jiao, H., et al. (2026).
+\textit{GeoSQL-Eval: First Evaluation of LLMs on PostGIS-Based NL2GeoSQL Queries.}
+Expert Systems with Applications.
+\url{https://haoyuejiao.github.io/GeoSQL-Eval-Leaderboard/}
+
+\bibitem{finegan2018improving}
+Finegan-Dollak, C., Kummerfeld, J.K., Zhang, L., et al. (2018).
+\textit{Improving Text-to-SQL Evaluation Methodology.}
+Proceedings of ACL 2018.
+\url{https://aclanthology.org/P18-1033/}
+
+\bibitem{zelle1996geoquery}
+Zelle, J.M. \& Mooney, R.J. (1996).
+\textit{Learning to Parse Database Queries Using Inductive Logic Programming.}
+Proceedings of AAAI 1996.
+
+\bibitem{hemphill1990atis}
+Hemphill, C.T., Godfrey, J.J., \& Doddington, G.R. (1990).
+\textit{The ATIS Spoken Language Systems Pilot Corpus.}
+Proceedings of the DARPA Speech and Natural Language Workshop.
+
+\bibitem{defog2024sqlcoder}
+Defog AI. (2024).
+\textit{SQLCoder: State-of-the-art LLM for Text-to-SQL Generation.}
+\url{https://defog.ai/sqlcoder/}
+
+\bibitem{alibaba2024qwen}
+Alibaba Cloud. (2024).
+\textit{Qwen2.5-Coder: A Large Language Model for Code Generation.}
+\url{https://github.com/QwenLM/Qwen2.5-Coder}
+
+\bibitem{sarvam2024translate}
+Sarvam AI. (2024).
+\textit{Sarvam-Translate: Multilingual Translation for Indian Languages.}
+\url{https://huggingface.co/sarvamai/sarvam-translate}
+
+\bibitem{postgis}
+The PostGIS Development Group.
+\textit{PostGIS: Spatial and Geographic Objects for PostgreSQL.}
+\url{https://postgis.net/}
+
+\bibitem{openstreetmap}
+OpenStreetMap contributors.
+\textit{OpenStreetMap.}
+\url{https://www.openstreetmap.org/}
+
+\end{thebibliography}
+
 \subsection*{Reproducible Code}
 \begin{itemize}
     \item \textbf{VISRI Project Repository (GitHub):} \textit{Intent-Driven Spatial Search Engine} (Contains all evaluation results, datasets, and end-to-end notebooks). \url{https://github.com/mayank-pillai-99/Intent-Driven-Spatial-Search-Engine}
-=======
-\subsection*{Reproducible Code (Google Colab)}
-\begin{itemize}
->>>>>>> 3bc6f434924be28641ead269aaadc170afd14de3
     \item \textbf{Final End-to-End Pipeline:} \href{https://colab.research.google.com/drive/1rGPOzieWGizHlFh2NJsk8GoBSVRxlEm3?usp=sharing}{Open in Google Colab}
     \item \textbf{Text-to-SQL Evaluation Sandbox:} \href{https://colab.research.google.com/drive/11Q3ZQRMpF2yn-kF79wgWye8HocaR4D7t?usp=sharing}{Open in Google Colab}
     \item \textbf{Translation Evaluation Sandbox:} \href{https://colab.research.google.com/drive/1OALHPylZlU80PdDcWf2Ta4oGDhPitphc?usp=sharing}{Open in Google Colab}
