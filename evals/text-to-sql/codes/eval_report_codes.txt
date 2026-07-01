@@ -1,25 +1,26 @@
 
 =================================================================
-📊  HYBRID EVALUATION REPORT  v4.1
+📊  HYBRID EVALUATION REPORT  v4.2 (Updated w/ Spatial Func Check)
 =================================================================
   Total          : 50
-  ✅ PASS        : 17  (34.0%)
-  ❌ FAIL        : 6  (12.0%)
-  ⚠️  STRUCT_ONLY : 25
-  ⚠️  SEM_ONLY    : 2
+  ✅ PASS        : 16  (32.0%)
+  ❌ FAIL        : 7  (14.0%)
+  ⚠️  STRUCT_ONLY : 24
+  ⚠️  SEM_ONLY    : 3
   ⚠️  NO_PRED     : 0
 
-  Avg Struct Score  : 0.693
+  Avg Struct Score  : 0.697
   Avg F1 Semantic   : 0.385
 
 ── Per-Difficulty (Spider-style) ──────────────────────────
 ╭──────────────┬─────────┬──────────┬──────────────┬──────────┬──────────╮
 │ difficulty   │   total │   passed │   avg_struct │   avg_f1 │   pass_% │
 ├──────────────┼─────────┼──────────┼──────────────┼──────────┼──────────┤
-│ easy         │       8 │        2 │     0.749875 │ 0.25     │     25   │
-│ medium       │       6 │        4 │     0.833167 │ 0.666667 │     66.7 │
-│ hard         │      13 │        3 │     0.705154 │ 0.230769 │     23.1 │
-│ extra        │       8 │        3 │     0.458375 │ 0.453416 │     37.5 │
+│ easy         │       8 │        2 │     0.732    │ 0.25     │     25   │
+│ medium       │       6 │        4 │     0.857    │ 0.666667 │     66.7 │
+│ hard         │      13 │        3 │     0.736154 │ 0.230769 │     23.1 │
+│ extra        │       8 │        2 │     0.46425  │ 0.453416 │     25   │
+│ extreme      │      15 │        5 │     0.704667 │ 0.440482 │     33.3 │
 ╰──────────────┴─────────┴──────────┴──────────────┴──────────┴──────────╯
 
 ── Failed / Warning Cases ─────────────────────────────────
@@ -105,6 +106,11 @@
        MISSING : ['aniket nursing home', 'anket nursing home', 'ankur maternity and surgical nursing home', 'ashirwad children and surgical hospital', 'asmira hospital', 'atul - lok hospital', 'balaji speciality hospital', 'devaki hospital', 'diamond maternity and general hospital', 'dr bhatia’s hospital, bhandup', "dr bothra's hospital", 'dr. l. h. hiranandani hospital', 'dr. thakurs ear nose throat clinic and hospital - bhandup (w) mumbai', "dr.anjali's hospital", "dr.badwaik's maternity and general hospital", "dr.bhatia's ruby hospital", 'gaurav maternity and surgical hospital', 'iit hospital', 'j. k. child health care and nicu', 'krantiveer mahatma jyotiba phule hospital, vikhroli', 'laxmi health care center and iccu', 'm.s.maternity and general hospital', 'maauli hospital', 'modi general hospital and iccu', 'nadkarni eye care centre', 'naval hospital', 'nihal nursing home & opthalmologist', 'nirali a m naik charitable health-care facility', 'powai dental clinic', 'powai hospital', 'priya maternity home', 'ruby hospital', 's b nursing home and icu', 'saarthi hospital, mumbai', 'sai hospital, mumbai', 'sai sparsh hospital and iccu', 'samarth hospital, mumbai', 'sas health care pvt. limited', 'savitribai jyotiba phule maternity home bhandup', 'shaha children hospital', 'shanti maternity clinic', 'shrenik hospital and maternity house', 'shushrusha hospital', 'sri sai eye care centre', 'srushti orthotech hospital', 'sulochan eye', 'sunrise hospital', 'yashwant hospital, mumbai', 'zobiya hospital maternity home']
        EXTRA   : ['node', 'way']
 
+  [24] ⚠️  SEM_ONLY  [extra]  I am so stressed, where can I find a calm place?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '%park%' OR leisure
+       PRED    : SELECT campus_places.name, campus_places.amenity, campus_places.geometry FROM campus_places WHERE campus_place
+       MISSING : ['chandivali mhada mcgm garden', 'h1: garden', 'h3 -garden', 'hiranandani gardens', 'kukreja garden', 'nm', 'olympia gardern', 'powai lake garden']
+
   [25] ⚠️  SEM_ONLY  [extra]  Where is a quiet place to read a book?
        GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY
        PRED    : SELECT campus_places.name, campus_places.amenity, campus_places.geometry FROM campus_places WHERE campus_place
@@ -186,7 +192,7 @@
        MISSING : ['aniket nursing home', 'anket nursing home', 'ankur maternity and surgical nursing home', 'ashirwad children and surgical hospital', 'asmira hospital', 'atul - lok hospital', 'balaji speciality hospital', 'devaki hospital', 'diamond maternity and general hospital', 'dr bhatia’s hospital, bhandup', "dr bothra's hospital", 'dr. l. h. hiranandani hospital', 'dr. thakurs ear nose throat clinic and hospital - bhandup (w) mumbai', "dr.anjali's hospital", "dr.badwaik's maternity and general hospital", "dr.bhatia's ruby hospital", 'gaurav maternity and surgical hospital', 'iit hospital', 'j. k. child health care and nicu', 'krantiveer mahatma jyotiba phule hospital, vikhroli', 'laxmi health care center and iccu', 'm.s.maternity and general hospital', 'maauli hospital', 'modi general hospital and iccu', 'nadkarni eye care centre', 'naval hospital', 'nihal nursing home & opthalmologist', 'nirali a m naik charitable health-care facility', 'powai dental clinic', 'powai hospital', 'priya maternity home', 'ruby hospital', 's b nursing home and icu', 'saarthi hospital, mumbai', 'sai hospital, mumbai', 'sai sparsh hospital and iccu', 'samarth hospital, mumbai', 'sas health care pvt. limited', 'savitribai jyotiba phule maternity home bhandup', 'shaha children hospital', 'shanti maternity clinic', 'shrenik hospital and maternity house', 'shushrusha hospital', 'sri sai eye care centre', 'srushti orthotech hospital', 'sulochan eye', 'sunrise hospital', 'yashwant hospital, mumbai', 'zobiya hospital maternity home']
        EXTRA   : ['0101000020e610000009b5954def3b5240841c4aa3b8253340', '0101000020e6100000161340d6f83b5240b969d894d0243340', '0101000020e610000016e52db2783b52404b6d4eca49253340', '0101000020e61000001c60e63b783b5240dfde35e84b253340', '0101000020e61000001fe10f9a383b52402fb319f1ae243340', '0101000020e61000002300ee68d23b5240ec600ecc1b253340', '0101000020e61000002e196c8f833b5240c33a9f4b82213340', '0101000020e610000036bc6aafcf3b5240725f18fa71253340', '0101000020e61000003c16dba4a23b52404704e3e0d21d3340', '0101000020e61000003dee5bad933b5240be3f941e3c273340', '0101000020e610000041800c1d3b3b5240ad6bb41ce8213340', '0101000020e610000045dcf703f93b5240cf1841bedf1d3340', '0101000020e610000046216ef36b3b5240f0d0c144cd253340', '0101000020e610000046b6f3fdd4385240f689f2bb9f1b3340', '0101000020e61000004dd30c4ee93b5240ba9168b8b7253340', '0101000020e6100000536d814ed23a5240dcd37a6418203340', '0101000020e610000062c8a0c9b43a524053d8fb43e91f3340', '0101000020e610000062d0532e9e3b5240b92ea1270a1d3340', '0101000020e61000006ccceb88c33a5240ae64c74620203340', '0101000020e610000071c4ffc217395240ca81c3b0681b3340', '0101000020e61000007472d06f2939524063e135f9771b3340', '0101000020e610000075cb0ef18f3b52402e36525b8f1d3340', '0101000020e61000007a408f07913b52408442a962cf253340', '0101000020e61000007a7654907a3b5240debe58294e253340', '0101000020e610000087b88322a73a524078d32d3bc41f3340', '0101000020e61000008f75ccd4ff3852401b84b9ddcb1f3340', '0101000020e61000009639025d203c5240c1cd3d7f351e3340', '0101000020e6100000aa9784b0bf3b5240b34baf28801d3340', '0101000020e6100000ad52d55f0a3c524037c071be7d263340', '0101000020e6100000bbc50d09a93b5240717d0ee2b9253340', '0101000020e6100000c0cfb870a03a5240167d4ff6e01f3340', '0101000020e6100000c3a453b2f73b52402a4bbe2374253340', '0101000020e6100000cd5c3bac4b3b5240dbca01710d1c3340', '0101000020e6100000d0bf1369d1385240f6c99b0d431b3340', '0101000020e6100000d2b71677cd3b52403ee53d737b1e3340', '0101000020e6100000da818472ec3b524021938c9c85213340', '0101000020e6100000da818472ec3b52408ab1a778b7253340', '0101000020e6100000dca161316a3b5240f0dfbc38f1233340', '0101000020e6100000dde632da4f3c5240a66bdc5152263340', '0101000020e6100000deb9e644713b524071b26895f4253340', '0101000020e6100000e376c311ff3b5240381a1b1593263340', '0101000020e6100000e6a617c6273c5240e1d7a3cbf6263340', '0101000020e6100000f25b74b2d43b52402ec6c03a8e253340', '0101000020e6100000f867ab378f3b52407cc33357bc1d3340', '0103000020e6100000010000000500000039c42e40113952405d137761101f3340ad4c9dec0b395240adb13a28171f3340b42c4e6b0939524021730a97fa1e3340e13f82870e395240ef7d607df21e334039c42e40113952405d137761101f3340', '0103000020e61000000100000005000000da588979d63b52402d90453fbf1c334059ebd511d13b5240628ed4319d1c3340e5e6c017cb3b52403a94a12aa61c3340fb479517cf3b524062eeff88cb1c3340da588979d63b52402d90453fbf1c3340', '0103000020e6100000010000000a00000083cdefea8b3a5240505ce91093213340116e32aa8c3a5240f2a3d068612133402ba226fa7c3a52406437d8405f213340370bc5677c3a524063cf4312622133407471659a7a3a52401abbe93b642133403e5ea3407a3a52402429e961682133401bb96e4a793a524046d1031f83213340b04a3327793a52400f45813e91213340a9f7544e7b3a5240448655bc9121334083cdefea8b3a5240505ce91093213340', '0103000020e6100000010000000f0000002ea5d35fd43b5240e6fe8fb86c213340bc3fdeabd63b5240086465ea642133409824e021d63b5240df0495a762213340da5b25b3d53b52407fc811216421334023cca3d1d33b5240063b0f385c2133401002f225d43b5240314a2b195b21334028d192c7d33b5240c60f3a8d59213340477d48aed13b5240b701e9ac602133406b813d26d23b5240b685e7a56221334006741541d23b5240c233a14962213340178046e9d23b524073d2a00d652133400b7668fdd23b5240f0f384ca64213340edb5453ed43b5240a6d3ba0d6a2133408219f8f6d33b524040daff006b2133402ea5d35fd43b5240e6fe8fb86c213340', '0103000020e6100000010000001100000003acfa01b43a524043e158bcfd1e334083a3e4d5b93a5240f3d203d5f51e334048b945aab93a5240dd651aa8e71e33405631f037b53a524030f65e7cd11e3340cad30330af3a52405df7fb6ab31e33404fef3db7ab3a5240dc97d821a31e3340e0fd4c18a83a5240ba7c3551951e3340f1513530a83a5240342a15f99a1e334098ef2ab5a83a524067875341a01e334067aa7180aa3a5240b6fa4564b31e334018778368ad3a5240303e16ecd01e3340ee7e7099ae3a5240a1ce26d1dc1e3340bf599423ae3a5240273e2df5e21e3340e21236f2af3a5240d8e5a5acf01e334028a5564eb13a5240f663eeb5fb1e3340abf69febb13a5240774a07ebff1e334003acfa01b43a524043e158bcfd1e3340']
 
-  [49] ⚠️  STRUCT_ONLY  [hard]  Find the nearest park.
+  [49] ❌ FAIL  [hard]  Find the nearest park.
        GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND leisure ILIKE '%park%' ORDER BY na
        PRED    : SELECT * FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND leisure ILIKE '%park%' ORDER BY ST_Di
        MISSING : ['bharatvan', 'bmc garden', 'calisthenics park', 'cinema ground', 'dog park', 'dr. babasaheb ambedkar udyan', "elder's park", 'forest park', 'glen society garden', 'gurudev ravindranath tagore udyan park', 'gymkhana', 'heritage gardens', 'hiranandani garden', 'lotus multispeciality hospital', 'mcgm park', 'nahar nature park', 'nirvana park', 'powai vihar park', 'prabodhankar thakre manoranjan udyan', 'ravindra mhatre park', 'red ground', 'sambhaji maidan', 'sharma garden', 'sharma park', 'shri harishchandra sharma playground', 'swing garden', 'verona garden']

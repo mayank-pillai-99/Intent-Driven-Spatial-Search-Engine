@@ -1,57 +1,57 @@
 id,language,dialect,gold_native,pred_native,wer_score,eng_translation,verdict,hybrid_pass,f1_score,structural_score
 1,English,Native,Find cafes or restaurants.,Find cafes or restaurants.,0.0,Find cafes or restaurants.,✅ PASS,True,1.0,1.0
-2,Hindi,Native,कैफे या रेस्टोरेंट खोजें।,Find a cafe or restaurant.,1.25,Find a cafe or restaurant.,✅ PASS,True,1.0,1.0
-3,Marathi,Native,कॅफे किंवा रेस्टॉरंट शोधा.,Find a cafe or restaurant.,1.25,Find a cafe or restaurant.,✅ PASS,True,1.0,1.0
-4,Telugu,Native,కేఫ్‌లు లేదా రెస్టారెంట్‌లను కనుగొనండి.,Find cafes or restaurants,1.0,Find cafes or restaurants,✅ PASS,True,1.0,1.0
-5,Tamil,Native,கஃபேக்கள் அல்லது உணவகங்களை கண்டுபிடி.,Find cafes or restaurants,1.0,Find cafes or restaurants,✅ PASS,True,1.0,1.0
-6,Hindi,Romanized,cafe ya restaurant dhundho.,Find a cafe or restaurant...,1.25,Find a cafe or restaurant...,✅ PASS,True,1.0,1.0
-7,Multi,Slang,"koi khane peene ki jagah batao, cafe waghera","Tell me where to eat and drink, Cafe Waghera",0.875,"Tell me where to eat and drink, Cafe Waghera",⚠️  STRUCT_ONLY,False,0.0,0.833
-8,Punjabi,Native,ਕੈਫੇ ਜਾਂ ਰੈਸਟੋਰੈਂਟ ਲੱਭੋ।,Take a cafe or restaurant.,1.25,Take a cafe or restaurant.,✅ PASS,True,1.0,1.0
+2,Hindi,Native,Find cafes or restaurants.,Find a cafe or restaurant.,0.75,Find a cafe or restaurant.,✅ PASS,True,1.0,1.0
+3,Marathi,Native,Find cafes or restaurants.,Find a cafe or restaurant.,0.75,Find a cafe or restaurant.,✅ PASS,True,1.0,1.0
+4,Telugu,Native,Find cafes or restaurants.,Find cafes or restaurants,0.25,Find cafes or restaurants,✅ PASS,True,1.0,1.0
+5,Tamil,Native,Find cafes or restaurants.,Find cafes or restaurants,0.25,Find cafes or restaurants,✅ PASS,True,1.0,1.0
+6,Hindi,Romanized,Find cafes or restaurants.,Find a cafe or restaurant...,0.75,Find a cafe or restaurant...,✅ PASS,True,1.0,1.0
+7,Multi,Slang,Find cafes or restaurants.,"Tell me where to eat and drink, Cafe Waghera",2.25,"Tell me where to eat and drink, Cafe Waghera",⚠️  STRUCT_ONLY,False,0.0,0.857
+8,Punjabi,Native,Find cafes or restaurants.,Take a cafe or restaurant.,1.0,Take a cafe or restaurant.,✅ PASS,True,1.0,1.0
 9,English,Native,Are there any cafes open 24/7?,are there any cafes open twenty four seven,0.5,are there any cafes open twenty four seven,✅ PASS,True,1.0,1.0
-10,Hindi,Native,क्या कोई कैफे 24/7 खुला है?,Is there any cafe open with 24 people?,1.3333333333333333,Is there any cafe open with 24 people?,✅ PASS,True,1.0,1.0
-11,Marathi,Native,कोणते कॅफे २४/७ उघडे आहे का?,Which cafe is open at 24:07?,1.0,Which cafe is open at 24:07?,✅ PASS,True,1.0,1.0
-12,Telugu,Native,ఏదైనా కేఫ్ 24/7 తెరిచి ఉందా?,Is there a KF 2427 open?,1.2,Is there a KF 2427 open?,✅ PASS,True,1.0,0.667
-13,Tamil,Native,ஏதாவது கஃபே 24/7 திறந்திருக்கிறதா?,Is there a cafe open on the 24th?,2.0,Is there a cafe open on the 24th?,✅ PASS,True,1.0,1.0
-14,Hindi,Romanized,koi cafe 24/7 khula hai kya?,Is there any cafe open in 247?,1.1666666666666667,Is there any cafe open in 247?,✅ PASS,True,1.0,1.0
-15,Multi,Slang,koi cafe hai kya jo din raat khula rehta hai?,Is there any cafe that is open day and night?,1.0,Is there any cafe that is open day and night?,✅ PASS,True,1.0,1.0
-16,Punjabi,Native,ਕੀ ਇੱਥੇ ਕੋਈ ਕੈਫੇ 24/7 ਖੁੱਲ੍ਹੇ ਹਨ?,Is there any cafe open here?,1.0,Is there any cafe open here?,✅ PASS,True,1.0,1.0
+10,Hindi,Native,Are there any cafes open 24/7?,Is there any cafe open with 24 people?,0.8333333333333334,Is there any cafe open with 24 people?,✅ PASS,True,1.0,1.0
+11,Marathi,Native,Are there any cafes open 24/7?,Which cafe is open at 24:07?,1.0,Which cafe is open at 24:07?,✅ PASS,True,1.0,1.0
+12,Telugu,Native,Are there any cafes open 24/7?,Is there a KF 2427 open?,0.8333333333333334,Is there a KF 2427 open?,✅ PASS,True,1.0,0.714
+13,Tamil,Native,Are there any cafes open 24/7?,Is there a cafe open on the 24th?,1.0,Is there a cafe open on the 24th?,✅ PASS,True,1.0,1.0
+14,Hindi,Romanized,Are there any cafes open 24/7?,Is there any cafe open in 247?,0.6666666666666666,Is there any cafe open in 247?,✅ PASS,True,1.0,1.0
+15,Multi,Slang,Are there any cafes open 24/7?,Is there any cafe that is open day and night?,1.1666666666666667,Is there any cafe that is open day and night?,✅ PASS,True,1.0,1.0
+16,Punjabi,Native,Are there any cafes open 24/7?,Is there any cafe open here?,0.5,Is there any cafe open here?,✅ PASS,True,1.0,1.0
 17,English,Native,"I am so stressed, where can I find a calm place?","I am so stressed, where can I find a calm place?",0.0,"I am so stressed, where can I find a calm place?",✅ PASS,True,0.9148936170212766,1.0
-18,Hindi,Native,"मैं बहुत तनाव में हूँ, मुझे शांत जगह कहाँ मिलेगी?","I am very stressed, where can I find a quiet place?",1.1,"I am very stressed, where can I find a quiet place?",✅ PASS,True,0.9148936170212766,1.0
-19,Marathi,Native,"मी खूप तणावात आहे, मला शांत जागा कुठे मिळेल?",I'm so nervous. Where can I find a quiet place?,1.1111111111111112,I'm so nervous. Where can I find a quiet place?,✅ PASS,True,0.9148936170212766,1.0
-20,Telugu,Native,"నేను చాలా ఒత్తిడిలో ఉన్నాను, ప్రశాంతమైన ప్రదేశం ఎక్కడ దొరుకుతుంది?","I'm under a lot of stress, where can I find a quiet place?",1.625,"I'm under a lot of stress, where can I find a quiet place?",✅ PASS,True,0.9148936170212766,1.0
-21,Tamil,Native,"நான் மிகவும் மன அழுத்தத்தில் இருக்கிறேன், அமைதியான இடம் எங்கே கிடைக்கும்?",I'm so stressed. Where can I find a quiet place?,1.1111111111111112,I'm so stressed. Where can I find a quiet place?,✅ PASS,True,0.9148936170212766,1.0
-22,Hindi,Romanized,"main bahut stressed hoon, koi shant jagah kahan milegi?","I am very stressed, where can I find a quiet place?",1.2222222222222223,"I am very stressed, where can I find a quiet place?",✅ PASS,True,0.9148936170212766,1.0
-23,Multi,Slang,"yaar dimaag kharab ho raha hai, koi shanti wali jagah bata de","man, he is getting confused, tell me a quiet place",1.0,"man, he is getting confused, tell me a quiet place",✅ PASS,True,0.9148936170212766,1.0
-24,Punjabi,Native,"ਮੈਂ ਬਹੁਤ ਤਣਾਅ ਵਿੱਚ ਹਾਂ, ਮੈਨੂੰ ਇੱਕ ਸ਼ਾਂਤ ਜਗ੍ਹਾ ਕਿੱਥੇ ਮਿਲ ਸਕਦੀ ਹੈ?","I am very stressed, where can I find a quiet place?",1.0,"I am very stressed, where can I find a quiet place?",✅ PASS,True,0.9148936170212766,1.0
-25,English,Native,Find the nearest cafe to the dormitory.,Find the nearest cafe to the dormitory.,0.0,Find the nearest cafe to the dormitory.,⚠️  STRUCT_ONLY,False,0.4615384615384615,0.667
-26,Hindi,Native,छात्रावास के सबसे करीब कैफे खोजें।,Find the nearest cafe to the hostel,1.1666666666666667,Find the nearest cafe to the hostel,✅ PASS,True,0.5714285714285715,0.667
-27,Marathi,Native,वसतिगृहाच्या सर्वात जवळचा कॅफे शोधा.,Find the nearest cafe to the residence,1.4,Find the nearest cafe to the residence,✅ PASS,True,0.8571428571428571,0.667
-28,Telugu,Native,హాస్టల్‌కు అత్యంత సమీపంలో ఉన్న కేఫ్‌ని కనుగొనండి.,Find the cafe closest to the hostel.,1.1666666666666667,Find the cafe closest to the hostel.,✅ PASS,True,1.0,1.0
-29,Tamil,Native,விடுதிக்கு மிக அருகில் உள்ள கஃபேவை கண்டுபிடி.,Find the nearest cafe to the hotel.,1.1666666666666667,Find the nearest cafe to the hotel.,❌ FAIL,False,0.0,0.333
-30,Hindi,Romanized,hostel ke sabse paas wala cafe batao.,Tell me the nearest cafe to the hostel.,1.1428571428571428,Tell me the nearest cafe to the hostel.,✅ PASS,True,0.5714285714285715,0.667
-31,Multi,Slang,hostel ke nazdeek sabse paas wali tapri kidhar hai?,Where is the nearest tapri near the hostel?,1.0,Where is the nearest tapri near the hostel?,⚠️  STRUCT_ONLY,False,0.0,0.667
-32,Punjabi,Native,ਡਾਰਮਿਟਰੀ ਲਈ ਨਜ਼ਦੀਕੀ ਕੈਫੇ ਲੱਭੋ.,Find a nearby cafe for diarrhea...,1.2,Find a nearby cafe for diarrhea...,❌ FAIL,False,0.0,0.167
-33,English,Native,Find a library that is NOT a school.,Find a library that is not a school.,0.0,Find a library that is not a school.,⚠️  STRUCT_ONLY,False,0.23529411764705882,0.667
-34,Hindi,Native,ऐसा पुस्तकालय खोजें जो स्कूल नहीं है।,Find a library that is not a school,1.1428571428571428,Find a library that is not a school,✅ PASS,True,1.0,0.667
-35,Marathi,Native,शाळा नसलेले ग्रंथालय शोधा.,Search for libraries that do not have schools,2.0,Search for libraries that do not have schools,⚠️  STRUCT_ONLY,False,0.0,0.667
-36,Telugu,Native,పాఠశాల కాని లైబ్రరీని కనుగొనండి.,Find a school or a library,1.5,Find a school or a library,✅ PASS,True,0.5263157894736842,1.0
-37,Tamil,Native,பள்ளி அல்லாத நூலகத்தை கண்டுபிடி.,Find a library that is not a way.,2.0,Find a library that is not a way.,✅ PASS,True,1.0,0.667
-38,Hindi,Romanized,library dhundho jo school nahi hai.,"Find a library that is not a school,",1.1666666666666667,"Find a library that is not a school,",⚠️  STRUCT_ONLY,False,0.23529411764705882,0.667
-39,Multi,Slang,bhai ek library chahiye but school nahi honi chahiye.,"Brother, we need a library but not a school.",1.0,"Brother, we need a library but not a school.",✅ PASS,True,1.0,1.0
-40,Punjabi,Native,ਅਜਿਹੀ ਲਾਇਬ੍ਰੇਰੀ ਲੱਭੋ ਜੋ ਸਕੂਲ ਨਾ ਹੋਵੇ।,"If there is no school, then the library is like this.",1.5714285714285714,"If there is no school, then the library is like this.",⚠️  STRUCT_ONLY,False,0.45454545454545453,0.667
-41,English,Native,Where is the library?,Where is the library?,0.0,Where is the library?,✅ PASS,True,1.0,0.833
-42,Hindi,Native,लाइब्रेरी कहाँ है?,Where is the library?,1.3333333333333333,Where is the library?,✅ PASS,True,1.0,0.833
-43,Marathi,Native,ग्रंथालय कुठे आहे?,Where is the library?,1.3333333333333333,Where is the library?,✅ PASS,True,1.0,0.833
-44,Telugu,Native,లైబ్రరీ ఎక్కడ ఉంది?,Where is the library?,1.3333333333333333,Where is the library?,✅ PASS,True,1.0,0.833
-45,Tamil,Native,நூலகம் எங்கே இருக்கிறது?,Where is the library?,1.3333333333333333,Where is the library?,✅ PASS,True,1.0,0.833
-46,Hindi,Romanized,library kahan hai?,Where is the library?,1.3333333333333333,Where is the library?,✅ PASS,True,1.0,0.833
-47,Multi,Slang,bhai campus me library kidhar milegi?,"Brother, where will I find a library in the campus?",1.5,"Brother, where will I find a library in the campus?",✅ PASS,True,1.0,1.0
-48,Punjabi,Native,ਲਾਇਬ੍ਰੇਰੀ ਕਿੱਥੇ ਹੈ?,Where is the library?,1.3333333333333333,Where is the library?,✅ PASS,True,1.0,0.833
+18,Hindi,Native,"I am so stressed, where can I find a calm place?","I am very stressed, where can I find a quiet place?",0.18181818181818182,"I am very stressed, where can I find a quiet place?",✅ PASS,True,0.9148936170212766,1.0
+19,Marathi,Native,"I am so stressed, where can I find a calm place?",I'm so nervous. Where can I find a quiet place?,0.36363636363636365,I'm so nervous. Where can I find a quiet place?,✅ PASS,True,0.9148936170212766,1.0
+20,Telugu,Native,"I am so stressed, where can I find a calm place?","I'm under a lot of stress, where can I find a quiet place?",0.6363636363636364,"I'm under a lot of stress, where can I find a quiet place?",✅ PASS,True,0.9148936170212766,1.0
+21,Tamil,Native,"I am so stressed, where can I find a calm place?",I'm so stressed. Where can I find a quiet place?,0.36363636363636365,I'm so stressed. Where can I find a quiet place?,✅ PASS,True,0.9148936170212766,1.0
+22,Hindi,Romanized,"I am so stressed, where can I find a calm place?","I am very stressed, where can I find a quiet place?",0.18181818181818182,"I am very stressed, where can I find a quiet place?",✅ PASS,True,0.9148936170212766,1.0
+23,Multi,Slang,"I am so stressed, where can I find a calm place?","man, he is getting confused, tell me a quiet place",0.9090909090909091,"man, he is getting confused, tell me a quiet place",✅ PASS,True,0.9148936170212766,1.0
+24,Punjabi,Native,"I am so stressed, where can I find a calm place?","I am very stressed, where can I find a quiet place?",0.18181818181818182,"I am very stressed, where can I find a quiet place?",✅ PASS,True,0.9148936170212766,1.0
+25,English,Native,Find the nearest cafe to the dormitory.,Find the nearest cafe to the dormitory.,0.0,Find the nearest cafe to the dormitory.,⚠️  STRUCT_ONLY,False,0.4615384615384615,0.571
+26,Hindi,Native,Find the nearest cafe to the dormitory.,Find the nearest cafe to the hostel,0.14285714285714285,Find the nearest cafe to the hostel,✅ PASS,True,0.5714285714285715,0.571
+27,Marathi,Native,Find the nearest cafe to the dormitory.,Find the nearest cafe to the residence,0.14285714285714285,Find the nearest cafe to the residence,✅ PASS,True,0.8571428571428571,0.571
+28,Telugu,Native,Find the nearest cafe to the dormitory.,Find the cafe closest to the hostel.,0.42857142857142855,Find the cafe closest to the hostel.,✅ PASS,True,1.0,1.0
+29,Tamil,Native,Find the nearest cafe to the dormitory.,Find the nearest cafe to the hotel.,0.14285714285714285,Find the nearest cafe to the hotel.,❌ FAIL,False,0.0,0.286
+30,Hindi,Romanized,Find the nearest cafe to the dormitory.,Tell me the nearest cafe to the hostel.,0.42857142857142855,Tell me the nearest cafe to the hostel.,✅ PASS,True,0.5714285714285715,0.571
+31,Multi,Slang,Find the nearest cafe to the dormitory.,Where is the nearest tapri near the hostel?,0.7142857142857143,Where is the nearest tapri near the hostel?,⚠️  STRUCT_ONLY,False,0.0,0.571
+32,Punjabi,Native,Find the nearest cafe to the dormitory.,Find a nearby cafe for diarrhea...,0.7142857142857143,Find a nearby cafe for diarrhea...,❌ FAIL,False,0.0,0.143
+33,English,Native,Find a library that is NOT a school.,Find a library that is not a school.,0.0,Find a library that is not a school.,⚠️  STRUCT_ONLY,False,0.23529411764705882,0.714
+34,Hindi,Native,Find a library that is NOT a school.,Find a library that is not a school,0.125,Find a library that is not a school,✅ PASS,True,1.0,0.714
+35,Marathi,Native,Find a library that is NOT a school.,Search for libraries that do not have schools,0.75,Search for libraries that do not have schools,⚠️  STRUCT_ONLY,False,0.0,0.571
+36,Telugu,Native,Find a library that is NOT a school.,Find a school or a library,0.625,Find a school or a library,✅ PASS,True,0.5263157894736842,1.0
+37,Tamil,Native,Find a library that is NOT a school.,Find a library that is not a way.,0.125,Find a library that is not a way.,✅ PASS,True,1.0,0.571
+38,Hindi,Romanized,Find a library that is NOT a school.,"Find a library that is not a school,",0.125,"Find a library that is not a school,",⚠️  STRUCT_ONLY,False,0.23529411764705882,0.714
+39,Multi,Slang,Find a library that is NOT a school.,"Brother, we need a library but not a school.",0.625,"Brother, we need a library but not a school.",✅ PASS,True,1.0,1.0
+40,Punjabi,Native,Find a library that is NOT a school.,"If there is no school, then the library is like this.",1.375,"If there is no school, then the library is like this.",⚠️  STRUCT_ONLY,False,0.45454545454545453,0.714
+41,English,Native,Where is the library?,Where is the library?,0.0,Where is the library?,✅ PASS,True,1.0,0.857
+42,Hindi,Native,Where is the library?,Where is the library?,0.0,Where is the library?,✅ PASS,True,1.0,0.857
+43,Marathi,Native,Where is the library?,Where is the library?,0.0,Where is the library?,✅ PASS,True,1.0,0.857
+44,Telugu,Native,Where is the library?,Where is the library?,0.0,Where is the library?,✅ PASS,True,1.0,0.857
+45,Tamil,Native,Where is the library?,Where is the library?,0.0,Where is the library?,✅ PASS,True,1.0,0.857
+46,Hindi,Romanized,Where is the library?,Where is the library?,0.0,Where is the library?,✅ PASS,True,1.0,0.857
+47,Multi,Slang,Where is the library?,"Brother, where will I find a library in the campus?",2.0,"Brother, where will I find a library in the campus?",✅ PASS,True,1.0,1.0
+48,Punjabi,Native,Where is the library?,Where is the library?,0.0,Where is the library?,✅ PASS,True,1.0,0.857
 49,English,Native,Find a cafe within 500 meters of the library.,Find a cafe within five hundred meters of the library.,0.2222222222222222,Find a cafe within five hundred meters of the library.,✅ PASS,True,1.0,1.0
-50,Hindi,Native,लाइब्रेरी के 500 मीटर के भीतर एक कैफे खोजें।,Find a cafe within 500 meters of the library,1.0,Find a cafe within 500 meters of the library,✅ PASS,True,1.0,1.0
-51,Marathi,Native,ग्रंथालयाच्या ५०० मीटर अंतरावर कॅफे शोधा.,Find a cafe within 500 meters of the library.,1.5,Find a cafe within 500 meters of the library.,✅ PASS,True,1.0,1.0
-52,Telugu,Native,లైబ్రరీకి 500 మీటర్ల లోపు కేఫ్‌ని కనుగొనండి.,Find the cafe within five hundred meters of the library.,1.6666666666666667,Find the cafe within five hundred meters of the library.,✅ PASS,True,1.0,1.0
-53,Tamil,Native,நூலகத்தின் 500 மீட்டருக்குள் ஒரு கஃபேவை கண்டுபிடி.,Find a cafe within five hundred meters of the library.,1.6666666666666667,Find a cafe within five hundred meters of the library.,✅ PASS,True,1.0,1.0
-54,Hindi,Romanized,library ke 500 meter ke andar ek cafe batao.,Show me a cafe within 500 meters of the library.,1.1111111111111112,Show me a cafe within 500 meters of the library.,✅ PASS,True,1.0,1.0
-55,Multi,Slang,library ke aas paas 500m me koi chai ki tapri hai kya?,Is there a tea shop in Five Hundred M near the library?,1.0,Is there a tea shop in Five Hundred M near the library?,⚠️  STRUCT_ONLY,False,0.0,1.0
-56,Punjabi,Native,ਲਾਇਬ੍ਰੇਰੀ ਦੇ 500 ਮੀਟਰ ਦੇ ਅੰਦਰ ਇੱਕ ਕੈਫੇ ਲੱਭੋ।,Grab a cafe within five hundred meters of the library.,1.1111111111111112,Grab a cafe within five hundred meters of the library.,✅ PASS,True,1.0,1.0
+50,Hindi,Native,Find a cafe within 500 meters of the library.,Find a cafe within 500 meters of the library,0.1111111111111111,Find a cafe within 500 meters of the library,✅ PASS,True,1.0,1.0
+51,Marathi,Native,Find a cafe within 500 meters of the library.,Find a cafe within 500 meters of the library.,0.0,Find a cafe within 500 meters of the library.,✅ PASS,True,1.0,1.0
+52,Telugu,Native,Find a cafe within 500 meters of the library.,Find the cafe within five hundred meters of the library.,0.3333333333333333,Find the cafe within five hundred meters of the library.,✅ PASS,True,1.0,1.0
+53,Tamil,Native,Find a cafe within 500 meters of the library.,Find a cafe within five hundred meters of the library.,0.2222222222222222,Find a cafe within five hundred meters of the library.,✅ PASS,True,1.0,1.0
+54,Hindi,Romanized,Find a cafe within 500 meters of the library.,Show me a cafe within 500 meters of the library.,0.2222222222222222,Show me a cafe within 500 meters of the library.,✅ PASS,True,1.0,1.0
+55,Multi,Slang,Find a cafe within 500 meters of the library.,Is there a tea shop in Five Hundred M near the library?,1.1111111111111112,Is there a tea shop in Five Hundred M near the library?,⚠️  STRUCT_ONLY,False,0.0,1.0
+56,Punjabi,Native,Find a cafe within 500 meters of the library.,Grab a cafe within five hundred meters of the library.,0.3333333333333333,Grab a cafe within five hundred meters of the library.,✅ PASS,True,1.0,1.0

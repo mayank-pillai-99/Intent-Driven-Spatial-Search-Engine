@@ -5,71 +5,71 @@
   ✅ PASS        : 46  (82.1%)
   ❌ FAIL        : 10  (17.9%)
 
-  Avg Struct Score  : 0.878
+  Avg Struct Score  : 0.872
   Avg F1 Semantic   : 0.808
-  Avg Audio WER     : 1.119
+  Avg Audio WER     : 0.470
 
 ── Per-Language ─────────────────────────────────────────
 ╭────────────┬─────────┬──────────┬──────────────┬──────────┬───────────┬──────────╮
 │ Category   │   Total │   Passed │   Avg Struct │   Avg F1 │   Avg WER │   Pass % │
 ├────────────┼─────────┼──────────┼──────────────┼──────────┼───────────┼──────────┤
-│ English    │       7 │        5 │     0.881    │ 0.801675 │  0.103175 │  71.4286 │
-│ Hindi      │      14 │       13 │     0.881    │ 0.871996 │  1.19422  │  92.8571 │
-│ Marathi    │       7 │        6 │     0.881    │ 0.824577 │  1.37063  │  85.7143 │
-│ Multi      │       7 │        4 │     0.928571 │ 0.559271 │  1.05357  │  57.1429 │
-│ Punjabi    │       7 │        5 │     0.809571 │ 0.767063 │  1.20941  │  71.4286 │
-│ Tamil      │       7 │        6 │     0.833286 │ 0.844985 │  1.46825  │  85.7143 │
-│ Telugu     │       7 │        7 │     0.928571 │ 0.920173 │  1.35595  │ 100      │
+│ English    │       7 │        5 │     0.877429 │ 0.801675 │  0.103175 │  71.4286 │
+│ Hindi      │      14 │       13 │     0.877429 │ 0.871996 │  0.322743 │  92.8571 │
+│ Marathi    │       7 │        6 │     0.857    │ 0.824577 │  0.429499 │  85.7143 │
+│ Multi      │       7 │        4 │     0.918286 │ 0.559271 │  1.25374  │  57.1429 │
+│ Punjabi    │       7 │        5 │     0.816286 │ 0.767063 │  0.586348 │  71.4286 │
+│ Tamil      │       7 │        6 │     0.816286 │ 0.844985 │  0.300531 │  85.7143 │
+│ Telugu     │       7 │        7 │     0.938714 │ 0.920173 │  0.4438   │ 100      │
 ╰────────────┴─────────┴──────────┴──────────────┴──────────┴───────────┴──────────╯
 
 ── Per-Dialect ──────────────────────────────────────────
 ╭────────────┬─────────┬──────────┬──────────────┬──────────┬───────────┬──────────╮
 │ Category   │   Total │   Passed │   Avg Struct │   Avg F1 │   Avg WER │   Pass % │
 ├────────────┼─────────┼──────────┼──────────────┼──────────┼───────────┼──────────┤
-│ Native     │      42 │       36 │     0.869071 │ 0.847515 │   1.11615 │  85.7143 │
-│ Romanized  │       7 │        6 │     0.881    │ 0.817374 │   1.19898 │  85.7143 │
-│ Slang      │       7 │        4 │     0.928571 │ 0.559271 │   1.05357 │  57.1429 │
+│ Native     │      42 │       36 │     0.863857 │ 0.847515 │  0.361609 │  85.7143 │
+│ Romanized  │       7 │        6 │     0.877429 │ 0.817374 │  0.339183 │  85.7143 │
+│ Slang      │       7 │        4 │     0.918286 │ 0.559271 │  1.25374  │  57.1429 │
 ╰────────────┴─────────┴──────────┴──────────────┴──────────┴───────────┴──────────╯
 
 ── Failed / Warning Cases ─────────────────────────────────
 
-  [07] ⚠️  STRUCT_ONLY  [Slang]  koi khane peene ki jagah batao, cafe waghera
-       ASR PRED: Tell me where to eat and drink, Cafe Waghera (WER: 0.88)
+  [07] ⚠️  STRUCT_ONLY  [Slang]  Find cafes or restaurants.
+       ASR PRED: Tell me where to eat and drink, Cafe Waghera (WER: 2.25)
        ENG TRANS: Tell me where to eat and drink, Cafe Waghera
 
   [25] ⚠️  STRUCT_ONLY  [Native]  Find the nearest cafe to the dormitory.
        ASR PRED: Find the nearest cafe to the dormitory. (WER: 0.00)
        ENG TRANS: Find the nearest cafe to the dormitory.
 
-  [29] ❌ FAIL  [Native]  விடுதிக்கு மிக அருகில் உள்ள கஃபேவை கண்டுபிடி.
-       ASR PRED: Find the nearest cafe to the hotel. (WER: 1.17)
+  [29] ❌ FAIL  [Native]  Find the nearest cafe to the dormitory.
+       ASR PRED: Find the nearest cafe to the hotel. (WER: 0.14)
        ENG TRANS: Find the nearest cafe to the hotel.
 
-  [31] ⚠️  STRUCT_ONLY  [Slang]  hostel ke nazdeek sabse paas wali tapri kidhar hai?
-       ASR PRED: Where is the nearest tapri near the hostel? (WER: 1.00)
+  [31] ⚠️  STRUCT_ONLY  [Slang]  Find the nearest cafe to the dormitory.
+       ASR PRED: Where is the nearest tapri near the hostel? (WER: 0.71)
        ENG TRANS: Where is the nearest tapri near the hostel?
 
-  [32] ❌ FAIL  [Native]  ਡਾਰਮਿਟਰੀ ਲਈ ਨਜ਼ਦੀਕੀ ਕੈਫੇ ਲੱਭੋ.
-       ASR PRED: Find a nearby cafe for diarrhea... (WER: 1.20)
+  [32] ❌ FAIL  [Native]  Find the nearest cafe to the dormitory.
+       ASR PRED: Find a nearby cafe for diarrhea... (WER: 0.71)
        ENG TRANS: Find a nearby cafe for diarrhea...
 
   [33] ⚠️  STRUCT_ONLY  [Native]  Find a library that is NOT a school.
        ASR PRED: Find a library that is not a school. (WER: 0.00)
        ENG TRANS: Find a library that is not a school.
 
-  [35] ⚠️  STRUCT_ONLY  [Native]  शाळा नसलेले ग्रंथालय शोधा.
-       ASR PRED: Search for libraries that do not have schools (WER: 2.00)
+  [35] ⚠️  STRUCT_ONLY  [Native]  Find a library that is NOT a school.
+       ASR PRED: Search for libraries that do not have schools (WER: 0.75)
        ENG TRANS: Search for libraries that do not have schools
 
-  [38] ⚠️  STRUCT_ONLY  [Romanized]  library dhundho jo school nahi hai.
-       ASR PRED: Find a library that is not a school, (WER: 1.17)
+  [38] ⚠️  STRUCT_ONLY  [Romanized]  Find a library that is NOT a school.
+       ASR PRED: Find a library that is not a school, (WER: 0.12)
        ENG TRANS: Find a library that is not a school,
 
-  [40] ⚠️  STRUCT_ONLY  [Native]  ਅਜਿਹੀ ਲਾਇਬ੍ਰੇਰੀ ਲੱਭੋ ਜੋ ਸਕੂਲ ਨਾ ਹੋਵੇ।
-       ASR PRED: If there is no school, then the library is like this. (WER: 1.57)
+  [40] ⚠️  STRUCT_ONLY  [Native]  Find a library that is NOT a school.
+       ASR PRED: If there is no school, then the library is like this. (WER: 1.38)
        ENG TRANS: If there is no school, then the library is like this.
 
-  [55] ⚠️  STRUCT_ONLY  [Slang]  library ke aas paas 500m me koi chai ki tapri hai kya?
-       ASR PRED: Is there a tea shop in Five Hundred M near the library? (WER: 1.00)
+  [55] ⚠️  STRUCT_ONLY  [Slang]  Find a cafe within 500 meters of the library.
+       ASR PRED: Is there a tea shop in Five Hundred M near the library? (WER: 1.11)
        ENG TRANS: Is there a tea shop in Five Hundred M near the library?
 

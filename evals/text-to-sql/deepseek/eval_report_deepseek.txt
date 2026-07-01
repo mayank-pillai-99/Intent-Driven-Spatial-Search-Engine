@@ -1,25 +1,26 @@
 
 =================================================================
-📊  HYBRID EVALUATION REPORT  v4.1
+📊  HYBRID EVALUATION REPORT  v4.2 (Updated w/ Spatial Func Check)
 =================================================================
   Total          : 50
   ✅ PASS        : 14  (28.0%)
-  ❌ FAIL        : 20  (40.0%)
-  ⚠️  STRUCT_ONLY : 16
+  ❌ FAIL        : 24  (48.0%)
+  ⚠️  STRUCT_ONLY : 12
   ⚠️  SEM_ONLY    : 0
   ⚠️  NO_PRED     : 0
 
-  Avg Struct Score  : 0.497
+  Avg Struct Score  : 0.489
   Avg F1 Semantic   : 0.297
 
 ── Per-Difficulty (Spider-style) ──────────────────────────
 ╭──────────────┬─────────┬──────────┬──────────────┬───────────┬──────────╮
 │ difficulty   │   total │   passed │   avg_struct │    avg_f1 │   pass_% │
 ├──────────────┼─────────┼──────────┼──────────────┼───────────┼──────────┤
-│ easy         │       8 │        5 │     0.6875   │ 0.625     │     62.5 │
-│ medium       │       6 │        4 │     0.888833 │ 0.74359   │     66.7 │
-│ hard         │      13 │        5 │     0.512769 │ 0.384615  │     38.5 │
-│ extra        │       8 │        0 │     0.416625 │ 0.0465116 │      0   │
+│ easy         │       8 │        5 │     0.696375 │ 0.625     │     62.5 │
+│ medium       │       6 │        4 │     0.904667 │ 0.74359   │     66.7 │
+│ hard         │      13 │        5 │     0.505462 │ 0.384615  │     38.5 │
+│ extra        │       8 │        0 │     0.4285   │ 0.0465116 │      0   │
+│ extreme      │      15 │        0 │     0.2286   │ 0         │      0   │
 ╰──────────────┴─────────┴──────────┴──────────────┴───────────┴──────────╯
 
 ── Failed / Warning Cases ─────────────────────────────────
@@ -149,19 +150,19 @@
        GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
        PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
 
-  [44] ⚠️  STRUCT_ONLY  [extreme]  Where is the nearest pharmacy to the hostel?
+  [44] ❌ FAIL  [extreme]  Where is the nearest pharmacy to the hostel?
        GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
        PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
 
-  [45] ⚠️  STRUCT_ONLY  [extreme]  Find the closest park to the university.
+  [45] ❌ FAIL  [extreme]  Find the closest park to the university.
        GOLD    : SELECT target.geometry, target.name, target.leisure, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
        PRED    : SELECT target.geometry, target.name, target.leisure, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
 
-  [46] ⚠️  STRUCT_ONLY  [extreme]  Find the nearest fast food to the dormitory.
+  [46] ❌ FAIL  [extreme]  Find the nearest fast food to the dormitory.
        GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
        PRED    : SELECT target.geometry, target.name, target.amenity, ST_Distance(target.geometry::geography, ref.geometry::geo
 
-  [47] ⚠️  STRUCT_ONLY  [hard]  Find the nearest cafe.
+  [47] ❌ FAIL  [hard]  Find the nearest cafe.
        GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' ORDER BY na
        PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' OR
 
