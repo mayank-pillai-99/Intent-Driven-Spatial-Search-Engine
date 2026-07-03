@@ -259,6 +259,11 @@ OpenAI Whisper (Large) & 66.1\% (37/56) & 0.632 & Local / Open \\
 
 \textbf{Final Recommendation:} \textbf{SeamlessM4T v2} is our official choice for the voice engine because it is fast, accurate, and runs 100\% offline.
 
+\subsection{Hybrid Knowledge Retrieval (RAG \& Intent Routing)}
+While spatial databases are perfect for rigid geographic data, campus life also involves unstructured policy information (e.g., hostel rules, grading systems, and deadlines). To bridge this gap, we implemented a Retrieval-Augmented Generation (RAG) pipeline powered by FAISS vector memory and LangChain. 
+
+When a user speaks a query, Qwen2.5-Coder acts as an \textbf{Intent Router}. If the user asks a geographic question (e.g., ``Where is the nearest cafe?''), it is routed to the PostGIS Text-to-SQL engine. However, if the user asks a policy question (e.g., ``What is the penalty for ragging?''), the query is routed to the FAISS database, which extracts the relevant clauses from uploaded PDF rulebooks. This decoupled architecture ensures the AI never hallucinates rules and provides a truly universal assistant experience.
+
 \subsection{The Final End-to-End App}
 The final product of this project is a fully integrated app that runs completely offline on a single local GPU. Here is how data flows through the system:
 
