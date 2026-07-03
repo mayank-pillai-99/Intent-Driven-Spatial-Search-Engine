@@ -92,34 +92,34 @@ Testing an AI's ability to write SQL is difficult. You cannot simply check if th
 
 To accurately test our models against messy, real-world data, we built a custom two-step \textbf{Hybrid Evaluation Framework}. The design of this framework was directly informed by the evolution of evaluation methodologies in the Text-to-SQL literature, which we summarize below.
 
-\subsection{Evolution of Text-to-SQL Evaluation in Literature}
+\subsection{Evolution of Text-to-SQL Evaluation}
 
-The academic community has iterated through several generations of evaluation strategies, each addressing the limitations of the previous one.
+To accurately test our models, we built a \textbf{Hybrid Evaluation Framework} inspired by the evolution of SQL benchmarks:
 
 \begin{enumerate}
-    \item \textbf{Exact Match (WikiSQL, 2017):} The earliest large-scale benchmark, WikiSQL \cite{zhong2017wikisql}, contained 87,726 question-SQL pairs but used only simple, single-table queries. Its primary metric was \textit{Exact Match (EM)}, which checks if the predicted SQL string is character-for-character identical to the gold standard. This was widely criticized because multiple, syntactically different SQL queries can return the same correct result.
-
-    \item \textbf{Component Matching (Spider, 2018):} The Spider benchmark \cite{yu2018spider} introduced complex, cross-domain queries (10,181 examples across 200 databases) with multi-table \texttt{JOIN}s, nested subqueries, and \texttt{GROUP BY} clauses. To overcome the rigidity of Exact Match, Spider introduced \textit{Exact Set Match}, which parses the SQL into individual clauses (\texttt{SELECT}, \texttt{WHERE}, \texttt{ORDER BY}) and compares the predicted \textit{sets} of columns, tables, and operators against the gold standard. \textbf{Our structural scoring (Step 1) is directly inspired by this approach}, using the \texttt{sqlglot} library to parse SQL into Abstract Syntax Trees (ASTs) for clause-level comparison.
-
-    \item \textbf{Execution Accuracy (BIRD, 2023):} The BIRD benchmark \cite{li2023bird} (12,751 pairs across 95 real-world databases totaling 33.4 GB) introduced \textit{Execution Accuracy (EX)}, which validates queries by running them against a live database and comparing the returned result sets. BIRD also introduced the \textit{Valid Efficiency Score (VES)} to reward computationally efficient queries. \textbf{Our live execution scoring (Step 2) follows this execution-based philosophy}, but we extend it from a binary pass/fail to a continuous \textit{Semantic F1 Score} that rewards partial spatial reasoning.
-
-    \item \textbf{Robustness Testing (Dr.Spider, 2023):} Dr.Spider \cite{chang2023drspider} demonstrated that high-performing models are fragile, suffering up to 50.7\% accuracy drops when subjected to 17 types of linguistic and schema perturbations. \textbf{Our multilingual benchmark follows this perturbation philosophy}: each of the 7 base spatial intents is tested across 8 linguistic variants (native script, Romanized, code-mixed slang across 6 languages), effectively functioning as a robustness perturbation suite.
-
-    \item \textbf{Spatial SQL Evaluation (GeoSQL-Eval, 2026):} Most recently, GeoSQL-Eval \cite{jiao2026geosql} became the first benchmark specifically designed for PostGIS spatial queries, containing 14,178 tasks across 340 spatial functions and 82 databases. It found that approximately 70\% of LLM errors in spatial tasks stem from incorrect spatial function selection (e.g., hallucinating \texttt{ST\_Buffer} instead of \texttt{ST\_DWithin}), rather than basic SQL syntax errors. Our project addresses the same spatial reasoning challenge within a single, dense OpenStreetMap schema.
+    \item \textbf{Exact Match (WikiSQL, 2017):} Early benchmarks \cite{zhong2017wikisql} checked if the AI's SQL perfectly matched the answer key. This was flawed because two syntactically different SQL queries can return the same correct data.
+    
+    \item \textbf{Component Matching (Spider, 2018):} Spider \cite{yu2018spider} solved this by parsing SQL into its individual clauses (\texttt{SELECT}, \texttt{WHERE}, \texttt{ORDER BY}) to compare logic instead of raw text. \textbf{Our structural scoring (Step 1) is directly inspired by this.}
+    
+    \item \textbf{Execution Accuracy (BIRD, 2023):} BIRD \cite{li2023bird} took it a step further by actually running the AI's code on a live database to see if it fetched the correct results. \textbf{Our live execution scoring (Step 2) follows this approach.}
+    
+    \item \textbf{Robustness Testing (Dr.Spider, 2023):} Dr.Spider \cite{chang2023drspider} proved that AI models break easily when users change how they ask a question or use slang. \textbf{We built our multilingual dataset to test this exact linguistic robustness.}
+    
+    \item \textbf{Spatial SQL (GeoSQL-Eval, 2026):} GeoSQL-Eval \cite{jiao2026geosql} found that LLMs struggle specifically with PostGIS spatial math (like hallucinating \texttt{ST\_Buffer} instead of \texttt{ST\_DWithin}). \textbf{Our project directly addresses this geographic reasoning challenge.}
 \end{enumerate}
 
-\noindent Our Hybrid Evaluation Framework synthesizes the strengths of these approaches: \textit{clause-level structural parsing} from Spider, \textit{live database execution} from BIRD, and \textit{multilingual perturbation testing} from Dr.Spider, applied to the \textit{spatial SQL domain} identified by GeoSQL-Eval.
+\noindent Our Hybrid Evaluation Framework combines the best of all these: Spider's structural parsing, BIRD's live database execution, and Dr.Spider's linguistic robustness, all applied to the spatial SQL domain identified by GeoSQL-Eval.
 
 \subsection{Step 1: Code Structure Check}
-Before executing the generated SQL on the live database (which could result in crashes or massive unbounded data downloads), we first perform a strict Abstract Syntax Tree (AST) structural analysis. Using the \texttt{sqlglot} parser, we decompose the SQL query into its constituent clauses and evaluate it across seven independent dimensions:
+Before executing the generated SQL on the live database (which could result in crashes or massive data downloads), we perform an Abstract Syntax Tree (AST) structural analysis. Using the \texttt{sqlglot} parser, we decompose the SQL query into its clauses and evaluate it across seven dimensions:
 \begin{itemize}
     \item \textbf{SELECT Clause Accuracy:} Verifies that the correct geographic and attribute columns are projected without hallucinating non-existent columns.
-    \item \textbf{FROM Clause Mapping:} Ensures the query targets the correct base table (\texttt{campus\_places}) and uses appropriate aliases for self-joins.
-    \item \textbf{WHERE Clause Filtering:} Confirms that mandatory filters (e.g., \texttt{name IS NOT NULL}) and required attribute tags are present to prevent unbounded data retrieval.
-    \item \textbf{WHERE\_OPS Logical Safety:} Checks the correct usage of logical operators, ensuring \texttt{ILIKE} is used for loose text matching and \texttt{AND/OR} groupings are logically sound.
-    \item \textbf{ORDER BY Accuracy:} Validates that results are sorted correctly, which is especially critical for nearest-neighbor spatial queries sorted by distance.
-    \item \textbf{LIMIT Constraints:} Ensures that the query strictly adheres to pagination rules (e.g., \texttt{LIMIT 1} or \texttt{LIMIT 5}) to prevent flooding the UI.
-    \item \textbf{Spatial Function Accuracy:} Inspired by the GeoSQL-Eval framework (2026), we verify that the model selects the correct PostGIS mathematical function (e.g., \texttt{ST\_DWithin} for radii vs \texttt{ST\_Distance} for nearest-neighbor) and correctly casts geometries to geographies (\texttt{::geography}) for the specific spatial intent.
+    \item \textbf{FROM Clause Mapping:} Ensures the query targets the correct base table (\texttt{campus\_places}) and uses appropriate aliases for spatial self-joins.
+    \item \textbf{WHERE Clause Filtering:} Confirms that the necessary attribute tags (e.g., \texttt{amenity ILIKE '\%toilets\%'}) are present to prevent unbounded data retrieval.
+    \item \textbf{Logical Operator Safety:} Checks the correct usage of logical operators, ensuring \texttt{ILIKE} is used for text matching and \texttt{AND/OR} groupings are logically sound.
+    \item \textbf{ORDER BY Accuracy:} Validates that results are sorted correctly, which is critical for nearest-neighbor spatial queries sorted by distance.
+    \item \textbf{LIMIT Constraints:} Ensures the query adheres to pagination rules (e.g., \texttt{LIMIT 5}) to prevent flooding the User Interface.
+    \item \textbf{Spatial Function Accuracy:} Verifies that the model selects the correct PostGIS function (e.g., \texttt{ST\_DWithin} for radii vs \texttt{ST\_Distance} for nearest-neighbor) and properly casts geometries to geographies (\texttt{::geography}).
 \end{itemize}
 
 \subsection{Step 2: Live Database Execution}
@@ -135,10 +135,10 @@ If the AI writes broken code that crashes the database, it immediately receives 
 
 \section{Dataset Curation \& Methodology}
 
-To rigorously test both the spatial reasoning of the Text-to-SQL models and the linguistic robustness of the translation models, two highly specialized datasets were manually curated for the Pilani and IIT Bombay campus regions.
+To rigorously test both the spatial reasoning of the Text-to-SQL models and the linguistic robustness of the translation models, a highly specialized dataset was manually curated for the IIT Bombay campus region.
 
 \subsection{Database Construction (OpenStreetMap)}
-We needed a live, real-world map to test our AI against. We pulled mapping data directly from OpenStreetMap for a 3km radius around the BITS Pilani and IIT Bombay campuses. We filtered for relevant map features (like cafes, parks, and libraries), cleaned the data, and loaded it into a local PostgreSQL spatial database. This became the playground for our AI models.
+We needed a live, real-world map to test our AI against. We pulled mapping data directly from OpenStreetMap for a 3km radius around the IIT Bombay campus. We filtered for relevant map features (like cafes, parks, and libraries), cleaned the data, and loaded it into a local PostgreSQL spatial database. This became the playground for our AI models.
 
 \subsection{Justification for Zero-Shot Benchmark Scale (Diversity Over Volume)}
 Because we evaluate frontier LLMs (like Qwen2.5-Coder) in a Zero-Shot setting, inflating the test set with hundreds of queries would inevitably introduce structural redundancy (asking the same SQL logic in different words). While we did not fine-tune the model on a specific training dataset, frontier LLMs are pre-trained on millions of SQL queries. Inflating our dataset with simple queries would merely test if the model memorized basic SQL syntax during pre-training, rather than testing its ability to perform true compositional spatial reasoning.
@@ -260,12 +260,12 @@ OpenAI Whisper (Large) & 66.1\% (37/56) & 0.632 & Local / Open \\
 \textbf{Final Recommendation:} \textbf{SeamlessM4T v2} is our official choice for the voice engine because it is fast, accurate, and runs 100\% offline.
 
 \subsection{Hybrid Knowledge Retrieval (RAG \& Intent Routing)}
-While spatial databases are perfect for rigid geographic data, campus life also involves unstructured policy information (e.g., hostel rules, grading systems, and deadlines). To bridge this gap, we implemented a Retrieval-Augmented Generation (RAG) pipeline powered by FAISS vector memory and LangChain. 
+While spatial databases are perfect for rigid geographic data, navigating any local environment also involves unstructured policy information (e.g., hostel rules, temple dress codes, and tourist guidelines). To bridge this gap, we implemented a Retrieval-Augmented Generation (RAG) pipeline powered by FAISS vector memory and LangChain. 
 
 When a user speaks a query, Qwen2.5-Coder acts as an \textbf{Intent Router}. If the user asks a geographic question (e.g., ``Where is the nearest cafe?''), it is routed to the PostGIS Text-to-SQL engine. However, if the user asks a policy question (e.g., ``What is the penalty for ragging?''), the query is routed to the FAISS database, which extracts the relevant clauses from uploaded PDF rulebooks. This decoupled architecture ensures the AI never hallucinates rules and provides a truly universal assistant experience.
 
 \subsection{The Final End-to-End App}
-The final product of this project is a fully integrated app that runs completely offline on a single local GPU. Here is how data flows through the system:
+The final product of this project is a fully integrated app that runs completely offline on a single local GPU. The pipeline is highly generalized, natively supporting spatial routing and policy lookups for colleges, tourist places, and temples across the globe. Here is how data flows through the system:
 
 \begin{enumerate}
     \item \textbf{User Input:} A simple web interface lets the user type a question or speak directly into their microphone in their native language.
