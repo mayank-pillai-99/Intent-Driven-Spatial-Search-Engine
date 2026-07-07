@@ -1,0 +1,38 @@
+Here are some fantastic sample queries you can use to test both the Spatial Database (DB) routing capabilities and the Retrieval-Augmented Generation (RAG) capabilities of your application!
+
+🎓 1. College (IIT Bombay) - DB Spatial Queries
+These queries will test Qwen's ability to generate PostGIS spatial math (like ST_DWithin, ST_ClosestPoint, etc.) to route around a campus map.
+
+Intent Search: "Find me a quiet place to study."
+Intent Search: "Where can I get some cheap food."
+Radius Search: "Find cafes within 500m of the library."
+Nearest Neighbor: "Where is the nearest ATM to Hostel 12?"
+📖 2. College (IIT Bombay) - RAG Queries
+These queries test your RAG system's ability to parse the ugrulebook.pdf and fetch the exact academic regulations.
+
+Attendance Rules: "What happens if my attendance is below 80%?"
+Branch Change: "What CPI do I need for a branch change to LASE?"
+Project Extensions: "How long of an extension can I get for my BTP?"
+
+
+🛕 3. Golden Temple - DB Spatial Queries
+These queries will test your engine's ability to map tourist locations, amenities, and historical sites in Amritsar.
+
+Simple DB: "Find me the nearest toilet."
+Simple DB: "Find restaurants where wheelchairs are allowed."
+Intent Search: "Find me a quiet place"
+Find me a cafe
+👳 4. Golden Temple - RAG Queries
+These queries test your RAG system's ability to pull hyper-specific tourist information and historical facts from the golden-temple-amritsar-travel-guide.pdf.
+
+Simple RAG: "Where should I leave my shoes before entering?"
+Simple RAG: "Am I allowed to take photos inside?"
+Simple RAG: "What is the name of the holy tank?"
+Temple Rules: "Can I swim or use soap in the Amrit Sarovar?"
+Facilities: "Is there free medical help inside the temple?"
+
+🌐 5. Multilingual Queries (Indian Languages)
+These queries test SeamlessM4T's ability to translate native languages into English before processing.
+
+Hindi (College DB): "मुझे पढ़ाई करने के लिए कोई शांत जगह बताओ।" (Find me a quiet place to study.)
+Marathi (College RAG): "माझी उपस्थिती ८० टक्क्यांपेक्षा कमी असल्यास काय होईल?" (What happens if my attendance is below 80%?)
