@@ -1,0 +1,142 @@
+
+=================================================================
+📊  HYBRID EVALUATION REPORT  v4.1
+=================================================================
+  Total          : 80
+  ✅ PASS        : 57  (71.2%)
+  ❌ FAIL        : 1  (1.2%)
+  ⚠️  STRUCT_ONLY : 21
+  ⚠️  SEM_ONLY    : 1
+  ⚠️  NO_PRED     : 0
+
+  Avg Struct Score  : 0.796
+  Avg F1 Semantic   : 0.708
+
+── Per-Difficulty (Spider-style) ──────────────────────────
+╭──────────────┬─────────┬──────────┬──────────────┬──────────┬──────────╮
+│ difficulty   │   total │   passed │   avg_struct │   avg_f1 │   pass_% │
+├──────────────┼─────────┼──────────┼──────────────┼──────────┼──────────┤
+│ easy         │      19 │       17 │     0.877263 │ 0.905263 │     89.5 │
+│ medium       │      16 │       11 │     0.833313 │ 0.675595 │     68.8 │
+│ hard         │      16 │        7 │     0.729187 │ 0.439394 │     43.8 │
+│ extra        │      11 │        9 │     0.833273 │ 0.719697 │     81.8 │
+╰──────────────┴─────────┴──────────┴──────────────┴──────────┴──────────╯
+
+── Failed / Warning Cases ─────────────────────────────────
+
+  [05] ⚠️  STRUCT_ONLY  [easy]  Find bakeries near campus.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (shop ILIKE '%bakery%' OR amenity
+       PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       MISSING : ['nobles']
+
+  [07] ⚠️  STRUCT_ONLY  [medium]  Show me places where I can get takeaway food.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND takeaway ILIKE '%yes%' ORDER BY na
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND ("takeaway" = 'yes' OR am
+       EXTRA   : ['annapurna restaurant', "c'not", 'food ministry', "pramod's kitchen", 'vijay restaurant']
+
+  [08] ⚠️  STRUCT_ONLY  [medium]  Find places with outdoor seating.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND outdoor_seating ILIKE '%yes%' ORDE
+       PRED    : SELECT name, amenity, leisure FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '
+       MISSING : ['food ministry', 'looters', 'paradise cafe', 'sky lab']
+       EXTRA   : ['bits swimming pool', 'hanumanputra khel maidaan', 'm lawns', 's lawns', 'shiv ganga', 'south park', 'student activities center', 'tennis court']
+
+  [10] ⚠️  STRUCT_ONLY  [hard]  Show me non-vegetarian food places that are cafes.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND "diet:v
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AN
+
+  [17] ⚠️  STRUCT_ONLY  [hard]  Find lit sports pitches with grass surface.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND leisure ILIKE '%pitch%' AND surfac
+       PRED    : SELECT name, sport, leisure FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND sport ILIKE '%tabl
+       MISSING : ['med-c ground']
+
+  [18] ⚠️  STRUCT_ONLY  [hard]  Show me indoor sports facilities.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '%sports_centre%' O
+       PRED    : SELECT name, amenity, sport FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%s
+       EXTRA   : ['bits gymkhana grounds', 'bits volleyball court', 'malviya badminton court', 'med-c ground', 'skating area', 'student activities center']
+
+  [21] ⚠️  STRUCT_ONLY  [medium]  Find all bhawans or hostels.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (building ILIKE '%dormitory%' OR n
+       PRED    : SELECT name, building FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (building ILIKE '%bhawan
+       MISSING : ['ashok bhawan', 'bhagirath bhawan', 'boys hostel', 'budh bhawan', 'c.v. raman bhawan', 'gandhi bhawan', 'girls hostel', 'krishna bhawan', 'malviya-a', 'malviya-b', 'meera bhawan', 'ram bhawan', 'rana pratap bhawan', 'shankar bhawan', 'srinivas ramanujan bhawan', 'srinivas ramanujan hostel', 'vishwakarma bhawan', 'vyas bhawan']
+
+  [25] ⚠️  STRUCT_ONLY  [extra]  Show me Malviya Bhawan block A and block B.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (name ILIKE '%Malviya-A%' OR name
+       PRED    : SELECT name, geometry FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (name ILIKE '%Malviya Bh
+       MISSING : ['malviya-a', 'malviya-b']
+
+  [28] ⚠️  STRUCT_ONLY  [easy]  Find the university.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%university%' OR b
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%universit
+       MISSING : ['department of pharmacy', 'fd 1', 'fd-2 & fd-3', 'lecture theatre complex', 'nab', 'new academic block', 'new academic building', 'rakesh kapoor innovation centre']
+
+  [36] ⚠️  STRUCT_ONLY  [medium]  Which places accept UPI payment?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND "payment:upi" = 'yes' ORDER BY nam
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND "shop" ILIKE '%supermarke
+
+  [37] ⚠️  STRUCT_ONLY  [medium]  Show me places that accept Google Pay.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND "payment:google_pay" = 'yes' ORDER
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND "payment_methods" LIKE '%
+
+  [39] ⚠️  STRUCT_ONLY  [hard]  Show me food places with UPI or Google Pay that accept takeaway.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity
+       PRED    : SELECT name, amenity, "takeaway", internet_access FROM campus_places WHERE name IS NOT NULL AND name != 'nan'
+       EXTRA   : ['kamals']
+
+  [49] ⚠️  STRUCT_ONLY  [hard]  Show me photogenic spots like statues, memorials or museums.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (tourism ILIKE '%museum%' OR touri
+       PRED    : SELECT name, amenity, tourism, historic FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (touri
+       MISSING : ['bhagat singh statue', 'birla museum', 'g.d. birla statu', 'gandhi', 'patel', 'shiv ganga', 'shiva statue']
+
+  [57] ⚠️  STRUCT_ONLY  [extra]  I need a productive place to study with good internet.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (internet_access ILIKE '%wlan%' OR
+       PRED    : SELECT name, amenity, internet_access FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity
+       MISSING : ['b k birla institute of engineering & technology', 'bits library', 'rakesh kapoor innovation centre']
+
+  [59] ⚠️  STRUCT_ONLY  [hard]  Find the nearest cafe.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' ORDER BY na
+       PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       MISSING : ['al café coffee d’lite', 'all night canteen', 'institutional cafe', 'paradise cafe', 'sky lab', 'tott']
+       EXTRA   : ['0101000020e61000000aad3da278e55240c8e8256b795c3c40', '0101000020e6100000cfe8fd358fe5524008c08932655d3c40', '0101000020e6100000d78dd200b9e55240553431b8415c3c40', '0101000020e6100000e7d0d84ddfe55240e92f4f42445b3c40', '0103000020e610000001000000050000001b4f5f2a91e55240a41efd8a905d3c405622f54391e55240bd0adfb18e5d3c4074c23a4492e5524057b5ff5c8f5d3c4038efa42a92e552403fc91d36915d3c401b4f5f2a91e55240a41efd8a905d3c40', '0103000020e61000000100000007000000c515bc8d72e55240388d486f135d3c40cba4e1ef72e55240cd5257e3115d3c4089c9c0a673e5524098c9cbf5115d3c409518bac873e55240d2db44d2135d3c40785ecf7c73e55240fb82cc84155d3c40a20e2bdc72e552400188bb7a155d3c40c515bc8d72e55240388d486f135d3c40']
+
+  [60] ❌ FAIL  [hard]  Where is the closest hospital?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%hospital%' ORDER B
+       PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       MISSING : ['bedwal hospital', 'birala', 'halwan multi speciality hospital', 'indra hospital', 'mahadeo singhi eye hospital', 'med-c', 'raj nursing home', 'sankhla ent hospital', 'sihag hospital', 'vedhwal', 'verma heart & lung care centre']
+       EXTRA   : ['0101000020e6100000006f8104c5e552405bc2eb44935b3c40', '0101000020e610000011757a39c7e652409a8e4afb305c3c40', '0101000020e61000001bce46f8a8e65240e99c9fe2385c3c40', '0101000020e610000044b5d2b5c0e65240908e6104435c3c40', '0101000020e6100000794ceec1b5e652409770e82d1e5c3c40', '0101000020e6100000b83aa528bce6524068d8de5d1d5c3c40', '0101000020e6100000bbae04f7a8e6524006ec0f39225c3c40', '0101000020e6100000c2d6112cb3e65240d278d8fad85b3c40', '0101000020e6100000e0d34103d6e6524065f5b3fdd05b3c40', '0101000020e6100000e9633e20d0e55240b4cbb73eac5f3c40', '0103000020e61000000100000006000000085740a19ee552402c2e8eca4d603c4056702eb4a9e55240c1f39c3e4c603c4097d2e92faae55240e9e85d6166603c4008a5d4caa9e552408c4cc0af91603c4014330c699ee5524093cdb0ac8f603c40085740a19ee552402c2e8eca4d603c40']
+
+  [61] ⚠️  STRUCT_ONLY  [hard]  Find the nearest park.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND leisure ILIKE '%park%' ORDER BY na
+       PRED    : SELECT target.geometry, target.name, target.leisure, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       MISSING : ['hanumanputra khel maidaan', 'south park']
+       EXTRA   : ['0101000020e6100000456458c59be55240a0e5d429ea5b3c40', '0103000020e61000000100000007000000bfe90203ade55240e2b2655474593c40832adac1ade55240076f59cf5a593c4093ce763bb1e55240a1eaa1c739593c4056d86729b4e552404c9d91521a593c40c160eddec0e552406e0be0771d593c403f12407bbfe5524018a600625c593c40bfe90203ade55240e2b2655474593c40']
+
+  [62] ⚠️  STRUCT_ONLY  [hard]  Where is the closest restaurant?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%restaurant%' ORDER
+       PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       MISSING : ['annapurna restaurant', "c'not", 'food ministry', 'kamals', "pramod's kitchen", 'vijay restaurant']
+       EXTRA   : ['0101000020e6100000122ee411dce55240bc9d3358275b3c40', '0101000020e6100000163834c0e0e552403080f0a1445b3c40', '0101000020e610000017dbff5ba4e5524094032ca85e5d3c40', '0101000020e6100000b25eb12bd2e55240cfe451e0535d3c40', '0101000020e6100000cccf0d4dd9e552407c2aa73d255b3c40', '0101000020e6100000cce6165fd9e5524044e3e4d9405b3c40', '0103000020e6100000010000000500000095168964a3e5524040e5f3e5605d3c40ff959526a5e552407582ecab615d3c4052c2024ea5e55240a78efa905c5d3c40e842f68ba3e5524066e723df5b5d3c4095168964a3e5524040e5f3e5605d3c40']
+
+  [66] ⚠️  STRUCT_ONLY  [extreme]  Find a pharmacy within 500 meters of the university.
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       MISSING : ['0101000020e61000002f3ebb32dee5524072b73533445b3c40']
+
+  [69] ⚠️  STRUCT_ONLY  [extreme]  I am stressed, is there a calm place within 800 meters of the engineering college?
+       GOLD    : SELECT target.geometry, target.name, target.amenity, target.leisure, ref.geometry AS ref_geom, ref.name AS ref
+       PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+
+  [70] ⚠️  STRUCT_ONLY  [extreme]  Find a supermarket within 800 meters of the hospital.
+       GOLD    : SELECT target.geometry, target.name, target.shop, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_p
+       PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       MISSING : ['0101000020e61000009ba9108fc4e55240be94cb90745b3c40', '0103000020e61000000200000028000000e82917cfc5e5524003b91f4b7a5b3c40a191beffc5e55240fff3ead2755b3c4017c2209fc6e5524023cacd26765b3c40000d2549c6e55240ef552b137e5b3c40cf3d35a8c7e55240d7f9b7cb7e5b3c40a6ec99cac7e552408b0cbca47b5b3c4017eafa4fc8e5524061e932eb7b5b3c4064b55439c8e552404e5e64027e5b3c40345c2e2cc9e55240ad1ee6817e5b3c40e690d442c9e55240c0a9b46a7c5b3c4040f04284c9e552402b18f08d7c5b3c4034a14962c9e552407705ecb47f5b3c40e6bb4a2dcae55240b8509e1e805b3c40750305dec9e55240382b476d875b3c40032e7e09cbe552405b5d4e09885b3c40eb5b412ecce5524087527b116d5b3c40d44dbdc9cae552404cb093556c5b3c40c255f9f9cae55240c56867e2675b3c407b4d0f0acae5524090279364675b3c40a5b5b3f9c9e55240ad6818e3685b3c40fe593d71cae55240dc48d922695b3c4087b3113ecae552400feeceda6d5b3c404080b163c8e55240ceead3e06c5b3c40b7f8ca72c8e55240221d797b6b5b3c40ac22371ec7e55240b8f6f4c76a5b3c40a0a52bd8c6e5524037bd303e715b3c400c170335c6e55240ea67a0e8705b3c40b874cc79c6e55240589297906a5b3c4013c9a18fc3e5524041560108695b3c40c6b82c70c3e552408de7d8e66b5b3c40c0b6d9b3c2e55240f398dc836b5b3c406d2bac0ac3e55240330c699e6d5b3c40eabfbd21c3e552400f5e60fb6e5b3c40eabfbd21c3e552402095078e705b3c4055e9dd0ec3e552407e69f6e5715b3c4090604fe0c2e55240c5cd041e735b3c40a8ead44bc2e5524094cd661f755b3c40aeec2708c3e552402f1c6382755b3c40437eece4c2e55240ec7c89c2785b3c40e82917cfc5e5524003b91f4b7a5b3c400500000034d593f9c7e5524067d13b15705b3c40f2385673cae552407fb1ad55715b3c4075482014cae5524098a608707a5b3c40b8e45d9ac7e5524081c6962f795b3c4034d593f9c7e5524067d13b15705b3c40']
+
+  [72] ⚠️  STRUCT_ONLY  [extreme]  Where is the closest hospital to the library?
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       MISSING : ['0101000020e6100000006f8104c5e552405bc2eb44935b3c40', '0101000020e610000011757a39c7e652409a8e4afb305c3c40', '0101000020e61000001bce46f8a8e65240e99c9fe2385c3c40', '0101000020e610000044b5d2b5c0e65240908e6104435c3c40', '0101000020e6100000794ceec1b5e652409770e82d1e5c3c40', '0101000020e6100000b83aa528bce6524068d8de5d1d5c3c40', '0101000020e6100000bbae04f7a8e6524006ec0f39225c3c40', '0101000020e6100000c2d6112cb3e65240d278d8fad85b3c40', '0101000020e6100000e0d34103d6e6524065f5b3fdd05b3c40', '0101000020e6100000e9633e20d0e55240b4cbb73eac5f3c40', '0103000020e61000000100000006000000085740a19ee552402c2e8eca4d603c4056702eb4a9e55240c1f39c3e4c603c4097d2e92faae55240e9e85d6166603c4008a5d4caa9e552408c4cc0af91603c4014330c699ee5524093cdb0ac8f603c40085740a19ee552402c2e8eca4d603c40']
+
+  [75] ⚠️  SEM_ONLY  [extreme]  Where is the nearest pharmacy to Malviya Bhawan?
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+
+=================================================================

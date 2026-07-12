@@ -1,0 +1,249 @@
+
+=================================================================
+📊  HYBRID EVALUATION REPORT  v4.1
+=================================================================
+  Total          : 80
+  ✅ PASS        : 29  (36.2%)
+  ❌ FAIL        : 29  (36.2%)
+  ⚠️  STRUCT_ONLY : 22
+  ⚠️  SEM_ONLY    : 0
+  ⚠️  NO_PRED     : 0
+
+  Avg Struct Score  : 0.483
+  Avg F1 Semantic   : 0.355
+
+── Per-Difficulty (Spider-style) ──────────────────────────
+╭──────────────┬─────────┬──────────┬──────────────┬───────────┬──────────╮
+│ difficulty   │   total │   passed │   avg_struct │    avg_f1 │   pass_% │
+├──────────────┼─────────┼──────────┼──────────────┼───────────┼──────────┤
+│ easy         │      19 │        9 │     0.587737 │ 0.479079  │     47.4 │
+│ medium       │      16 │        8 │     0.541625 │ 0.505357  │     50   │
+│ hard         │      16 │        6 │     0.614688 │ 0.363971  │     37.5 │
+│ extra        │      11 │        1 │     0.242455 │ 0.0632035 │      9.1 │
+╰──────────────┴─────────┴──────────┴──────────────┴───────────┴──────────╯
+
+── Failed / Warning Cases ─────────────────────────────────
+
+  [01] ⚠️  STRUCT_ONLY  [easy]  Where can I get coffee?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' ORDER BY na
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND ( cuisi
+
+  [02] ⚠️  STRUCT_ONLY  [easy]  Find all ice cream parlors.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%ice_cream%' ORDER
+       PRED    : SELECT element, id, name, short_name, official_name, alt_name, "name:en", "name:hi", geometry FROM campus_plac
+       MISSING : ['-301°f', 'amul parlour']
+       EXTRA   : ['node', 'way']
+
+  [04] ❌ FAIL  [easy]  List all fast food places.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%fast_food%' ORDER
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%fast_foo
+
+  [07] ⚠️  STRUCT_ONLY  [medium]  Show me places where I can get takeaway food.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND takeaway ILIKE '%yes%' ORDER BY na
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%restaurant%' OR am
+       EXTRA   : ['annapurna restaurant', "c'not", 'food ministry', "pramod's kitchen", 'vijay restaurant']
+
+  [08] ⚠️  STRUCT_ONLY  [medium]  Find places with outdoor seating.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND outdoor_seating ILIKE '%yes%' ORDE
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%library%
+       MISSING : ['food ministry', 'looters', 'paradise cafe', 'sky lab']
+       EXTRA   : ['bits library', 'hanumanputra khel maidaan', 'south park']
+
+  [09] ⚠️  STRUCT_ONLY  [hard]  Find cafes or restaurants open 24/7.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' O
+
+  [10] ⚠️  STRUCT_ONLY  [hard]  Show me non-vegetarian food places that are cafes.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' AND "diet:v
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' O
+
+  [13] ❌ FAIL  [easy]  Where can I play cricket?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (sport ILIKE '%cricket%' OR amenit
+       PRED    : *\nSELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND sport ILIKE '%cricket%' ORDER B
+
+  [14] ❌ FAIL  [medium]  Show me all sports pitches and courts.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure ILIKE '%pitch%' OR leisur
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%pitch%' OR leisure
+
+  [17] ⚠️  STRUCT_ONLY  [hard]  Find lit sports pitches with grass surface.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND leisure ILIKE '%pitch%' AND surfac
+       PRED    : SELECT name, leisure FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (leisure LIKE '%pitch%' O
+       MISSING : ['med-c ground']
+
+  [20] ⚠️  STRUCT_ONLY  [easy]  Show me residential buildings.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND building ILIKE '%residential%' ORD
+       PRED    : SELECT name, building FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (building ILIKE '%reside
+       EXTRA   : ['akshay', 'auditorium', 'birla balika vidyapeeth', 'birla education trust', 'birla museum', 'birla shishu vihar', 'bits clock tower', 'bits library', 'bits pilani - community welfare center', 'bits workshop', 'boys canteen', 'boys hostel', 'fd3', 'food ministry', 'ganga departmental store', 'girls canteen', 'girls hostel', 'kg mess', "krishna gandhi warden's residence", 'looters', 'malviya mess', 'new bits workshop', 'nss bits pilani', 'paradise cafe', 'pilani gallery', 'pilani sub post office', 'rakesh verma convention centre', 'ram-budh mess', 'recreation center', 'rp mess', 'saraswati temple', 'shankar vyas mess', 'sky lab', 'srinivas ramanujan hostel', 'student activity center (sac)', 'vidya vihar aadhar enrollment centre', 'vkb mess']
+
+  [21] ❌ FAIL  [medium]  Find all bhawans or hostels.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (building ILIKE '%dormitory%' OR n
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%bhawan%' OR amenit
+
+  [22] ❌ FAIL  [medium]  Find apartments or residential complexes.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (building ILIKE '%apartments%' OR
+       PRED    : SELECT name, building FROM campus_places WHERE (building ILIKE '%apartment%' OR building ILIKE '%residential%'
+
+  [23] ⚠️  STRUCT_ONLY  [hard]  Find Meera Bhawan girls hostel.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND name ILIKE '%Meera Bhawan%' ORDER
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (name ILIKE '%Meera Bhawan girls h
+       MISSING : ['meera bhawan']
+
+  [25] ⚠️  STRUCT_ONLY  [extra]  Show me Malviya Bhawan block A and block B.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (name ILIKE '%Malviya-A%' OR name
+       PRED    : SELECT * FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND short_name = 'Malviya Bhawan' AND bui
+       MISSING : ['malviya-a', 'malviya-b']
+
+  [26] ❌ FAIL  [extra]  Find Malviya Badminton Court or Malviya Mess.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (name ILIKE '%Malviya Badminton%'
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (sport ILIKE '%badminton%' AND lei
+
+  [27] ❌ FAIL  [easy]  Where is the library?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY
+       PRED    : python # Assuming you have a connection to your PostgreSQL database already established as `conn` and cursor a
+
+  [28] ❌ FAIL  [easy]  Find the university.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%university%' OR b
+       PRED    : Here is the SQL query for finding a university based on your user intent and database schema provided earlier
+
+  [30] ❌ FAIL  [medium]  Show me university department buildings.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (building ILIKE '%university=depar
+       PRED    : Here is the SQL query for that request based on your database schema and intent mapping rules provided earlier
+
+  [32] ❌ FAIL  [hard]  Find university buildings that are not places of worship.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND building ILIKE '%university%' AND
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity = 'university' AND buildin
+
+  [34] ❌ FAIL  [easy]  Where is the post office?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%post_office%' ORDE
+       PRED    : # [Python] PythonìĹĲìĦľ íĮĮìĿ¼ìĿĦ ìĹ´ê³ł ìĵ°ëĬĶ ë°©ë²ķ ## open() íķ¨ìĪĺë¥¼ ìĿ´ìļ©íķĺìĹ¬ íĮĮìĿ¼ ìĹ´ê¸° open() í
+
+  [36] ⚠️  STRUCT_ONLY  [medium]  Which places accept UPI payment?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND "payment:upi" = 'yes' ORDER BY nam
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND "internet_access" LIKE '%wlan%' AN
+
+  [37] ❌ FAIL  [medium]  Show me places that accept Google Pay.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND "payment:google_pay" = 'yes' ORDER
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (payment:'google pay') ORDER BY na
+
+  [39] ⚠️  STRUCT_ONLY  [hard]  Show me food places with UPI or Google Pay that accept takeaway.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%cafe%' OR amenity
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity LIKE '%restaurant%' OR ame
+
+  [46] ⚠️  STRUCT_ONLY  [easy]  Where is the museum?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND tourism ILIKE '%museum%' ORDER BY
+       PRED    : SELECT * FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%museum%' ORDER BY nam
+       MISSING : ['birla museum']
+
+  [47] ⚠️  STRUCT_ONLY  [easy]  Find all statues on campus.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND artwork_type ILIKE '%statue%' ORDE
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (artwork_type ILIKE '%statue%' OR
+
+  [50] ❌ FAIL  [extra]  Find the Birla aircraft or aircraft memorial.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (name ILIKE '%aircraft%' OR histor
+       PRED    : SELECT name FROM campus_places WHERE (historic ILIKE '%birla%' OR historic ILIKE '%aircraft%') AND name IS NOT
+
+  [52] ⚠️  STRUCT_ONLY  [extra]  Where is a quiet place to read a book?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%library%' ORDER BY
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%library%
+       EXTRA   : ['aditya vikram birla memorial', 'bhagat singh statue', 'birla aircraft', 'birla museum', 'boys hostel', 'director quarters', 'g.d birla memorial', 'g.d. birla statu', 'gandhi', 'girls hostel', 'hanumanputra khel maidaan', 'patel', 'pilani gallery', 'rotunda', 'shiv ganga', 'shiva statue', 'south park', 'srinivas ramanujan hostel', 'vfast']
+
+  [53] ❌ FAIL  [extra]  I want to relax in nature, find a garden.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND leisure ILIKE '%garden%' ORDER BY
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%garden%' AND leisu
+
+  [54] ❌ FAIL  [extra]  Show me beautiful places for photography.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (tourism IS NOT NULL OR historic I
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity IN ('artwork', 'gallery',
+
+  [55] ❌ FAIL  [extra]  I need something quick to eat, no time to sit down.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%fast_food%' OR ta
+       PRED    : *\nSELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan'\nAND (amenity ILIKE '%fast
+
+  [56] ❌ FAIL  [extra]  Show me historic monuments or statues for sightseeing.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (historic ILIKE '%monument%' OR ar
+       PRED    : SELECT name FROM campus_places WHERE (historic ILIKE '%manor%' OR artwork_type ILIKE '%statue%') AND name IS N
+
+  [57] ⚠️  STRUCT_ONLY  [extra]  I need a productive place to study with good internet.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (internet_access ILIKE '%wlan%' OR
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND (amenity ILIKE '%library%
+
+  [58] ❌ FAIL  [extra]  I want to go for a swim, where is the pool?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND leisure ILIKE '%swimming_pool%' OR
+       PRED    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%swimming_pool%'. P
+
+  [59] ⚠️  STRUCT_ONLY  [hard]  Find the nearest cafe.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' ORDER BY na
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%cafe%' OR
+
+  [60] ❌ FAIL  [hard]  Where is the closest hospital?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%hospital%' ORDER B
+       PRED    : SELECT target.geometry, target.name, target.amenity FROM campus_places AS target JOIN campus_places AS ref ON
+
+  [61] ❌ FAIL  [hard]  Find the nearest park.
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND leisure ILIKE '%park%' ORDER BY na
+       PRED    : SELECT ST_Distance(p1.geometry::geography, p2.geometry::geography) AS distance, p1.name as place_name, p1.amen
+       MISSING : ['hanumanputra khel maidaan', 'south park']
+
+  [62] ⚠️  STRUCT_ONLY  [hard]  Where is the closest restaurant?
+       GOLD    : SELECT name FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%restaurant%' ORDER
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND amenity ILIKE '%restauran
+
+  [64] ❌ FAIL  [extreme]  Find a restaurant within 1000 meters of the hospital.
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND ST_DWithin(geometry::geog
+
+  [66] ❌ FAIL  [extreme]  Find a pharmacy within 500 meters of the university.
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT name, amenity FROM campus_places WHERE ST_DWithin( geometry::geography, (SELECT geometry FROM campus_pl
+
+  [68] ❌ FAIL  [extreme]  Find fast food within 500 meters of Ram Bhawan.
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND ST_DWithin(geometry::geog
+
+  [69] ❌ FAIL  [extreme]  I am stressed, is there a calm place within 800 meters of the engineering college?
+       GOLD    : SELECT target.geometry, target.name, target.amenity, target.leisure, ref.geometry AS ref_geom, ref.name AS ref
+       PRED    : *\nSELECT name, amenity FROM campus_places WHERE name IS NOT NULL AND name != 'nan' AND ST_DWithin(geometry::g
+
+  [70] ⚠️  STRUCT_ONLY  [extreme]  Find a supermarket within 800 meters of the hospital.
+       GOLD    : SELECT target.geometry, target.name, target.shop, ref.geometry AS ref_geom, ref.name AS ref_name FROM campus_p
+       PRED    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       MISSING : ['0101000020e61000009ba9108fc4e55240be94cb90745b3c40', '0103000020e61000000200000028000000e82917cfc5e5524003b91f4b7a5b3c40a191beffc5e55240fff3ead2755b3c4017c2209fc6e5524023cacd26765b3c40000d2549c6e55240ef552b137e5b3c40cf3d35a8c7e55240d7f9b7cb7e5b3c40a6ec99cac7e552408b0cbca47b5b3c4017eafa4fc8e5524061e932eb7b5b3c4064b55439c8e552404e5e64027e5b3c40345c2e2cc9e55240ad1ee6817e5b3c40e690d442c9e55240c0a9b46a7c5b3c4040f04284c9e552402b18f08d7c5b3c4034a14962c9e552407705ecb47f5b3c40e6bb4a2dcae55240b8509e1e805b3c40750305dec9e55240382b476d875b3c40032e7e09cbe552405b5d4e09885b3c40eb5b412ecce5524087527b116d5b3c40d44dbdc9cae552404cb093556c5b3c40c255f9f9cae55240c56867e2675b3c407b4d0f0acae5524090279364675b3c40a5b5b3f9c9e55240ad6818e3685b3c40fe593d71cae55240dc48d922695b3c4087b3113ecae552400feeceda6d5b3c404080b163c8e55240ceead3e06c5b3c40b7f8ca72c8e55240221d797b6b5b3c40ac22371ec7e55240b8f6f4c76a5b3c40a0a52bd8c6e5524037bd303e715b3c400c170335c6e55240ea67a0e8705b3c40b874cc79c6e55240589297906a5b3c4013c9a18fc3e5524041560108695b3c40c6b82c70c3e552408de7d8e66b5b3c40c0b6d9b3c2e55240f398dc836b5b3c406d2bac0ac3e55240330c699e6d5b3c40eabfbd21c3e552400f5e60fb6e5b3c40eabfbd21c3e552402095078e705b3c4055e9dd0ec3e552407e69f6e5715b3c4090604fe0c2e55240c5cd041e735b3c40a8ead44bc2e5524094cd661f755b3c40aeec2708c3e552402f1c6382755b3c40437eece4c2e55240ec7c89c2785b3c40e82917cfc5e5524003b91f4b7a5b3c400500000034d593f9c7e5524067d13b15705b3c40f2385673cae552407fb1ad55715b3c4075482014cae5524098a608707a5b3c40b8e45d9ac7e5524081c6962f795b3c4034d593f9c7e5524067d13b15705b3c40']
+       EXTRA   : ['0101000020e6100000e9633e20d0e55240b4cbb73eac5f3c40', '0103000020e61000000100000006000000085740a19ee552402c2e8eca4d603c4056702eb4a9e55240c1f39c3e4c603c4097d2e92faae55240e9e85d6166603c4008a5d4caa9e552408c4cc0af91603c4014330c699ee5524093cdb0ac8f603c40085740a19ee552402c2e8eca4d603c40']
+
+  [71] ⚠️  STRUCT_ONLY  [extreme]  Where is the closest wheelchair-accessible cafe to the library?
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT target.geometry, target.name, target.amenity FROM campus_places AS target JOIN campus_places AS ref ON
+
+  [72] ❌ FAIL  [extreme]  Where is the closest hospital to the library?
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT ST_AsText(t.geometry), t.name AS hospital_name FROM campus_places as h JOIN (SELECT geometry, name FROM
+
+  [73] ⚠️  STRUCT_ONLY  [extreme]  Find the nearest cafe to the dormitory.
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT ST_Distance(a.geometry::geography, b.geometry::geography) AS distance, a.name, a.amenity FROM campus_pl
+       MISSING : ['0101000020e61000000aad3da278e55240c8e8256b795c3c40', '0101000020e6100000cfe8fd358fe5524008c08932655d3c40', '0101000020e6100000d78dd200b9e55240553431b8415c3c40', '0101000020e6100000e7d0d84ddfe55240e92f4f42445b3c40', '0103000020e610000001000000050000001b4f5f2a91e55240a41efd8a905d3c405622f54391e55240bd0adfb18e5d3c4074c23a4492e5524057b5ff5c8f5d3c4038efa42a92e552403fc91d36915d3c401b4f5f2a91e55240a41efd8a905d3c40', '0103000020e61000000100000007000000c515bc8d72e55240388d486f135d3c40cba4e1ef72e55240cd5257e3115d3c4089c9c0a673e5524098c9cbf5115d3c409518bac873e55240d2db44d2135d3c40785ecf7c73e55240fb82cc84155d3c40a20e2bdc72e552400188bb7a155d3c40c515bc8d72e55240388d486f135d3c40']
+
+  [74] ❌ FAIL  [extreme]  What is the closest ATM to the Birla aircraft memorial?
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT target.geometry, target.name, target.amenity FROM campus_places AS target WHERE name IS NOT NULL AND na
+
+  [75] ❌ FAIL  [extreme]  Where is the nearest pharmacy to Malviya Bhawan?
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SQL Query SELECT ST_Distance(source.geometry::geography, target.geometry::geography) AS distance, source.name
+
+  [76] ⚠️  STRUCT_ONLY  [extreme]  Find the closest park to the university.
+       GOLD    : SELECT target.geometry, target.name, target.leisure, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT target.geometry, target.name, ST_Distance(target.geometry::geography, ref.geometry::geography) AS dista
+       MISSING : ['0101000020e6100000456458c59be55240a0e5d429ea5b3c40', '0103000020e61000000100000007000000bfe90203ade55240e2b2655474593c40832adac1ade55240076f59cf5a593c4093ce763bb1e55240a1eaa1c739593c4056d86729b4e552404c9d91521a593c40c160eddec0e552406e0be0771d593c403f12407bbfe5524018a600625c593c40bfe90203ade55240e2b2655474593c40']
+
+  [77] ❌ FAIL  [extreme]  Find the nearest fast food to Ram Bhawan.
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT ST_AsText(p.geometry), p.name, p.amenity FROM campus_places AS p WHERE name IS NOT NULL AND name != 'na
+
+  [79] ❌ FAIL  [extreme]  Where is the closest pharmacy to Meera Bhawan?
+       GOLD    : SELECT target.geometry, target.name, target.amenity, ref.geometry AS ref_geom, ref.name AS ref_name FROM campu
+       PRED    : SELECT ST_Distance(p1.geometry::geography, p2.geometry::geography) AS distance, p1.name AS place_name FROM cam
+       MISSING : ['0101000020e61000002f3ebb32dee5524072b73533445b3c40']
+       EXTRA   : ['555.59198324', '589.41673725']
+
+=================================================================

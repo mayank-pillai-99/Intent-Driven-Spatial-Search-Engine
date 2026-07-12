@@ -1,38 +1,32 @@
-Here are some fantastic sample queries you can use to test both the Spatial Database (DB) routing capabilities and the Retrieval-Augmented Generation (RAG) capabilities of your application!
+Here are some fantastic sample queries you can use to test the Spatial Database (DB) routing capabilities, the Retrieval-Augmented Generation (RAG) capabilities, and the Multilingual capabilities of your application!
 
-🎓 1. College (IIT Bombay) - DB Spatial Queries
-These queries will test Qwen's ability to generate PostGIS spatial math (like ST_DWithin, ST_ClosestPoint, etc.) to route around a campus map.
+### 🎓 1. BITS Pilani (Shows: Semantic Intent & Radius Spatial Math)
+*Before testing: Load the BITS Pilani map.*
+1 DB Intent Search:Find me a quiet place to study.
+2 DB Radius Search:** "Find a cafe within 500 meters of the library."
 
-Intent Search: "Find me a quiet place to study."
-Intent Search: "Where can I get some cheap food."
-Radius Search: "Find cafes within 500m of the library."
-Nearest Neighbor: "Where is the nearest ATM to Hostel 12?"
-📖 2. College (IIT Bombay) - RAG Queries
-These queries test your RAG system's ability to parse the ugrulebook.pdf and fetch the exact academic regulations.
+### 🎓 2. IIT Bombay (Shows: Nearest Neighbor & Attribute Filtering)
+*Before testing: Load the IIT Bombay map.*
+1. DB Nearest Neighbor:** "Where is the closest ATM to Hostel 12?"
+2. DB Attribute Search:** "Find places to get some fast food."
 
-Attendance Rules: "What happens if my attendance is below 80%?"
-Branch Change: "What CPI do I need for a branch change to LASE?"
-Project Extensions: "How long of an extension can I get for my BTP?"
+### 🎓 3. IIT Delhi (Shows: Tag Filtering & Logical Negation)
+*Before testing: Load the IIT Delhi map.*
+1. DB Tag Filtering:** "Find volleyball or table tennis courts."
+2. DB Simple Search (Hindi):** "मुझे सभी रेस्टोरेंट दिखाओ।" *(Show me all restaurants.)*
 
+### 🛕 4. Golden Temple (Shows: RAG Document Retrieval)
+*Before testing: Load the Golden Temple map AND upload your `golden_temple_guidebook.pdf`.*
+2. RAG Rules:** "What is the policy on footwear before entering?"
+3. RAG Policy (Punjabi):** "ਕੀ ਮੈਨੂੰ ਅੰਦਰ ਫੋਟੋਆਂ ਖਿੱਚਣ ਦੀ ਇਜਾਜ਼ਤ ਹੈ?" *(Am I allowed to take photos inside?)*
 
-🛕 3. Golden Temple - DB Spatial Queries
-These queries will test your engine's ability to map tourist locations, amenities, and historical sites in Amritsar.
+### 🛕 5. Sri Meenakshi Amman Temple (Shows: Emotional Routing & Shopping)
+*Before testing: Load the Sri Meenakshi Amman Temple map.*
+1. DB Emotional Routing:** "I am so stressed, where can I find a calm place?"
+2. DB Shopping:** "Find places to buy souvenirs."
+3. DB Simple Search (Telugu):** "రెస్టారెంట్లు ఎక్కడ ఉన్నాయి?" *(Where are the restaurants?)*
 
-Simple DB: "Find me the nearest toilet."
-Simple DB: "Find restaurants where wheelchairs are allowed."
-Intent Search: "Find me a quiet place"
-Find me a cafe
-👳 4. Golden Temple - RAG Queries
-These queries test your RAG system's ability to pull hyper-specific tourist information and historical facts from the golden-temple-amritsar-travel-guide.pdf.
-
-Simple RAG: "Where should I leave my shoes before entering?"
-Simple RAG: "Am I allowed to take photos inside?"
-Simple RAG: "What is the name of the holy tank?"
-Temple Rules: "Can I swim or use soap in the Amrit Sarovar?"
-Facilities: "Is there free medical help inside the temple?"
-
-🌐 5. Multilingual Queries (Indian Languages)
-These queries test SeamlessM4T's ability to translate native languages into English before processing.
-
-Hindi (College DB): "मुझे पढ़ाई करने के लिए कोई शांत जगह बताओ।" (Find me a quiet place to study.)
-Marathi (College RAG): "माझी उपस्थिती ८० टक्क्यांपेक्षा कमी असल्यास काय होईल?" (What happens if my attendance is below 80%?)
+### 🇮🇳 6. India Gate (Shows: Practical Tourism & Historic Radius)
+*Before testing: Load the India Gate map.*
+1. DB Simple Tourist:** "Find the nearest toilet to India Gate."
+2. DB Simple Search (Hindi):** "पार्किंग कहाँ है?" *(Where is the parking?)*
