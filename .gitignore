@@ -1,0 +1,17 @@
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Gradio Cache
+.gradio/
+*/.gradio/
+
+# Python Virtual Environment
+visri_env/
+
+# macOS Junk
+.DS_Store
+
+# Python Cache
+__pycache__/
+*.pyc

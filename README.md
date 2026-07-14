@@ -63,7 +63,35 @@ Because Large Language Models are prone to geographic hallucination, several phy
 
 ---
 
-## 🖥️ How to Run
+## 🍏 How to Run (Apple Silicon Mac Local)
+
+We have optimized the pipeline to run 100% locally on M-series Macs using `mlx-lm` and Apple Metal Performance Shaders (MPS).
+
+1. **Install System Dependencies:**
+   ```bash
+   brew install postgresql postgis ffmpeg
+   ```
+2. **Setup Python Environment:**
+   ```bash
+   python3 -m venv visri_env
+   source visri_env/bin/activate
+   pip install torch torchvision torchaudio mlx-lm librosa transformers huggingface_hub gradio sentence-transformers psycopg2-binary shapely
+   python -m ipykernel install --user --name=visri_env --display-name "Python (VISRI Environment)"
+   ```
+3. **Pre-cache the 4-Bit MLX Model** (to prevent Jupyter socket crashes during download):
+   ```bash
+   python -c "from mlx_lm import load; load('mlx-community/Qwen2.5-Coder-7B-Instruct-4bit')"
+   ```
+4. **Run the Interface:**
+   - Open **`notebooks/Final MAC.ipynb`** in **VS Code** (highly recommended over the browser to handle progress bar outputs).
+   - Select the `visri_env` Python kernel.
+   - Run all cells to launch the Gradio UI!
+   - **Step 1:** Enter a campus name and click "Map & Load Database".
+   - **Step 2:** Ask spatial questions!
+
+---
+
+## 🖥️ How to Run (Google Colab / NVIDIA GPU)
 
 1. Open **`notebooks/Final.ipynb`** in Google Colab or a local Jupyter environment equipped with an NVIDIA GPU (Minimum: T4 16GB VRAM).
 2. Execute the cells to download the required weights for `Qwen2.5-Coder` (run in 4-bit quantization via BitsAndBytes) and `SeamlessM4T`.
