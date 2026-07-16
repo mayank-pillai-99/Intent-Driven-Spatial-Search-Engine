@@ -1,8 +1,13 @@
-# Intent-Driven Spatial Search Engine
+<div align="center">
+  <h1>🗺️ Intent-Driven Spatial Search Engine</h1>
+  <p><b>An Offline, Spatial AI Research Project</b></p>
+</div>
+
+![Architecture Diagram](docs/architecture.png)
 
 This repository contains the codebase and research for the **Intent-Driven Spatial Search Engine**, a hybrid NL-to-SQL architecture that translates colloquial, multi-lingual conversational queries into executable PostGIS spatial logic.
 
-By completely abandoning rigid keyword matching, this engine maps highly subjective human intents ("quiet place to read", "cheap and fast") into mathematically enforced geospatial bounding boxes.
+By completely abandoning rigid keyword matching, this engine maps highly subjective human intents (e.g. *"quiet place to read"*, *"cheap and fast"*) into mathematically enforced geospatial bounding boxes—entirely offline.
 
 ---
 
@@ -22,10 +27,14 @@ We have transitioned from cloud-reliant APIs to a **100% offline, local-GPU powe
    - Translates English spatial intents into complex PostgreSQL/PostGIS syntax.
    - Automatically handles `ST_DWithin` calculations and complex multi-column mapping (e.g., matching "late night vegan" to `"opening_hours" ILIKE '%24/7%' AND "diet:vegan" = 'yes'`).
 
-4. **Database (PostgreSQL + PostGIS):**
+4. **RAG Policy Engine (FAISS + MiniLM):**
+   - Non-spatial queries regarding campus rules, monument timings, or local guidelines are routed to a local vector database.
+   - Embeds policy PDFs into chunks and strictly forces Qwen2.5 to answer using only provided context.
+
+5. **Database (PostgreSQL + PostGIS):**
    - The UI supports dynamic geocoding via `osmnx` (Nominatim API). Type in any college or campus globally, and the backend automatically downloads a 2km radius of OpenStreetMap data to build the spatial database on the fly.
 
-5. **Output Layer (Folium & SeamlessM4T TTS):**
+6. **Output Layer (Folium & SeamlessM4T TTS):**
    - Geographic coordinates are plotted dynamically using `geopandas` on an interactive `folium` map.
    - **Marker Clustering** dynamically groups overlapping Point of Interest (POI) pins.
    - Qwen2.5 natively generates a friendly text response in the user's original language, which is synthesized into spoken audio offline by **SeamlessM4T**.
@@ -39,14 +48,17 @@ The project has been restructured for clarity:
 ```text
 VISRI_PROJECT/
 ├── docs/                      # Documentation and Final Reports
-│   └── VISRI_Final_Report.tex # The comprehensive LaTeX thesis/report
+│   ├── PROJECT_REPORT.pdf     # The comprehensive thesis/report
+│   ├── FINAL PPT.pptx         # The final slide presentation
+│   └── architecture.png       # Architecture diagram used in README
 ├── scripts/                   # Data processing and generation tools
 │   ├── build_db.py            # Local DB setup scripts
 │   └── generate_datasets.py   # Synthesizing audio/text eval datasets
 ├── notebooks/                 # Jupyter Notebooks for testing and deployment
-│   ├── Final.ipynb            # 🌟 The complete End-to-End Gradio UI Pipeline
-│   ├── testers/               # Isolated testing files for various models (Sarvam, Whisper, etc.)
-│   └── archive/               # Legacy notebooks and deprecated testing logic
+│   ├── Final.ipynb            # The End-to-End Gradio UI (NVIDIA/Colab)
+│   ├── Final MAC.ipynb        # 🌟 Optimized UI Pipeline for Apple Silicon
+│   ├── testers/               # Isolated testing files for various models
+│   └── archive/               # Legacy notebooks and deprecated logic
 ├── evals/                     # Benchmark results and analysis artifacts
 └── README.md                  # Project overview
 ```
