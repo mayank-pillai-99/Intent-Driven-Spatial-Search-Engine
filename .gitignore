@@ -15,3 +15,6 @@ visri_env/
 # Python Cache
 __pycache__/
 *.pyc
+
+# Notebook Data & Old Iterations
+notebooks/cache/
