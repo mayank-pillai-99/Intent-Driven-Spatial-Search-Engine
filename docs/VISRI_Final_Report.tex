@@ -86,6 +86,7 @@ To fix the exact-match problem, researchers have built AI recommendation systems
 Modern AI models are excellent at translating English into standard database SQL (e.g., for finance or logistics). However, they frequently fail when asked to write \textbf{GeoSQL} (like PostGIS). Standard models struggle to understand the complex mathematical syntax required for geographic routing, such as calculating bounding boxes or radii (\texttt{ST\_DWithin}). Without heavy fine-tuning, most standard AI coders are too unreliable for map routing.
 
 \subsection{Our Proposed Solution: The Hybrid Architecture}
+
 This project solves the problems of both commercial maps and text-based AI recommenders. We use AI not to search text, but to write structured SQL that runs directly on a geographic database (PostGIS).
 
 Instead of doing a text search for a business named ``Quiet,'' our AI translates ``quiet'' into specific location tags (like a library) and translates ``near me'' into a strict mathematical formula (\texttt{ST\_DWithin}). Because the AI generates database code rather than text guesses, the database can enforce a 100\% rigid geographic boundary. This perfectly combines the deep understanding of AI with the mathematical precision of a traditional database.
@@ -377,6 +378,14 @@ When a user speaks a query, Qwen2.5-Coder acts as an \textbf{Intent Router}. If 
 This multi-layered, decoupled architecture ensures the AI never hallucinates rules and provides a truly universal, highly-accurate assistant experience.
 
 \subsection{The Final End-to-End App}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{architecture.png}
+    \caption{The Intent-Driven Spatial Search Engine Architecture}
+    \label{fig:architecture}
+\end{figure}
+
 The final product of this project is a fully integrated app that runs completely offline on a single local GPU. The pipeline is highly generalized, natively supporting spatial routing and policy lookups for colleges, tourist places, and temples across the globe. Here is how data flows through the system:
 
 \begin{enumerate}
