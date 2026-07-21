@@ -14,7 +14,28 @@ ssh -L 8890:localhost:8890 <your_username>@<server_ip>
 
 ---
 
-## 2. Start the database container and launch Jupyter
+## 2. Create the PostGIS Docker Container (First Time Only)
+
+Run this command **once** on the server:
+
+```bash
+docker run -d --name visri_postgis \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=visri_spatial \
+  -p 5432:5432 \
+  postgis/postgis:15-3.3
+```
+
+If the container has already been created, you only need to start it using:
+
+```bash
+docker start visri_postgis
+```
+
+---
+
+## 3. Start the database container and launch Jupyter
 
 Run on the server:
 
@@ -29,7 +50,7 @@ Open the printed URL in your browser on your local machine (for example `http://
 
 ---
 
-## 3. Open the notebook
+## 4. Open the notebook
 
 In the Jupyter interface, open:
 
@@ -41,7 +62,7 @@ Run all cells.
 
 ---
 
-## 4. Access the VISRI Web Interface
+## 5. Access the VISRI Web Interface
 
 Once all notebook cells have finished executing and the Gradio application has started, users connected to the same university network/Wi-Fi can access the application using:
 
@@ -57,7 +78,7 @@ http://172.24.16.136:7860
 
 ---
 
-## 5. Stop the notebook server and Docker container when done
+## 6. Stop the notebook server and Docker container when done
 
 In the terminal where Jupyter is running, press:
 
